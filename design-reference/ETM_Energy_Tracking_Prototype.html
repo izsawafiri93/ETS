@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#b71c1c" />
+  <meta name="description" content="ETM Energy Tracking mobile reporting interface" />
+  <title>ETM Energy Tracking</title>
+  <style>
+:root {
+  --red: #c62828;
+  --red-dark: #9f1717;
+  --red-deep: #7f1010;
+  --red-soft: #fff1f1;
+  --ink: #1e2227;
+  --muted: #737980;
+  --line: #eceff1;
+  --surface: #ffffff;
+  --page: #f5f6f7;
+  --shadow: 0 12px 34px rgba(24, 30, 35, .10);
+  --radius: 22px;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+svg { display: block; }
+.splash {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.18) 0 100px, transparent 101px),
+    linear-gradient(150deg, var(--red-dark), var(--red) 58%, #e25252);
+  color: white; padding: 28px; transition: opacity .45s ease, visibility .45s ease;
+}
+.splash::after { content: ""; position: absolute; inset: auto -20% -23% -20%; height: 43%; background: rgba(255,255,255,.08); transform: rotate(-5deg); border-radius: 50% 50% 0 0; }
+.splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.splash-mark { position: relative; z-index: 1; width: min(420px, 88vw); text-align: center; animation: rise .8s ease both; }
+.splash-mark svg { width: 100%; height: auto; overflow: visible; }
+.splash-mark .bolt { fill: none; stroke: white; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+.splash-mark .etm-text { fill: white; font-size: 74px; font-weight: 900; letter-spacing: 4px; font-family: Arial, sans-serif; }
+.domain { font-size: clamp(27px, 8vw, 42px); font-weight: 800; letter-spacing: -.7px; margin-top: -8px; }
+.tagline { margin-top: 8px; font-size: 15px; letter-spacing: 2.8px; text-transform: uppercase; opacity: .82; }
+.splash-enter { position: absolute; z-index: 2; bottom: max(42px, env(safe-area-inset-bottom)); border: 1px solid rgba(255,255,255,.58); color: white; background: rgba(255,255,255,.13); padding: 12px 22px; border-radius: 999px; cursor: pointer; backdrop-filter: blur(6px); }
+@keyframes rise { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
+.app-shell { min-height: 100vh; opacity: 0; transition: opacity .35s ease; }
+.app-shell.ready { opacity: 1; }
+.topbar { position: sticky; top: 0; z-index: 30; min-height: 66px; display: grid; grid-template-columns: 48px 1fr 48px; align-items: center; background: rgba(255,255,255,.96); box-shadow: 0 1px 0 rgba(0,0,0,.07); padding: env(safe-area-inset-top) 12px 0; backdrop-filter: blur(14px); }
+.topbar-title { display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 18px; font-weight: 700; white-space: nowrap; }
+.mini-logo { display: inline-grid; place-items: center; background: var(--red); color: white; font-size: 11px; line-height: 1; font-weight: 900; padding: 7px 6px; border-radius: 8px; letter-spacing: .5px; }
+.icon-button { width: 44px; height: 44px; border: 0; background: transparent; display: grid; place-items: center; border-radius: 50%; cursor: pointer; }
+.icon-button:active { background: var(--red-soft); }
+.icon-button svg { width: 27px; height: 27px; fill: none; stroke: #4c5257; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+main { width: min(720px, 100%); margin: 0 auto; padding: 14px 12px calc(44px + env(safe-area-inset-bottom)); }
+.device-card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; }
+.device-name { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 18px; margin-bottom: 18px; }
+.device-name svg { width: 22px; height: 22px; fill: var(--red); stroke: white; stroke-width: 1.5; }
+.status-dot { margin-left: 4px; color: #287a45; background: #eaf8ef; border-radius: 999px; padding: 4px 8px; font-size: 11px; font-weight: 800; }
+.device-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; text-align: center; }
+.device-grid div { min-width: 0; }
+.device-grid span { display: block; color: var(--muted); font-size: 12px; margin-bottom: 5px; }
+.device-grid strong { font-size: 14px; font-weight: 700; word-break: break-word; }
+.transformer-strip { margin: 12px 0; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 8px 16px; padding: 10px 14px; background: white; border-radius: 999px; font-size: 12px; box-shadow: 0 3px 14px rgba(0,0,0,.04); }
+.transformer-strip strong { color: var(--red); }
+.view-tabs { display: grid; grid-template-columns: .85fr 1.35fr .9fr; gap: 6px; padding: 5px; background: #e8eaec; border-radius: 16px; margin-bottom: 12px; }
+.tab { border: 0; background: transparent; padding: 10px 6px; border-radius: 12px; color: #61676c; cursor: pointer; font-size: 12px; font-weight: 700; }
+.tab.active { background: white; color: var(--red); box-shadow: 0 4px 12px rgba(0,0,0,.09); }
+.period-selector { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin: 12px 0 14px; }
+.period-button { min-height: 44px; border: 0; border-radius: 14px; background: var(--red); color: white; display: flex; align-items: center; justify-content: center; gap: 5px; cursor: pointer; font-size: 13px; padding: 0 10px; box-shadow: 0 6px 14px rgba(198,40,40,.2); }
+.period-button.secondary { background: #676b70; box-shadow: none; }
+.period-button svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.period-center { text-align: center; min-width: 104px; }
+.period-center svg { width: 30px; height: 30px; margin: 0 auto 4px; fill: none; stroke: var(--red); stroke-width: 1.8; stroke-linecap: round; }
+.period-center strong { display: block; font-size: 14px; }
+.report-view { display: none; }
+.report-view.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } }
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.summary-grid article { min-width: 0; padding: 14px 9px; border-radius: 18px; background: white; box-shadow: 0 7px 22px rgba(24,30,35,.07); text-align: center; border-top: 3px solid var(--red); }
+.summary-grid span, .summary-grid small { display: block; color: var(--muted); font-size: 10px; }
+.summary-grid strong { display: block; color: var(--red-deep); font-size: clamp(14px, 4vw, 19px); margin: 5px 0 3px; }
+.section-heading { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin: 18px 2px 10px; }
+.section-heading strong, .section-heading span { display: block; }
+.section-heading strong { font-size: 16px; }
+.section-heading div > span { color: var(--muted); font-size: 11px; margin-top: 2px; }
+.count-badge, .live-badge { flex: 0 0 auto; border-radius: 999px; background: var(--red-soft); color: var(--red); padding: 7px 10px; font-size: 11px; font-weight: 800; }
+.live-badge { display: flex !important; align-items: center; gap: 5px; }
+.live-badge i { width: 7px; height: 7px; border-radius: 50%; background: #2b9b50; box-shadow: 0 0 0 4px rgba(43,155,80,.13); }
+.accordion { display: grid; gap: 9px; }
+.day-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 22px rgba(24,30,35,.07); border: 1px solid transparent; transition: border-color .2s ease, box-shadow .2s ease; }
+.day-card.open { border-color: rgba(198,40,40,.26); box-shadow: 0 11px 26px rgba(110,17,17,.12); }
+.day-toggle { width: 100%; border: 0; background: transparent; display: grid; grid-template-columns: 45px minmax(0, 1fr) 28px; align-items: center; gap: 10px; padding: 12px; text-align: left; cursor: pointer; }
+.day-number { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--red-soft); color: var(--red); font-size: 17px; font-weight: 900; }
+.day-meta { min-width: 0; }
+.day-title { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.day-title strong { font-size: 14px; }
+.day-title span { color: var(--muted); font-size: 10px; }
+.day-preview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.day-preview span { min-width: 0; padding: 6px 4px; border-radius: 8px; background: #f6f7f8; color: #60666b; text-align: center; font-size: 9px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day-preview b { display: block; color: var(--ink); font-size: 11px; margin-top: 2px; }
+.chevron { width: 24px; height: 24px; fill: none; stroke: var(--red); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s ease; }
+.day-card.open .chevron { transform: rotate(180deg); }
+.day-details { max-height: 0; overflow: hidden; transition: max-height .42s cubic-bezier(.4,0,.2,1); background: linear-gradient(#fff, #fff9f9); }
+.day-card.open .day-details { max-height: 1000px; }
+.details-inner { padding: 0 12px 14px; border-top: 1px solid var(--line); }
+.snapshot-title { display: flex; justify-content: space-between; align-items: center; padding: 11px 2px 8px; }
+.snapshot-title strong { font-size: 13px; }
+.snapshot-title span { color: var(--muted); font-size: 10px; }
+.phase-table { display: grid; gap: 4px; }
+.phase-head, .phase-row { display: grid; grid-template-columns: 1.35fr repeat(3, 1fr); gap: 4px; align-items: stretch; }
+.phase-head strong { text-align: center; font-size: 12px; padding: 5px; }
+.phase-row > span { display: flex; align-items: center; font-size: 11px; font-weight: 700; padding: 8px 4px; }
+.phase-row > span small { color: var(--muted); font-weight: 500; margin-left: 3px; }
+.phase-row b { display: grid; place-items: center; min-height: 36px; background: #f1f2f3; border-radius: 8px; font-size: 11px; font-weight: 700; }
+.phase-row.current b, .phase-row.voltage b, .phase-row.active-power b { background: var(--red-soft); color: var(--red-deep); }
+.details-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 10px; color: var(--muted); font-size: 10px; }
+.details-footer button { border: 0; border-radius: 10px; background: var(--red); color: white; padding: 8px 11px; cursor: pointer; font-size: 10px; }
+.instant-list { display: grid; gap: 12px; }
+.instant-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+.instant-time { background: var(--red); color: white; padding: 10px; text-align: center; font-size: 16px; font-weight: 800; }
+.instant-card .phase-table { padding: 12px; }
+.reactive-kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.reactive-kpis article { background: white; padding: 16px; border-radius: 18px; box-shadow: var(--shadow); }
+.reactive-kpis span { display: block; color: var(--muted); font-size: 11px; }
+.reactive-kpis strong { display: block; color: var(--red); font-size: 23px; margin: 5px 0 10px; }
+.progress { height: 6px; border-radius: 99px; background: #f0e2e2; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--red); border-radius: inherit; }
+.reactive-table-wrap { margin-top: 12px; background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow); }
+.reactive-table { border-collapse: collapse; width: 100%; font-size: 12px; }
+.reactive-table th { background: var(--red); color: white; padding: 12px 8px; }
+.reactive-table td { text-align: center; padding: 12px 8px; border-bottom: 1px solid var(--line); }
+.reactive-table tr:last-child td { border-bottom: 0; }
+.drawer { position: fixed; top: 0; right: 0; z-index: 60; width: min(310px, 84vw); height: 100vh; background: white; transform: translateX(105%); transition: transform .28s ease; box-shadow: -16px 0 42px rgba(0,0,0,.19); padding: calc(28px + env(safe-area-inset-top)) 18px 28px; display: flex; flex-direction: column; }
+.drawer.open { transform: translateX(0); }
+.drawer-brand { padding: 16px; margin-bottom: 16px; color: white; border-radius: 18px; background: linear-gradient(135deg, var(--red-dark), var(--red)); }
+.drawer-brand strong, .drawer-brand span { display: block; }
+.drawer-brand strong { font-size: 22px; }
+.drawer-brand span { opacity: .8; font-size: 12px; margin-top: 3px; }
+.drawer-item { border: 0; border-radius: 13px; padding: 13px 14px; background: transparent; text-align: left; cursor: pointer; color: #4c5257; margin-bottom: 5px; }
+.drawer-item.active { background: var(--red-soft); color: var(--red); font-weight: 800; }
+.drawer-footer { margin-top: auto; color: #a0a4a8; font-size: 11px; text-align: center; }
+.scrim { position: fixed; inset: 0; z-index: 50; background: rgba(11,12,13,.42); backdrop-filter: blur(2px); }
+@media (min-width: 760px) {
+  body { background: radial-gradient(circle at 16% 10%, #fff 0 190px, transparent 191px), linear-gradient(145deg, #f4f4f4 0 55%, #efdddd 55% 100%); }
+  .app-shell { width: 450px; min-height: calc(100vh - 40px); margin: 20px auto; background: var(--page); border-radius: 32px; overflow: hidden; box-shadow: 0 25px 70px rgba(42,23,23,.25); }
+  .topbar { position: sticky; }
+  main { padding-left: 14px; padding-right: 14px; }
+  .drawer { right: max(0px, calc((100vw - 450px) / 2)); height: calc(100vh - 40px); top: 20px; border-radius: 28px 0 0 28px; }
+  .scrim { inset: 20px calc((100vw - 450px)/2); border-radius: 32px; }
+}
+@media (max-width: 350px) {
+  .period-button { font-size: 0; }
+  .period-button svg { width: 22px; height: 22px; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .summary-grid article { display: grid; grid-template-columns: 1fr auto; text-align: left; align-items: center; }
+  .summary-grid small { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+
+</style>
+</head>
+<body>
+  <div id="splash" class="splash" role="dialog" aria-label="ETM açılış ekranı">
+    <div class="splash-mark" aria-label="ETM.com.tr">
+      <svg viewBox="0 0 360 130" role="img" aria-hidden="true">
+        <path class="bolt" d="M25 67h45l12-27 24 57 17-37h35"/>
+        <text x="170" y="80" class="etm-text">ETM</text>
+      </svg>
+      <div class="domain">ETM.com.tr</div>
+      <div class="tagline">Enerji Takip Sistemi</div>
+    </div>
+    <button id="enterApp" class="splash-enter" type="button">Raporlara Git</button>
+  </div>
+
+  <div id="app" class="app-shell" aria-hidden="true">
+    <header class="topbar">
+      <button class="icon-button" type="button" aria-label="Geri">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 19 8.5 12l7-7"/></svg>
+      </button>
+      <div class="topbar-title">
+        <span class="mini-logo">ETM</span>
+        <span id="pageTitle">Enerji Raporu</span>
+      </div>
+      <button id="menuButton" class="icon-button" type="button" aria-label="Menüyü aç" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </header>
+
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <div class="drawer-brand">
+        <strong>ETM.com.tr</strong>
+        <span>Enerji Takip</span>
+      </div>
+      <button class="drawer-item active" data-view="daily" type="button">Günlük Rapor</button>
+      <button class="drawer-item" data-view="instant" type="button">Akım–Gerilim Raporu</button>
+      <button class="drawer-item" data-view="reactive" type="button">Reaktif Rapor</button>
+      <div class="drawer-footer">Sürüm 1.0.0</div>
+    </aside>
+    <div id="scrim" class="scrim" hidden></div>
+
+    <main>
+      <section class="device-card" aria-label="Cihaz bilgileri">
+        <div class="device-name">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 1 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.4"/></svg>
+          <span>Cihaz 1</span>
+          <span class="status-dot">Aktif</span>
+        </div>
+        <div class="device-grid">
+          <div><span>Modem No</span><strong>GRP17013</strong></div>
+          <div><span>Cihaz No</span><strong>LGZ40184678</strong></div>
+          <div><span>İlk Veri Zamanı</span><strong>30.06.2018</strong></div>
+          <div><span>Son Veri Zamanı</span><strong>19.10.2020</strong></div>
+        </div>
+      </section>
+
+      <section class="transformer-strip" aria-label="Trafo oranları">
+        <span>Akım Trafo Oranı: <strong>10</strong></span>
+        <span>Gerilim Trafo Oranı: <strong>345</strong></span>
+      </section>
+
+      <nav class="view-tabs" aria-label="Rapor tipi">
+        <button class="tab active" data-view="daily" type="button">Günlük</button>
+        <button class="tab" data-view="instant" type="button">Akım / Gerilim</button>
+        <button class="tab" data-view="reactive" type="button">Reaktif</button>
+      </nav>
+
+      <section class="period-selector" aria-label="Tarih seçimi">
+        <button id="previousPeriod" type="button" class="period-button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          Önceki
+        </button>
+        <div class="period-center">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+          <strong id="periodLabel">Ekim 2020</strong>
+        </div>
+        <button id="nextPeriod" type="button" class="period-button secondary">
+          Sonraki
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </section>
+
+      <section id="dailyView" class="report-view active" aria-label="Günlük enerji raporu">
+        <div class="summary-grid">
+          <article><span>Ort. Akım</span><strong>10,3 A</strong><small>L1–L3 ortalaması</small></article>
+          <article><span>Ort. Gerilim</span><strong>56,9 V</strong><small>Sekonder değer</small></article>
+          <article><span>Aktif Güç</span><strong>614,5 kW</strong><small>Üç faz toplamı</small></article>
+        </div>
+        <div class="section-heading">
+          <div><strong>Günlük Kayıtlar</strong><span>Detay için güne dokunun</span></div>
+          <span class="count-badge" id="dayCount">14 gün</span>
+        </div>
+        <div id="dailyAccordion" class="accordion"></div>
+      </section>
+
+      <section id="instantView" class="report-view" aria-label="Akım ve gerilim raporu">
+        <div class="section-heading">
+          <div><strong>19 Ekim 2020</strong><span>Son ölçüm paketleri</span></div>
+          <span class="live-badge"><i></i> Canlı veri</span>
+        </div>
+        <div id="instantCards" class="instant-list"></div>
+      </section>
+
+      <section id="reactiveView" class="report-view" aria-label="Reaktif rapor">
+        <div class="reactive-kpis">
+          <article><span>Endüktif Oran</span><strong>% 8,0</strong><div class="progress"><i style="width:40%"></i></div></article>
+          <article><span>Kapasitif Oran</span><strong>% 7,3</strong><div class="progress"><i style="width:36.5%"></i></div></article>
+        </div>
+        <div class="reactive-table-wrap">
+          <table class="reactive-table">
+            <thead><tr><th>Tarih</th><th>Endüktif</th><th>Kapasitif</th></tr></thead>
+            <tbody id="reactiveRows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="phaseTableTemplate">
+    <div class="phase-table">
+      <div class="phase-head"><span></span><strong>L1</strong><strong>L2</strong><strong>L3</strong></div>
+      <div class="phase-row current"><span>Akım <small>(A)</small></span><b></b><b></b><b></b></div>
+      <div class="phase-row voltage"><span>Gerilim <small>(V)</small></span><b></b><b></b><b></b></div>
+      <div class="phase-row active-power"><span>Aktif Güç <small>(kW)</small></span><b></b><b></b><b></b></div>
+      <div class="phase-row reactive-power"><span>Reaktif Güç <small>(kVAr)</small></span><b></b><b></b><b></b></div>
+      <div class="phase-row cosphi"><span>Cos φ</span><b></b><b></b><b></b></div>
+    </div>
+  </template>
+
+  <script>
+(() => {
+  'use strict';
+
+  const dailyData = [
+    [1, 'Perşembe', [10.7,10.1,10.8], [57.1,56.9,56.8], [208.7,196.3,209.5], [29.7,28.0,29.9], [0.990,0.990,0.990], 5.5, 7.2],
+    [2, 'Cuma', [10.2,9.8,10.5], [57.0,56.8,56.7], [199.4,190.8,204.1], [27.4,26.8,28.2], [0.991,0.989,0.990], 7.4, 8.8],
+    [3, 'Cumartesi', [9.8,9.5,10.0], [56.9,56.7,56.7], [190.6,184.2,193.7], [26.9,25.8,27.0], [0.989,0.990,0.988], 8.4, 4.7],
+    [4, 'Pazar', [8.9,8.6,9.2], [57.2,57.0,56.9], [174.1,168.3,179.2], [20.5,20.1,21.0], [0.994,0.993,0.994], 0.2, 11.2],
+    [5, 'Pazartesi', [10.5,10.0,10.7], [57.1,56.9,56.8], [205.8,195.0,208.9], [28.8,27.7,29.3], [0.991,0.990,0.991], 0.7, 9.7],
+    [6, 'Salı', [10.4,10.1,10.9], [57.0,56.8,56.7], [203.1,197.2,211.2], [28.0,27.9,30.0], [0.990,0.990,0.989], 1.1, 8.7],
+    [7, 'Çarşamba', [11.0,10.6,11.2], [56.9,56.8,56.6], [214.3,206.5,216.9], [31.0,29.8,31.5], [0.988,0.989,0.988], 9.9, 5.9],
+    [8, 'Perşembe', [10.6,10.2,10.8], [57.1,56.9,56.8], [207.0,198.9,210.0], [29.1,28.0,29.7], [0.990,0.990,0.990], 8.8, 6.3],
+    [9, 'Cuma', [12.2,11.8,12.5], [56.8,56.6,56.5], [236.8,228.4,241.0], [38.1,36.9,39.0], [0.981,0.982,0.980], 41.1, 2.0],
+    [10, 'Cumartesi', [9.6,9.2,9.9], [57.2,57.0,56.9], [188.2,179.9,193.0], [25.9,24.8,26.5], [0.992,0.992,0.991], 0.6, 8.9],
+    [11, 'Pazar', [8.8,8.4,9.1], [57.3,57.1,57.0], [172.6,164.0,177.7], [20.2,19.8,20.8], [0.994,0.994,0.993], 0.1, 10.6],
+    [12, 'Pazartesi', [10.3,9.9,10.6], [57.1,56.9,56.8], [201.3,193.0,205.9], [27.8,26.9,28.4], [0.990,0.991,0.990], 5.9, 8.1],
+    [13, 'Salı', [10.9,10.5,11.1], [56.9,56.8,56.7], [212.1,204.0,215.0], [30.5,29.3,31.0], [0.988,0.989,0.988], 10.2, 5.3],
+    [14, 'Çarşamba', [10.7,10.1,10.8], [57.1,56.9,56.8], [208.7,196.3,209.5], [29.7,28.0,29.9], [0.990,0.990,0.990], 5.5, 6.5]
+  ].map(([day, weekday, current, voltage, active, reactive, cosphi, inductive, capacitive], index) => ({
+    day, weekday, current, voltage, active, reactive, cosphi, inductive, capacitive,
+    time: ['11:56:34','11:53:49','10:42:18','14:05:33'][index % 4]
+  }));
+
+  const instantData = [
+    { time: '11:56:34', current:[10.7,10.1,10.8], voltage:[57.1,56.9,56.8], active:[208.677,196.285,209.520], reactive:[29.735,27.969,29.855], cosphi:[0.990,0.990,0.990] },
+    { time: '11:53:49', current:[9.9,9.5,10.2], voltage:[57.1,56.9,56.8], active:[193.800,185.774,198.921], reactive:[26.843,25.572,27.488], cosphi:[0.991,0.990,0.990] },
+    { time: '11:51:12', current:[10.3,9.9,10.6], voltage:[57.0,56.8,56.7], active:[200.443,192.315,205.688], reactive:[28.020,26.884,28.950], cosphi:[0.990,0.991,0.990] }
+  ];
+
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const fmt = (number, digits = 1) => Number(number).toLocaleString('tr-TR', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+  const app = $('#app');
+  const splash = $('#splash');
+
+  function enterApp() {
+    splash.classList.add('hidden');
+    app.classList.add('ready');
+    app.setAttribute('aria-hidden', 'false');
+  }
+  $('#enterApp').addEventListener('click', enterApp);
+  window.setTimeout(enterApp, 1650);
+
+  function fillPhaseTable(table, item) {
+    const rows = [
+      ['.current', item.current, 1],
+      ['.voltage', item.voltage, 1],
+      ['.active-power', item.active, 3],
+      ['.reactive-power', item.reactive, 3],
+      ['.cosphi', item.cosphi, 3]
+    ];
+    rows.forEach(([selector, values, digits]) => {
+      $$(selector + ' b', table).forEach((cell, index) => { cell.textContent = fmt(values[index], digits); });
+    });
+  }
+
+  function createPhaseTable(item) {
+    const fragment = $('#phaseTableTemplate').content.cloneNode(true);
+    const table = $('.phase-table', fragment);
+    fillPhaseTable(table, item);
+    return fragment;
+  }
+
+  function renderDaily() {
+    const host = $('#dailyAccordion');
+    host.replaceChildren();
+    dailyData.forEach((item, index) => {
+      const card = document.createElement('article');
+      card.className = 'day-card';
+      card.innerHTML = `
+        <button class="day-toggle" type="button" aria-expanded="false" aria-controls="day-${item.day}-details">
+          <span class="day-number">${String(item.day).padStart(2,'0')}</span>
+          <span class="day-meta">
+            <span class="day-title"><strong>${item.day} Ekim 2020</strong><span>${item.weekday} · ${item.time}</span></span>
+            <span class="day-preview">
+              <span>Akım<b>${fmt(item.current.reduce((a,b)=>a+b,0)/3)} A</b></span>
+              <span>Gerilim<b>${fmt(item.voltage.reduce((a,b)=>a+b,0)/3)} V</b></span>
+              <span>Aktif Güç<b>${fmt(item.active.reduce((a,b)=>a+b,0),1)} kW</b></span>
+            </span>
+          </span>
+          <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 9 5 5 5-5"/></svg>
+        </button>
+        <div class="day-details" id="day-${item.day}-details">
+          <div class="details-inner">
+            <div class="snapshot-title"><strong>Faz Detayları</strong><span>Ölçüm: ${item.time}</span></div>
+            <div class="phase-table-slot"></div>
+            <div class="details-footer"><span>Endüktif % ${fmt(item.inductive)} · Kapasitif % ${fmt(item.capacitive)}</span><button type="button" class="open-instant">Tüm ölçümler</button></div>
+          </div>
+        </div>`;
+      $('.phase-table-slot', card).append(createPhaseTable(item));
+      const toggle = $('.day-toggle', card);
+      toggle.addEventListener('click', () => {
+        const willOpen = !card.classList.contains('open');
+        $$('.day-card.open', host).forEach(openCard => {
+          openCard.classList.remove('open');
+          $('.day-toggle', openCard).setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) {
+          card.classList.add('open');
+          toggle.setAttribute('aria-expanded', 'true');
+          window.setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+        }
+      });
+      $('.open-instant', card).addEventListener('click', () => switchView('instant'));
+      host.append(card);
+      if (index === 0) {
+        card.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+    $('#dayCount').textContent = `${dailyData.length} gün`;
+  }
+
+  function renderInstant() {
+    const host = $('#instantCards');
+    host.replaceChildren();
+    instantData.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'instant-card';
+      const time = document.createElement('div');
+      time.className = 'instant-time';
+      time.textContent = item.time;
+      card.append(time, createPhaseTable(item));
+      host.append(card);
+    });
+  }
+
+  function renderReactive() {
+    const host = $('#reactiveRows');
+    host.replaceChildren();
+    dailyData.forEach(item => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${String(item.day).padStart(2,'0')} Ekim</td><td>% ${fmt(item.inductive)}</td><td>% ${fmt(item.capacitive)}</td>`;
+      host.append(tr);
+    });
+  }
+
+  const titles = { daily: 'Enerji Raporu', instant: 'Akım–Gerilim Raporu', reactive: 'Reaktif Rapor' };
+  function switchView(view) {
+    $$('.report-view').forEach(section => section.classList.toggle('active', section.id === `${view}View`));
+    $$('.tab, .drawer-item').forEach(button => button.classList.toggle('active', button.dataset.view === view));
+    $('#pageTitle').textContent = titles[view];
+    closeDrawer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  $$('.tab, .drawer-item').forEach(button => button.addEventListener('click', () => switchView(button.dataset.view)));
+
+  const drawer = $('#drawer');
+  const scrim = $('#scrim');
+  function openDrawer() {
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    scrim.hidden = false;
+    $('#menuButton').setAttribute('aria-expanded', 'true');
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    scrim.hidden = true;
+    $('#menuButton').setAttribute('aria-expanded', 'false');
+  }
+  $('#menuButton').addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+  scrim.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeDrawer(); });
+
+  const months = ['Ağustos 2020','Eylül 2020','Ekim 2020','Kasım 2020','Aralık 2020'];
+  let monthIndex = 2;
+  function updatePeriod(direction) {
+    monthIndex = Math.max(0, Math.min(months.length - 1, monthIndex + direction));
+    $('#periodLabel').textContent = months[monthIndex];
+    const disabledPrev = monthIndex === 0;
+    const disabledNext = monthIndex === months.length - 1;
+    $('#previousPeriod').disabled = disabledPrev;
+    $('#nextPeriod').disabled = disabledNext;
+    $('#previousPeriod').style.opacity = disabledPrev ? '.45' : '1';
+    $('#nextPeriod').style.opacity = disabledNext ? '.45' : '1';
+  }
+  $('#previousPeriod').addEventListener('click', () => updatePeriod(-1));
+  $('#nextPeriod').addEventListener('click', () => updatePeriod(1));
+
+  renderDaily();
+  renderInstant();
+  renderReactive();
+
+  
+})();
+
+</script>
+</body>
+</html>

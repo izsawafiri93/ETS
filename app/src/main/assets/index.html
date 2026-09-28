@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="tr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>ETS Enerji Takip</title>
+<style>
+:root{--red:#d51f26;--red2:#bd121a;--ink:#171a1f;--muted:#747b84;--bg:#f3f4f6;--card:#fff;--line:#e8e9ec;--green:#22a65a;--orange:#f59a17;--shadow:0 8px 26px rgba(30,35,45,.08);--radius:21px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink)}body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}button,input,select{font:inherit}.app{max-width:560px;margin:0 auto;min-height:100vh;background:linear-gradient(180deg,#fafafa 0,#f2f3f5 100%);position:relative;padding-bottom:82px}.hidden{display:none!important}.ets-logo{display:block;object-fit:contain}.boot-logo{width:210px;max-width:72vw;height:auto;margin:0 auto}.login-logo{width:220px;max-width:74vw;height:auto;margin:0 auto 8px}.header-logo{width:39px;height:39px;border-radius:9px;background:#fff;padding:3px;border:1px solid #e8e9ec}.drawer-logo{width:44px;height:44px;border-radius:10px;background:#fff;padding:3px}.about-logo-img{width:240px;max-width:78%;height:auto;margin:4px auto 12px}
+.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px;padding:0 17px;position:sticky;top:0;z-index:30}.back,.menu,.iconbtn{border:0;background:transparent;width:42px;height:42px;border-radius:14px;font-size:24px;color:#303640;display:grid;place-items:center}.top-title{font-size:18px;font-weight:800;flex:1;text-align:center}.badge-logo{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-radius:9px;font-weight:900;font-size:12px;padding:7px 8px;box-shadow:0 5px 12px rgba(213,31,38,.22)}.page{padding:14px 16px 26px}.card{background:var(--card);border:1px solid rgba(28,32,39,.04);border-radius:var(--radius);box-shadow:var(--shadow);padding:17px;margin-bottom:12px}.section-title{font-size:20px;font-weight:900;margin:14px 2px 12px}.sub{color:var(--muted);font-size:13px;line-height:1.5}.row{display:flex;align-items:center;gap:10px}.grow{flex:1}.between{justify-content:space-between}.center{text-align:center}.strong{font-weight:800}.red{color:var(--red)}.green{color:var(--green)}.orange{color:var(--orange)}
+.input{width:100%;height:53px;border:1px solid #e1e3e7;border-radius:14px;background:#fff;padding:0 14px;outline:none;margin:6px 0 10px;color:var(--ink)}.input:focus{border-color:#ec9a9e;box-shadow:0 0 0 3px rgba(213,31,38,.08)}.btn{border:0;border-radius:14px;min-height:50px;padding:0 17px;font-weight:800;cursor:pointer}.btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 8px 18px rgba(213,31,38,.22)}.btn-secondary{background:#626971;color:#fff}.btn-soft{background:#fff;color:var(--red);border:1px solid #f0c9cb}.btn-block{width:100%}.btn-sm{min-height:39px;padding:0 13px;border-radius:11px;font-size:13px}.loader{width:22px;height:22px;border:3px solid #eee;border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite;display:inline-block}@keyframes spin{to{transform:rotate(360deg)}}
+.login-wrap{min-height:calc(100vh - 30px);display:flex;flex-direction:column;justify-content:center;padding:28px 22px}.brand{text-align:center;margin-bottom:25px}.brand-etm{font-size:55px;letter-spacing:-4px;color:var(--red);font-weight:900}.brand-name{font-size:18px;font-weight:800}.brand-web{font-size:12px;color:var(--muted);margin-top:4px}.login-card{padding:24px}.check{display:flex;align-items:center;gap:8px;color:#535962;font-size:14px;margin:3px 0 17px}.check input{accent-color:var(--red);width:18px;height:18px}.version{text-align:center;color:#9aa0a8;font-size:12px;margin-top:20px}
+.searchbar{display:flex;gap:9px}.searchbar .input{margin:0}.company{display:flex;align-items:center;gap:13px;cursor:pointer}.pin{width:38px;height:38px;border-radius:13px;background:#fff2f2;color:var(--red);display:grid;place-items:center;font-size:20px;flex:none}.status{font-size:11px;font-weight:800;border-radius:999px;padding:5px 8px;background:#eaf8ef;color:var(--green)}.status.passive{background:#eceef0;color:#7a818a}.chev{font-size:25px;color:#5e6570}.empty{padding:40px 15px;text-align:center;color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);height:72px;background:rgba(255,255,255,.96);border-top:1px solid var(--line);display:flex;z-index:40;padding-bottom:env(safe-area-inset-bottom);backdrop-filter:blur(14px)}.nav{border:0;background:transparent;flex:1;color:#666e78;font-size:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}.nav i{font-style:normal;font-size:22px}.nav.active{color:var(--red);font-weight:800}
+.device-head{text-align:center}.device-title{font-weight:900;font-size:18px}.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}.meta-label{font-size:11px;color:var(--muted);margin-bottom:5px}.meta-value{font-weight:800;font-size:14px}.thin-info{display:flex;justify-content:space-around;background:#fff;border-radius:17px;padding:10px 12px;box-shadow:var(--shadow);font-size:12px;margin-bottom:11px}.tabs{display:flex;background:#e6e8eb;border-radius:16px;padding:4px;margin-bottom:12px}.tab{flex:1;border:0;border-radius:12px;height:39px;background:transparent;color:#555c65;font-size:12px;font-weight:800}.tab.active{background:#fff;color:var(--red);box-shadow:0 4px 12px rgba(40,45,55,.08)}.monthbar{display:flex;align-items:center;gap:10px}.monthbar .btn{flex:1}.monthpick{flex:1;text-align:center;font-weight:900}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#fff;border-radius:18px;padding:13px 7px;text-align:center;box-shadow:var(--shadow);border-top:2px solid var(--red)}.stat-label{color:var(--muted);font-size:10px}.stat-value{font-size:17px;font-weight:900;color:var(--red);margin:8px 0 4px}.stat-note{font-size:9px;color:#9298a0}.gauges{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.gauge{background:#fff;border-radius:20px;padding:15px 10px;text-align:center;box-shadow:var(--shadow)}.dial{--p:0;--c:var(--green);width:112px;height:62px;overflow:hidden;position:relative;margin:8px auto 2px}.dial:before{content:"";position:absolute;left:0;top:0;width:112px;height:112px;border-radius:50%;background:conic-gradient(from 270deg,var(--c) calc(var(--p)*1.8deg),#e5e7ea 0 180deg,transparent 0);mask:radial-gradient(circle at center,transparent 0 39px,#000 40px);-webkit-mask:radial-gradient(circle at center,transparent 0 39px,#000 40px)}.needle{position:absolute;width:46px;height:3px;background:#23272d;left:56px;bottom:1px;transform-origin:left center;transform:rotate(calc(-90deg + var(--p)*1.8deg));border-radius:4px}.needle:after{content:"";width:10px;height:10px;border-radius:50%;background:#23272d;position:absolute;left:-5px;top:-4px}.gauge-value{font-size:22px;font-weight:900}.limit-note{font-size:11px;color:var(--muted)}
+.warnbox{border:1px solid #ffd3d4;background:#fff6f6;border-radius:17px;padding:13px;color:#a9161b;display:flex;gap:10px;margin:12px 0}.day-card{border:1px solid #f0c9cb}.day-top{display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center}.daynum{width:40px;height:40px;border-radius:13px;background:#fff0f1;color:var(--red);font-weight:900;display:grid;place-items:center}.mini-values{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:9px}.mini{background:#f4f5f7;border-radius:10px;text-align:center;padding:7px 3px;font-size:10px}.mini b{display:block;font-size:11px;margin-top:3px}.phase-table{width:100%;border-collapse:separate;border-spacing:5px;margin-top:12px;font-size:11px}.phase-table th{font-size:11px}.phase-table td{background:#fff0f1;border-radius:9px;padding:8px 3px;text-align:center;font-weight:700}.phase-table td:first-child{background:transparent;text-align:left}.reactive-box{display:grid;grid-template-columns:1fr 1fr;gap:10px}.bigmetric{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:18px;text-align:center}.bigmetric b{font-size:24px;color:var(--red);display:block;margin-top:10px}.donut{width:155px;height:155px;border-radius:50%;margin:15px auto;background:conic-gradient(var(--red) 0 70%,#49b86d 70% 100%);display:grid;place-items:center}.donut:after{content:"";width:88px;height:88px;border-radius:50%;background:#fff}
+.table-wrap{overflow:auto;background:#fff;border-radius:18px;box-shadow:var(--shadow)}table.data{border-collapse:collapse;width:100%;min-width:720px;font-size:11px}table.data th,table.data td{padding:10px 8px;border-bottom:1px solid #eee;text-align:center;white-space:nowrap}table.data th{position:sticky;top:0;background:#fafafa;font-weight:900}table.data tr:last-child td{background:#fff0f1;font-weight:800}.pill{font-size:11px;border-radius:999px;padding:6px 9px;font-weight:800}.pill.redp{background:#ffe8e9;color:var(--red)}.pill.orangep{background:#fff1dc;color:#e88700}.alert-item{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:11px}.alert-icon{width:42px;height:42px;border-radius:13px;background:#fff0e0;color:var(--orange);display:grid;place-items:center;font-size:24px}.alert-icon.danger{background:#ffe7e8;color:var(--red)}.alert-value{font-size:18px;font-weight:900}.summary-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.summary-card{background:#fff;border-radius:19px;box-shadow:var(--shadow);padding:18px;text-align:center}.summary-card b{font-size:25px;color:var(--red)}
+.setting-row{margin-bottom:14px}.setting-row label{display:block;font-size:13px;font-weight:700;margin:0 2px 4px}.switch{position:relative;width:48px;height:28px}.switch input{display:none}.switch span{position:absolute;inset:0;background:#cdd1d6;border-radius:30px}.switch span:after{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;left:3px;top:3px;transition:.2s}.switch input:checked+span{background:var(--red)}.switch input:checked+span:after{left:23px}.about-logo{text-align:center;font-size:65px;font-weight:900;color:var(--red);letter-spacing:-5px}.credit{text-align:center;font-size:20px;font-weight:900;margin-top:35px}.drawer{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.34);display:flex;justify-content:flex-end}.drawer-panel{width:min(340px,86%);height:100%;background:#fff;padding:20px;box-shadow:-10px 0 30px rgba(0,0,0,.12)}.drawer-item{display:flex;align-items:center;gap:12px;border:0;background:transparent;width:100%;padding:14px 8px;border-bottom:1px solid #eee;text-align:left;font-weight:700}.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.5);display:grid;place-items:center;padding:22px}.modal-card{background:#fff;border-radius:22px;padding:24px;width:min(390px,100%);text-align:center}.modal-icon{font-size:48px;color:var(--red)}.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#21252b;color:#fff;border-radius:13px;padding:12px 16px;z-index:150;box-shadow:0 8px 25px rgba(0,0,0,.25);max-width:88%;font-size:13px}.progress{height:7px;background:#eee;border-radius:20px;overflow:hidden;margin:12px 0}.progress span{display:block;height:100%;background:var(--red);width:0;transition:.2s}.small-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.offline{background:#fff4dc;color:#9d6100;padding:9px 13px;font-size:12px;text-align:center}.skeleton{height:76px;border-radius:18px;background:linear-gradient(90deg,#eee 25%,#f7f7f7 37%,#eee 63%);background-size:400% 100%;animation:sh 1.2s infinite;margin-bottom:10px}@keyframes sh{0%{background-position:100% 0}100%{background-position:0 0}}
+@media(max-width:360px){.page{padding-left:11px;padding-right:11px}.stats{gap:5px}.stat-value{font-size:15px}.gauge{padding-left:4px;padding-right:4px}.dial{transform:scale(.88);margin-left:auto;margin-right:auto}.top-title{font-size:16px}}
+
+/* v1.0.6 simple, consistent mobile interface */
+:root{--navy:#172033;--navy-2:#222d43;--navy-soft:#eef1f6;--red:#cf2028;--red2:#b6161e;--ink:#202734;--muted:#727b89;--bg:#f5f6f8;--card:#fff;--line:#e2e6ec;--green:#208a52;--orange:#c77a0a;--shadow:0 2px 10px rgba(28,39,57,.06);--radius:14px}
+html,body{background:var(--bg);color:var(--ink)}body{overscroll-behavior-y:none}.app{max-width:620px;background:var(--bg);padding-bottom:78px}.topbar{height:68px;padding:0 14px;background:#fff;border-bottom:1px solid var(--line);box-shadow:none;gap:10px}.topbar .back,.topbar .menu{width:42px;height:42px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--navy)}.top-title{text-align:left;font-size:17px;color:var(--navy);line-height:1.15}.top-title small{display:block;margin-top:4px;font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.03em}.badge-logo,.brandmark{display:grid;place-items:center;min-width:39px;height:39px;padding:0 7px;border-radius:10px;background:var(--navy);color:#fff;font-size:12px;font-weight:900;letter-spacing:-.02em;box-shadow:none}.page{padding:18px 15px 26px}.section-title{font-size:18px;color:var(--navy);margin:14px 1px 11px}.card{border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);padding:15px;margin-bottom:10px}.sub{color:var(--muted)}.input{height:49px;border-radius:11px;border-color:#dce1e8;margin:6px 0 10px;background:#fff}.input:focus{border-color:#9da7b5;box-shadow:0 0 0 3px rgba(23,32,51,.07)}.btn{border-radius:10px;min-height:46px}.btn-primary{background:var(--navy);box-shadow:none}.btn-primary:active{background:var(--navy-2)}.btn-secondary{background:#606b7a}.btn-soft{color:var(--navy);border-color:var(--line);background:#fff}.btn-soft:active{background:var(--navy-soft)}
+.login-wrap{justify-content:center;padding:30px 20px;background:linear-gradient(180deg,#fff 0,#f4f6f9 100%)}.brand{margin-bottom:20px}.brand-etm{display:inline-grid;place-items:center;width:92px;height:92px;background:var(--navy);color:#fff;border-radius:24px;font-size:37px;letter-spacing:-3px;box-shadow:0 12px 30px rgba(23,32,51,.16)}.brand-name{margin-top:15px;color:var(--navy);font-size:20px}.brand-web{font-size:12px}.login-card{padding:22px;border-radius:16px;box-shadow:0 12px 35px rgba(25,35,52,.08)}.login-card h2{color:var(--navy)}
+.bottom{height:68px;background:#fff;border-top:1px solid var(--line);backdrop-filter:none;box-shadow:0 -4px 14px rgba(23,32,51,.04)}.nav{color:#7b8390;font-size:10px;gap:3px}.nav svg{width:21px;height:21px}.nav.active{color:var(--navy);font-weight:800}.nav.active:before{content:"";position:absolute;top:0;width:31px;height:3px;border-radius:0 0 3px 3px;background:var(--red)}.nav{position:relative}
+.drawer{justify-content:flex-start;background:rgba(13,18,29,.46)}.drawer-panel{width:min(326px,86%);padding:0;background:var(--navy);color:#fff;box-shadow:12px 0 34px rgba(0,0,0,.22);animation:drawerIn .18s ease-out}.drawer-head{padding:24px 18px 18px;border-bottom:1px solid rgba(255,255,255,.11)}.drawer-head .badge-logo{background:#fff;color:var(--navy)}.drawer-kicker{font-size:10px;color:#aab4c6;text-transform:uppercase;letter-spacing:.14em;margin:19px 20px 7px}.drawer-item{color:#eaf0f9;border:0;padding:13px 18px;gap:13px;font-weight:650}.drawer-item svg{width:21px;height:21px;color:#aeb9cb}.drawer-item:hover,.drawer-item:active{background:rgba(255,255,255,.08)}.drawer-item.red{color:#ffb5b8}.drawer-close{color:#fff!important;border-color:rgba(255,255,255,.18)!important;background:transparent!important}@keyframes drawerIn{from{transform:translateX(-22px);opacity:.5}to{transform:none;opacity:1}}
+.summary-cards{grid-template-columns:repeat(2,1fr);gap:9px}.summary-card{border:1px solid var(--line);box-shadow:none;border-radius:13px;padding:16px;text-align:left}.summary-card b{display:block;font-size:27px;color:var(--navy);margin-top:5px}.dashboard-hero{background:var(--navy);color:#fff;border:0;padding:18px}.dashboard-hero .sub{color:#c1cad8}.dashboard-hero .btn{background:#fff;color:var(--navy)}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick-action{min-height:108px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;cursor:pointer}.quick-action svg{width:25px;height:25px;color:var(--red)}.quick-action b{font-size:14px;color:var(--navy)}
+.search-shell{display:flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:0 11px;margin-bottom:11px}.search-shell svg{width:20px;height:20px;color:#87909e}.search-shell .input{border:0;box-shadow:none;margin:0;padding:0;height:50px}.search-shell .btn{min-height:38px;height:38px;padding:0 11px}.list-meta{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 10px}.company{gap:12px;min-width:0}.company-card{padding:13px;box-shadow:none}.company-avatar{width:42px;height:42px;border-radius:11px;background:var(--navy-soft);color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:13px;flex:none}.company-copy{min-width:0;flex:1}.company-copy .strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:5px}.company-meta span{font-size:11px;color:var(--muted)}.status{background:#e9f5ee;color:var(--green);padding:4px 7px}.chev svg{width:19px;height:19px}.load-more{margin:12px 0 2px}
+.device-head{text-align:left}.device-company-row{display:flex;align-items:center;gap:12px}.device-company-row .company-avatar{background:var(--navy);color:#fff}.device-title{font-size:17px;color:var(--navy)}.meta-grid{gap:10px;margin-top:15px}.meta-grid>div{padding:10px;background:#f7f8fa;border-radius:10px}.meta-label{font-size:10px}.meta-value{font-size:13px;overflow-wrap:anywhere}.thin-info{border:1px solid var(--line);box-shadow:none;border-radius:11px}.tabs{background:#e9edf2;border-radius:11px;padding:3px}.tab{height:38px;border-radius:8px}.tab.active{color:var(--navy);box-shadow:none;border:1px solid var(--line)}.monthbar{margin:11px 0}.monthpick{color:var(--navy)}.stats{gap:8px}.stat{border:1px solid var(--line);box-shadow:none;border-top:3px solid var(--navy);border-radius:12px}.stat-value{color:var(--navy)}.gauges{gap:9px}.gauge,.bigmetric{border:1px solid var(--line);box-shadow:none;border-radius:13px}.gauge-value,.bigmetric b{color:var(--navy)}.day-card{border-color:var(--line);box-shadow:none}.daynum{background:var(--navy-soft);color:var(--navy)}.mini{background:#f6f7f9}.table-wrap{border:1px solid var(--line);box-shadow:none;border-radius:12px}.warnbox{border-radius:12px}.small-actions{margin-top:12px}.export-actions .btn{flex:1}.pill.redp{background:#fce9ea}.about-logo{color:var(--navy)}
+.modal-card{border-radius:16px}.modal-icon{color:var(--red)}.toast{background:var(--navy);border-radius:10px}.offline{background:#fff3dc;color:#855400;border-bottom:1px solid #eed7a9}.progress span{background:var(--navy)}
+.btn .ui-icon{width:18px;height:18px;display:inline-block;vertical-align:-4px;flex:none}.dashboard-hero .btn{display:inline-flex;align-items:center;justify-content:center}svg.ui-icon{display:block;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:380px){.quick-grid{grid-template-columns:1fr}.summary-cards{grid-template-columns:1fr 1fr}.meta-grid{grid-template-columns:1fr}.top-title{font-size:16px}}
+
+
+
+/* v1.0.23 — monthly summary, circular limit indicators and forecast pages */
+.monthly-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.monthly-metric{background:#fff;border-radius:17px;padding:13px 7px;text-align:center;box-shadow:var(--shadow);border-top:3px solid var(--red)}.monthly-metric span{display:block;color:var(--muted);font-size:10px}.monthly-metric b{display:block;color:var(--red-deep);font-size:18px;margin:7px 0 3px}.monthly-metric small{font-size:9px;color:#949aa2}
+.ratio-rings{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.ratio-card{background:#fff;border-radius:20px;padding:15px 10px;text-align:center;box-shadow:var(--shadow)}.ratio-title{font-size:13px;font-weight:800}.ratio-ring{--ring-p:0;--ring-color:var(--green);width:132px;height:132px;border-radius:50%;margin:12px auto 9px;background:conic-gradient(var(--ring-color) calc(var(--ring-p)*1%),#eceff2 0);position:relative;display:grid;place-items:center}.ratio-ring:before{content:"";position:absolute;width:92px;height:92px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px #f0f1f3}.ratio-ring-copy{position:relative;z-index:1}.ratio-ring-copy b{display:block;font-size:24px;color:var(--ink)}.ratio-ring-copy span{display:block;font-size:9px;color:var(--muted);margin-top:2px}.ratio-energy{font-size:12px;font-weight:800}.ratio-limit{font-size:10px;color:var(--muted);margin-top:4px}.ratio-card.danger{box-shadow:0 9px 26px rgba(198,40,40,.15);border:1px solid #f2c8ca}.ratio-card.near{border:1px solid #f7d7a5}
+.monthly-note{background:#fff;border-radius:16px;padding:12px 14px;box-shadow:var(--shadow);font-size:12px;color:var(--muted);margin-bottom:12px}.monthly-note b{color:var(--ink)}
+.forecast-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.forecast-summary article{background:#fff;border-radius:16px;padding:13px 7px;text-align:center;box-shadow:var(--shadow)}.forecast-summary b{display:block;font-size:23px;margin-top:5px}.forecast-card{background:#fff;border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:var(--shadow);border-left:5px solid var(--orange)}.forecast-card.reached{border-left-color:var(--red)}.forecast-card.near{border-left-color:#f2b94b}.forecast-head{display:flex;align-items:flex-start;gap:10px}.forecast-head .company-copy{flex:1}.forecast-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.forecast-values{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.forecast-value{background:#f6f7f8;border-radius:12px;padding:10px;text-align:center}.forecast-value span{display:block;font-size:9px;color:var(--muted)}.forecast-value b{display:block;font-size:16px;margin-top:4px}.forecast-actions{display:flex;gap:8px;margin-top:11px}.forecast-actions .btn{flex:1}.ring-mini{--ring-p:0;--ring-color:var(--green);width:48px;height:48px;border-radius:50%;background:conic-gradient(var(--ring-color) calc(var(--ring-p)*1%),#eceff2 0);display:grid;place-items:center;position:relative;flex:none}.ring-mini:before{content:"";position:absolute;width:34px;height:34px;border-radius:50%;background:#fff}.ring-mini b{position:relative;font-size:9px;color:var(--ink)}
+.whatsapp-note{border:1px solid #ccebd7;background:#f1fbf5;border-radius:14px;padding:12px;color:#24683d;font-size:12px;margin:12px 0}.settings-hint{font-size:11px;color:var(--muted);margin-top:-5px;margin-bottom:9px}
+@media(max-width:360px){.monthly-metrics{grid-template-columns:1fr}.ratio-rings{grid-template-columns:1fr}.forecast-summary{grid-template-columns:1fr}.forecast-values{grid-template-columns:1fr}}
+
+
+/* v1.0.23 overview ratios + simplified report cards */
+.company-card{display:grid;grid-template-columns:46px minmax(0,1fr) auto 24px;gap:11px;align-items:center}
+.company-overview-ratios{display:flex;flex-direction:column;gap:5px;min-width:76px}
+.overview-ratio{display:flex;align-items:center;justify-content:space-between;gap:6px;border-radius:10px;padding:6px 8px;background:#f6f7f8;font-size:10px;font-weight:800;white-space:nowrap}
+.overview-ratio b{font-size:12px}.overview-ratio.ind{color:#8e3a00;background:#fff3e7}.overview-ratio.cap{color:#9f1717;background:#fff0f1}
+.overview-ratio.safe{color:#15753e;background:#eaf8ef}.company-period{font-size:10px;color:var(--muted);margin-top:5px}
+.ratio-rings{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:13px 0}
+.ratio-ring-card{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:14px 8px;text-align:center}
+.ratio-ring{--ring-p:0;--ring-color:var(--green);width:118px;height:118px;border-radius:50%;margin:8px auto;display:grid;place-items:center;background:conic-gradient(var(--ring-color) calc(var(--ring-p)*1%),#e9ebee 0)}
+.ratio-ring:before{content:"";position:absolute}.ratio-ring-inner{width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:inset 0 0 0 1px #f0f1f2}
+.ratio-ring-inner b{font-size:21px;color:var(--ink)}.ratio-ring-card small{display:block;color:var(--muted);font-size:10px}.ratio-ring-card .limit-note{margin-top:4px}
+.electrical-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.electrical-card{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:14px 6px;text-align:center;border-top:2px solid var(--red)}
+.electrical-card span{display:block;color:var(--muted);font-size:10px}.electrical-card b{display:block;color:var(--red);font-size:17px;margin:7px 0 3px}.electrical-card small{display:block;color:#9298a0;font-size:9px}
+.electrical-empty{background:#fff;border:1px dashed #e6b5b8;border-radius:18px;padding:18px;text-align:center;color:var(--muted);margin:12px 0}
+.source-note{font-size:10px;color:var(--muted);text-align:center;margin:6px 0 12px}.phase-table .missing{color:#a0a5ac;background:#f4f5f6}
+@media(max-width:390px){.company-card{grid-template-columns:42px minmax(0,1fr) auto}.company-card .chev{display:none}.company-overview-ratios{min-width:69px}.overview-ratio{padding:5px 6px}.ratio-ring{width:104px;height:104px}.ratio-ring-inner{width:72px;height:72px}.electrical-card b{font-size:15px}}
+
+</style>
+
+<style id="prototype-v1016">
+:root{
+  --red:#c62828;--red-dark:#9f1717;--red-deep:#7f1010;--red-soft:#fff1f1;
+  --ink:#1e2227;--muted:#737980;--line:#eceff1;--surface:#fff;--page:#f5f6f7;
+  --green:#2b9b50;--orange:#e98b18;--shadow:0 12px 34px rgba(24,30,35,.10);--radius:22px;
+}
+html,body{min-height:100%;background:var(--page);color:var(--ink)}
+body{padding:0;-webkit-tap-highlight-color:transparent}
+.app{width:min(720px,100%);max-width:720px;margin:0 auto;min-height:100vh;background:var(--page);padding:0 0 calc(34px + env(safe-area-inset-bottom));overflow-x:hidden}
+.bottom{display:none!important}
+.hidden{display:none!important}
+.ui-icon{width:24px;height:24px}
+
+/* Splash — adapted from the attached prototype */
+#nativeBoot{background:radial-gradient(circle at 15% 20%,rgba(255,255,255,.18) 0 100px,transparent 101px),linear-gradient(150deg,var(--red-dark),var(--red) 58%,#e25252)!important;color:#fff}
+#nativeBoot .prototype-boot{position:relative;z-index:1;width:min(390px,88vw);text-align:center;animation:protoRise .75s ease both}
+#nativeBoot .prototype-boot-logo{width:min(245px,70vw);height:auto;display:block;margin:0 auto 18px;background:#fff;border-radius:30px;padding:18px;box-shadow:0 18px 45px rgba(83,0,0,.20)}
+#nativeBoot .prototype-boot-title{font-size:clamp(28px,8vw,42px);font-weight:900;letter-spacing:-.7px}
+#nativeBoot .prototype-boot-tag{margin-top:8px;font-size:14px;letter-spacing:2.6px;text-transform:uppercase;opacity:.82}
+@keyframes protoRise{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+
+/* Shared app chrome */
+.topbar{position:sticky;top:0;z-index:30;min-height:66px;height:auto;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:0;background:rgba(255,255,255,.97);box-shadow:0 1px 0 rgba(0,0,0,.07);padding:env(safe-area-inset-top) 12px 0;border:0;backdrop-filter:blur(14px)}
+.back,.menu,.iconbtn{width:44px;height:44px;border:0;background:transparent;display:grid;place-items:center;border-radius:50%;color:#4c5257;padding:0}
+.back:active,.menu:active,.iconbtn:active{background:var(--red-soft)}
+.header-logo{width:36px;height:36px;border:0;border-radius:9px;background:#fff;padding:2px;object-fit:contain}
+.top-title{display:flex;align-items:center;justify-content:center;gap:9px;min-width:0;text-align:left;font-size:18px;font-weight:800;color:var(--ink)}
+.top-title small{display:none}
+.top-title .title-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.page{width:100%;margin:0 auto;padding:14px 12px calc(34px + env(safe-area-inset-bottom))}
+.card{background:var(--surface);border:1px solid transparent;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
+.section-title{font-size:16px;font-weight:800;margin:18px 2px 10px}
+.sub{color:var(--muted);font-size:12px;line-height:1.5}
+.btn{min-height:44px;border:0;border-radius:14px;padding:0 14px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn-primary{background:var(--red);color:#fff;box-shadow:0 6px 14px rgba(198,40,40,.20)}
+.btn-secondary{background:#676b70;color:#fff;box-shadow:none}
+.btn-soft{background:#fff;color:var(--red);border:1px solid rgba(198,40,40,.22);box-shadow:none}
+.btn-sm{min-height:40px;border-radius:12px;font-size:12px}
+.input{width:100%;height:50px;border:1px solid #e1e4e7;border-radius:14px;background:#fff;padding:0 14px;outline:0;margin:6px 0 10px;color:var(--ink)}
+.input:focus{border-color:rgba(198,40,40,.45);box-shadow:0 0 0 3px rgba(198,40,40,.08)}
+.loader{border-top-color:var(--red)}
+.status{display:inline-flex;align-items:center;border-radius:999px;background:#eaf8ef;color:#287a45;padding:4px 8px;font-size:11px;font-weight:800}
+.pill{border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800}
+.pill.redp{background:var(--red-soft);color:var(--red)}
+.pill.orangep{background:#fff2dc;color:#d87800}
+
+/* Login */
+.login-wrap{min-height:100vh;justify-content:flex-start;padding:0;background:linear-gradient(180deg,var(--red) 0 34%,var(--page) 34% 100%)}
+.login-hero{width:100%;min-height:32vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 24px 30px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.login-hero:after{content:"";position:absolute;left:-18%;right:-18%;bottom:-68px;height:126px;border-radius:50% 50% 0 0;background:rgba(255,255,255,.10);transform:rotate(-4deg)}
+.login-hero .login-logo{width:205px;max-width:70vw;margin:0 auto 10px;background:#fff;border-radius:24px;padding:13px;box-shadow:0 14px 34px rgba(80,0,0,.18);position:relative;z-index:1}
+.login-hero h1{font-size:28px;margin:5px 0 4px;position:relative;z-index:1}.login-hero p{margin:0;opacity:.84;letter-spacing:1.4px;text-transform:uppercase;font-size:11px;position:relative;z-index:1}
+.login-panel{width:calc(100% - 28px);max-width:520px;margin:-18px auto 0;position:relative;z-index:2;padding:22px}
+.login-panel h2{margin:0 0 5px;font-size:20px}.login-panel .login-help{margin-bottom:16px}
+.login-field{position:relative}.login-field .ui-icon{position:absolute;left:15px;top:20px;color:var(--red);z-index:1}.login-field .input{padding-left:48px}
+.login-actions{margin-top:6px}.version{text-align:center;color:#9aa0a8;font-size:11px;margin:17px 0 25px}
+
+/* Dashboard and lists */
+.dashboard-hero{background:linear-gradient(135deg,var(--red-dark),var(--red));color:#fff;box-shadow:0 12px 28px rgba(127,16,16,.20)}
+.dashboard-hero .sub{color:rgba(255,255,255,.78)}
+.dashboard-hero .btn{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.42)}
+.summary-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.summary-card{background:#fff;border-radius:18px;padding:16px 10px;text-align:center;box-shadow:0 7px 22px rgba(24,30,35,.07);border-top:3px solid var(--red)}.summary-card b{display:block;color:var(--red-deep);font-size:24px;margin-top:5px}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.quick-action{min-height:116px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:11px;margin:0;cursor:pointer}.quick-action .ui-icon{width:28px;height:28px;color:var(--red)}
+.search-shell{display:grid;grid-template-columns:34px 1fr 48px;align-items:center;gap:5px;background:#fff;border-radius:16px;padding:4px 5px 4px 12px;box-shadow:0 6px 20px rgba(24,30,35,.06);margin-bottom:12px}.search-shell>.ui-icon{color:#687078}.search-shell .input{border:0;box-shadow:none;margin:0;padding:0;height:48px}.search-shell .btn{height:44px;padding:0}
+.list-meta{display:flex;justify-content:space-between;align-items:center;margin:12px 3px 10px}.company-card{display:grid;grid-template-columns:48px minmax(0,1fr) 26px;align-items:center;gap:11px;padding:12px;margin-bottom:9px;border-radius:18px;box-shadow:0 6px 22px rgba(24,30,35,.07)}
+.company-avatar{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--red-soft);color:var(--red);font-weight:900;font-size:13px;flex:none}.company-copy{min-width:0}.company-copy .strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:6px;color:var(--muted);font-size:11px}.chev{color:var(--red);display:grid;place-items:center}
+
+/* Report page — follows the attached prototype */
+.device-card,.device-head{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px;text-align:center}
+.device-company-row{display:flex;align-items:center;justify-content:center;gap:9px}.device-company-row .company-avatar{width:38px;height:38px;border-radius:12px;background:var(--red);color:#fff}
+.device-title{font-size:18px;font-weight:800;color:var(--ink)}.device-company-row .company-meta{justify-content:center}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;text-align:center;margin-top:18px}.meta-grid>div{padding:0;background:transparent;border-radius:0}.meta-label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}.meta-value{font-size:14px;font-weight:700;word-break:break-word}
+.thin-info{margin:12px 0;display:flex;flex-wrap:wrap;justify-content:space-around;gap:8px 16px;padding:10px 14px;background:#fff;border:0;border-radius:999px;font-size:12px;box-shadow:0 3px 14px rgba(0,0,0,.04)}.thin-info b{color:var(--red)}
+.tabs{display:grid;grid-template-columns:.85fr 1.35fr .9fr;gap:6px;padding:5px;background:#e8eaec;border-radius:16px;margin:0 0 12px}.tab{border:0;background:transparent;padding:10px 6px;height:auto;border-radius:12px;color:#61676c;font-size:12px;font-weight:700;box-shadow:none}.tab.active{background:#fff;color:var(--red);box-shadow:0 4px 12px rgba(0,0,0,.09);border:0}
+.monthbar{display:grid;grid-template-columns:1fr minmax(104px,auto) 1fr;align-items:center;gap:8px;margin:12px 0 14px}.monthbar .btn{min-height:44px;border:0;border-radius:14px;background:var(--red);color:#fff;box-shadow:0 6px 14px rgba(198,40,40,.2)}.monthbar .btn:last-child{background:#676b70;box-shadow:none}.monthpick{text-align:center;font-weight:800;color:var(--ink)}.monthpick:before{content:"▣";display:block;color:var(--red);font-size:24px;line-height:1;margin-bottom:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}.stat{min-width:0;padding:14px 9px;border-radius:18px;background:#fff;box-shadow:0 7px 22px rgba(24,30,35,.07);text-align:center;border:0;border-top:3px solid var(--red)}.stat-label,.stat-note{display:block;color:var(--muted);font-size:10px}.stat-value{display:block;color:var(--red-deep);font-size:clamp(14px,4vw,19px);margin:5px 0 3px;font-weight:900}
+.gauges{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.gauge{background:#fff;padding:16px;border-radius:18px;box-shadow:var(--shadow);border:0}.gauge-value{font-size:23px;margin:5px 0 10px}.progress-meter{height:6px;border-radius:99px;background:#f0e2e2;overflow:hidden;margin-top:10px}.progress-meter i{display:block;height:100%;background:var(--red);border-radius:inherit}.limit-note{font-size:10px;color:var(--muted);margin-top:8px}
+.day-card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 22px rgba(24,30,35,.07);border:1px solid transparent;padding:0;margin-bottom:9px;transition:border-color .2s ease,box-shadow .2s ease}.day-card.open{border-color:rgba(198,40,40,.26);box-shadow:0 11px 26px rgba(110,17,17,.12)}
+.day-toggle{width:100%;border:0;background:transparent;display:grid;grid-template-columns:45px minmax(0,1fr) 28px;align-items:center;gap:10px;padding:12px;text-align:left}.daynum{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--red-soft);color:var(--red);font-size:16px;font-weight:900}.day-copy{min-width:0}.day-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}.day-title strong{font-size:14px}.day-title span{color:var(--muted);font-size:10px}.mini-values{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:0}.mini{min-width:0;padding:6px 4px;border-radius:8px;background:#f6f7f8;color:#60666b;text-align:center;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini b{display:block;color:var(--ink);font-size:11px;margin-top:2px}.day-chevron{width:24px;height:24px;transition:transform .25s ease}.day-card.open .day-chevron{transform:rotate(180deg)}
+.day-details{display:none;padding:0 12px 14px;border-top:1px solid var(--line);background:linear-gradient(#fff,#fff9f9)}.day-card.open .day-details{display:block}.detail-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;padding-top:11px}.detail-kpis>div{background:#f6f7f8;border-radius:10px;padding:9px;text-align:center}.detail-kpis span{display:block;color:var(--muted);font-size:9px}.detail-kpis b{display:block;font-size:12px;margin-top:3px}.details-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;color:var(--muted);font-size:10px}.details-footer .btn{font-size:10px;min-height:34px;border-radius:10px}
+.current-card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-top:12px}.instant-time{background:var(--red);color:#fff;padding:10px;text-align:center;font-size:16px;font-weight:800}.current-card .phase-table{padding:12px;margin:0}.phase-table{width:100%;border-collapse:separate;border-spacing:4px;font-size:11px}.phase-table th{text-align:center;font-size:12px;padding:5px}.phase-table td{background:#f1f2f3;border-radius:8px;padding:9px 4px;text-align:center;font-weight:700}.phase-table td:first-child{background:transparent;text-align:left}.phase-table tr.phase-accent td:not(:first-child){background:var(--red-soft);color:var(--red-deep)}
+.reactive-box{display:grid;grid-template-columns:1fr 1fr;gap:9px}.bigmetric{background:#fff;padding:16px;border-radius:18px;box-shadow:var(--shadow);text-align:left;border:0}.bigmetric b{display:block;color:var(--red);font-size:23px;margin:5px 0 10px}.reactive-list{margin-top:12px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}.reactive-list table{border-collapse:collapse;width:100%;font-size:12px}.reactive-list th{background:var(--red);color:#fff;padding:12px 8px}.reactive-list td{text-align:center;padding:12px 8px;border-bottom:1px solid var(--line)}
+.small-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.export-actions .btn{flex:1}.warnbox{border:1px solid #ffd3d4;background:#fff6f6;border-radius:14px;padding:13px;color:#a9161b;display:flex;gap:10px;align-items:center;margin:12px 0}
+
+/* Drawer and overlays */
+.drawer{display:block!important;position:fixed;inset:0;z-index:60;background:rgba(11,12,13,.42);backdrop-filter:blur(2px)}.drawer-panel{position:absolute;top:0;right:0;width:min(310px,84vw);height:100%;background:#fff;padding:calc(28px + env(safe-area-inset-top)) 18px 28px;box-shadow:-16px 0 42px rgba(0,0,0,.19);display:flex;flex-direction:column;animation:drawerIn .25s ease}.drawer-head{padding:16px;margin-bottom:16px;color:#fff;border-radius:18px;background:linear-gradient(135deg,var(--red-dark),var(--red))}.drawer-head .sub{color:rgba(255,255,255,.8)!important}.drawer-logo{width:44px;height:44px;background:#fff;border-radius:11px;padding:3px}.drawer-item{border:0;border-radius:13px;padding:13px 14px;background:transparent;text-align:left;color:#4c5257;margin-bottom:5px;display:flex;align-items:center;gap:10px}.drawer-item:active{background:var(--red-soft);color:var(--red)}.drawer-kicker{color:#a0a4a8;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin:10px 12px 6px}.drawer-close{color:#fff}.drawer-item.red{color:var(--red)}@keyframes drawerIn{from{transform:translateX(105%)}to{transform:none}}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(11,12,13,.45);display:grid;place-items:center;padding:20px}.modal-card{width:min(390px,100%);background:#fff;border-radius:20px;padding:23px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.25)}.toast{position:fixed;z-index:90;left:50%;bottom:28px;transform:translateX(-50%);max-width:88vw;background:#30343a;color:#fff;border-radius:999px;padding:11px 17px;font-size:12px;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.table-wrap{overflow:auto;background:#fff;border-radius:20px;box-shadow:var(--shadow)}table.data{min-width:720px}table.data th{background:var(--red);color:#fff}.setting-row{margin-bottom:14px}.about-logo-img{width:220px;max-width:75%;margin:10px auto 18px}
+
+@media(min-width:760px){body{background:radial-gradient(circle at 16% 10%,#fff 0 190px,transparent 191px),linear-gradient(145deg,#f4f4f4 0 55%,#efdddd 55% 100%)}.app{width:450px;min-height:calc(100vh - 40px);margin:20px auto;border-radius:32px;overflow:hidden;box-shadow:0 25px 70px rgba(42,23,23,.25)}.drawer-panel{right:max(0px,calc((100vw - 450px)/2));height:calc(100vh - 40px);top:20px;border-radius:28px 0 0 28px}.drawer{background:rgba(11,12,13,.42)}}
+@media(max-width:360px){.stats{grid-template-columns:1fr}.stat{display:grid;grid-template-columns:1fr auto;text-align:left;align-items:center}.stat-note{grid-column:1/-1}.quick-grid{grid-template-columns:1fr}.meta-grid{grid-template-columns:1fr}.monthbar .btn{font-size:0}.monthbar .btn:before{font-size:18px}.monthbar .btn:first-child:before{content:"‹"}.monthbar .btn:last-child:before{content:"›"}}
+</style>
+
+
+<style id="v1021-final-css">
+.company.company-card{display:grid;grid-template-columns:46px minmax(0,1fr) 82px 20px;gap:9px;align-items:center;overflow:hidden}
+.company.company-card .company-overview-ratios{width:82px;min-width:0}
+.company.company-card .overview-ratio{width:100%;padding:5px 6px;font-size:9px}
+.company.company-card .overview-ratio b{font-size:11px}
+@media(max-width:410px){.company.company-card{grid-template-columns:42px minmax(0,1fr) 78px;gap:8px}.company.company-card .chev{display:none}.company.company-card .company-overview-ratios{width:78px}.company.company-card .company-period{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+</style>
+<link rel="stylesheet" href="v1022.css">
+<link rel="stylesheet" href="professional.css">
+</head>
+<body>
+<div id="nativeBoot" style="position:fixed;inset:0;z-index:999999;display:grid;place-items:center">
+  <div class="prototype-boot">
+    <img src="ets_logo.png" class="prototype-boot-logo" alt="ETS">
+    <div class="prototype-boot-title">ETS Enerji Takip</div>
+    <div class="prototype-boot-tag">Enerji Takip Sistemi</div>
+  </div>
+</div>
+
+<div id="app" class="app"></div>
+<div id="drawer" class="hidden"></div><div id="modal" class="hidden"></div><div id="toast" class="hidden"></div>
+<script>
+'use strict';
+const APP={
+  base:'http://ets.etm.com.tr:82', logged:false, role:'', companies:[], filtered:[], current:null, report:null,
+  month:new Date().getMonth()+1, year:new Date().getFullYear(), tab:'daily', alerts:[], monthly:[], monitorTimer:null,
+  settings:{indLimit:15,capLimit:10,monthlyInd:20,monthlyCap:15,phone:'',notifications:true,whatsapp:true,interval:15,base:'http://ets.etm.com.tr:82'}
+};
+APP.companyLimit=60; APP.dailyLimit=12; APP.companySource='/admin/ozet.aspx';
+const MONTHS=['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
+const $=s=>document.querySelector(s); const app=$('#app');
+
+function icon(name){const paths={
+ menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',back:'<path d="m15 18-6-6 6-6"/>',home:'<path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',companies:'<path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h3a2 2 0 0 1 2 2v10M8 7h4M8 11h4M8 15h4M7 21h10"/>',reports:'<path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"/>',settings:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.1A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.1A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.1A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.12.37.33.7.6 1 .3.29.7.43 1.1.4h.1v4h-.1a1.7 1.7 0 0 0-1.7.6z"/>',alert:'<path d="M10.3 3.6 2.2 18a2 2 0 0 0 1.7 3h16.2a2 2 0 0 0 1.7-3L13.7 3.6a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>',info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',meter:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8v5H8zM9 16h6M12 14v4"/>',refresh:'<path d="M20 11a8 8 0 1 0-2.34 5.66M20 4v7h-7"/>',chevron:'<path d="m9 18 6-6-6-6"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',pdf:'<path d="M6 2h8l4 4v16H6zM14 2v5h5M9 17v-5h2a2 2 0 0 1 0 4H9M14 17v-5h3"/>',excel:'<path d="M5 3h14v18H5zM8 8l4 8M12 8l-4 8M14 8h3M14 12h3M14 16h3"/>'};return `<svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">${paths[name]||paths.info}</svg>`}
+function initials(name){return txt(name).split(' ').filter(Boolean).slice(0,2).map(x=>x[0]).join('').toLocaleUpperCase('tr-TR')||'ET'}
+
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+function txt(s){const d=document.createElement('div');d.innerHTML=s??'';return (d.textContent||'').replace(/\s+/g,' ').trim();}
+function norm(s){return txt(s).toLocaleUpperCase('tr-TR').replace(/İ/g,'I').replace(/Ş/g,'S').replace(/Ğ/g,'G').replace(/Ü/g,'U').replace(/Ö/g,'O').replace(/Ç/g,'C').replace(/[^A-Z0-9.]+/g,' ').trim();}
+function readingDateTimeOnly(value){
+  const s=txt(value||'');
+  if(!s)return '';
+  const monthNames='Ocak|Şubat|Subat|Mart|Nisan|Mayıs|Mayis|Haziran|Temmuz|Ağustos|Agustos|Eylül|Eylul|Ekim|Kasım|Kasim|Aralık|Aralik';
+  const patterns=[
+    new RegExp('\\b(\\d{1,2}\\s+(?:'+monthNames+')\\s+\\d{4})[\\s,]+(\\d{1,2}:\\d{2}(?::\\d{2})?)','i'),
+    /\b(\d{1,2}[.\/-]\d{1,2}[.\/-]\d{2,4})[ T,]+(\d{1,2}:\d{2}(?::\d{2})?)\b/,
+    /\b(\d{4}[.\/-]\d{1,2}[.\/-]\d{1,2})[ T,]+(\d{1,2}:\d{2}(?::\d{2})?)\b/
+  ];
+  for(const pattern of patterns){const m=s.match(pattern);if(m)return `${m[1]} ${m[2]}`}
+  const dateOnly=s.match(new RegExp('\\b(\\d{1,2}\\s+(?:'+monthNames+')\\s+\\d{4}|\\d{1,2}[.\\/-]\\d{1,2}[.\\/-]\\d{2,4}|\\d{4}[.\\/-]\\d{1,2}[.\\/-]\\d{1,2})\\b','i'));
+  return dateOnly?dateOnly[1]:'';
+}
+window.readingDateTimeOnly=readingDateTimeOnly;
+function num(s){if(s==null)return NaN;let x=txt(String(s)).replace(/%/g,'').replace(/\s/g,'');if(x.includes(',')&&x.includes('.')){if(x.lastIndexOf(',')>x.lastIndexOf('.'))x=x.replace(/\./g,'').replace(',','.');else x=x.replace(/,/g,'');}else if(x.includes(','))x=x.replace(',','.');let m=x.match(/-?\d+(?:\.\d+)?/);return m?Number(m[0]):NaN;}
+function fmt(v,d=1){return Number.isFinite(v)?v.toLocaleString('tr-TR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';}
+function absolute(href){try{return new URL(href,APP.base+'/').href}catch{return href}}
+function loadSettings(){try{Object.assign(APP.settings,JSON.parse(localStorage.getItem('etm_settings')||'{}'));APP.base=(APP.settings.base||APP.base).replace(/\/$/,'');}catch{}}
+function saveSettings(){APP.settings.base=APP.base;localStorage.setItem('etm_settings',JSON.stringify(APP.settings));}
+function toast(message){const t=$('#toast');t.textContent=message;t.className='toast';clearTimeout(toast._t);toast._t=setTimeout(()=>t.className='hidden',2800)}
+function loading(label='Yükleniyor...'){app.innerHTML=`<div class="login-wrap center"><span class="loader"></span><div class="sub" style="margin-top:12px">${esc(label)}</div></div>`}
+function topBar(title,back=true){return `<header class="topbar">${back?`<button class="back" aria-label="Geri" onclick="goBack()">${icon('back')}</button>`:'<span></span>'}<div class="top-title"><img src="ets_logo.png" class="ets-logo header-logo" alt="ETS"><span class="title-text">${esc(title)}</span></div><button class="menu" aria-label="Menü" onclick="openDrawer()">${icon('menu')}</button></header>`}
+function bottom(){return ''}
+function goBack(){if(APP.report)showCompanies();else if(APP.logged)showDashboard();else showLogin()}
+function openDrawer(){const d=$('#drawer');d.className='drawer';d.innerHTML=`<aside class="drawer-panel"><div class="drawer-head"><div class="row"><img src="ets_logo.png" class="ets-logo drawer-logo" alt="ETS"><div><b>ETS Enerji Takip</b><div class="sub">Enerji Yönetim Sistemi</div></div><button class="iconbtn drawer-close" style="margin-left:auto" onclick="closeDrawer()">×</button></div></div><div class="drawer-kicker">Menü</div><button class="drawer-item" onclick="closeDrawer();showDashboard()">${icon('home')} Ana Sayfa</button><button class="drawer-item" onclick="closeDrawer();showCompanies()">${icon('companies')} Şirketler</button><button class="drawer-item" onclick="closeDrawer();showReports()">${icon('reports')} Raporlar</button><button class="drawer-item" onclick="closeDrawer();showAlerts()">${icon('alert')} Uyarılar</button><button class="drawer-item" onclick="closeDrawer();showSettings()">${icon('settings')} Ayarlar</button><button class="drawer-item" onclick="closeDrawer();showAbout()">${icon('info')} Hakkında</button><div class="drawer-kicker">Oturum</div><button class="drawer-item red" onclick="closeDrawer();logout()">${icon('logout')} Çıkış Yap</button></aside>`}
+function closeDrawer(){$('#drawer').className='hidden'}
+function modal(title,body,actions=''){const m=$('#modal');m.className='modal';m.innerHTML=`<div class="modal-card"><div class="modal-icon">⚠</div><h2>${esc(title)}</h2><div class="sub" style="font-size:14px">${body}</div><div style="margin-top:18px">${actions||`<button class="btn btn-primary btn-block" onclick="closeModal()">Tamam</button>`}</div></div>`}
+function closeModal(){$('#modal').className='hidden'}
+function offlineBar(){return navigator.onLine?'':`<div class="offline">İnternet bağlantısı yok. Son kaydedilen veriler gösterilebilir.</div>`}
+
+let nativeRequestSeq=0;
+const nativePending=new Map();
+window.onNativeHttpResult=function(id,raw){
+  const pending=nativePending.get(id);if(!pending)return;
+  nativePending.delete(id);clearTimeout(pending.timer);
+  try{pending.resolve(JSON.parse(raw))}catch(e){pending.reject(new Error('Sunucu yanıtı okunamadı'))}
+};
+function nativeRequest(method,url,body,contentType){
+  return new Promise((resolve,reject)=>{
+    const id=++nativeRequestSeq;
+    const timer=setTimeout(()=>{nativePending.delete(id);reject(new Error('Bağlantı zaman aşımına uğradı'))},65000);
+    nativePending.set(id,{resolve,reject,timer});
+    try{window.AndroidHttp.requestAsync(id,method,url,body,contentType)}catch(e){clearTimeout(timer);nativePending.delete(id);reject(e)}
+  });
+}
+async function fetchText(path,options={}){
+  const requestedUrl=path.startsWith('http')?path:absolute(path);const url=String(options.method||'GET').toUpperCase()==='GET'?(()=>{const u=new URL(requestedUrl);u.searchParams.set('_ets_refresh',String(Date.now())+'_'+Math.random().toString(36).slice(2));return u.href})():requestedUrl;
+  // On Android use the native HTTP bridge. It keeps the ASP.NET session cookie
+  // across login and /admin/ozet.aspx and is not affected by file:// CORS rules.
+  if(window.AndroidHttp&&typeof window.AndroidHttp.request==='function'){
+    try{
+      const method=String(options.method||'GET').toUpperCase();
+      const contentType=(options.headers&&options.headers['Content-Type'])||'';
+      const result=await nativeRequest(method,url,String(options.body||''),contentType);
+      if(result.error)throw new Error(result.error);
+      if(result.status>=400)throw new Error('Sunucu yanıtı: '+result.status);
+      return {text:result.text||'',url:result.url||url,status:Number(result.status||0)};
+    }catch(e){throw new Error(e.message||'Bağlantı kurulamadı');}
+  }
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),30000);
+  try{
+    const r=await fetch(url,{credentials:'include',cache:'no-store',redirect:'follow',signal:controller.signal,...options});
+    const text=await r.text();if(!r.ok&&r.status!==0)throw new Error('Sunucu yanıtı: '+r.status);return {text,url:r.url||url,status:r.status};
+  }catch(e){throw new Error(e.name==='AbortError'?'Bağlantı zaman aşımına uğradı':(e.message||'Bağlantı kurulamadı'));}finally{clearTimeout(timer)}
+}
+let renderedCompanyWaiter=null;
+window.onNativeCompanyPage=function(raw){
+  let payload=raw;try{if(typeof payload==='string')payload=JSON.parse(payload)}catch{}
+  if(!renderedCompanyWaiter)return;
+  const waiter=renderedCompanyWaiter;renderedCompanyWaiter=null;clearTimeout(waiter.timer);
+  if(payload&&payload.error)return waiter.reject(new Error(payload.error));
+  try{if(payload&&payload.htmlBase64)payload.text=decodeURIComponent(escape(atob(payload.htmlBase64)));else if(payload)payload.text=payload.text||''}catch{if(payload)payload.text=''}
+  waiter.resolve(payload||{});
+};
+function loadRenderedCompanyPage(url){
+  if(!(window.AndroidHttp&&typeof window.AndroidHttp.loadRenderedCompanyPage==='function'))return Promise.reject(new Error('Rendered-page bridge is unavailable.'));
+  if(renderedCompanyWaiter){clearTimeout(renderedCompanyWaiter.timer);renderedCompanyWaiter.reject(new Error('A new company-page request replaced the previous request.'));renderedCompanyWaiter=null}
+  return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{renderedCompanyWaiter=null;reject(new Error('Rendered company page timed out.'))},28000);renderedCompanyWaiter={resolve,reject,timer};window.AndroidHttp.loadRenderedCompanyPage(url)});
+}
+let renderedReportWaiter=null;
+window.onNativeReportPage=function(raw){
+  let payload=raw;try{if(typeof payload==='string')payload=JSON.parse(payload)}catch{}
+  if(!renderedReportWaiter)return;
+  const waiter=renderedReportWaiter;renderedReportWaiter=null;clearTimeout(waiter.timer);
+  if(payload&&payload.error)return waiter.reject(new Error(payload.error));
+  try{if(payload&&payload.htmlBase64)payload.text=decodeURIComponent(escape(atob(payload.htmlBase64)));else if(payload)payload.text=payload.text||''}catch{if(payload)payload.text=''}
+  waiter.resolve(payload||{});
+};
+function loadRenderedReportPage(url){
+  if(!(window.AndroidHttp&&typeof window.AndroidHttp.loadRenderedReportPage==='function'))return Promise.reject(new Error('Rendered report bridge is unavailable.'));
+  if(renderedReportWaiter){clearTimeout(renderedReportWaiter.timer);renderedReportWaiter.reject(new Error('A new report request replaced the previous request.'));renderedReportWaiter=null}
+  return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{renderedReportWaiter=null;reject(new Error('Rendered report page timed out.'))},26000);renderedReportWaiter={resolve,reject,timer};window.AndroidHttp.loadRenderedReportPage(url)});
+}
+function formFields(doc){const p=new URLSearchParams();doc.querySelectorAll('input[name]').forEach(i=>{if((i.type==='hidden'||i.type==='submit')&&i.value)p.set(i.name,i.value)});return p}
+function findName(doc,suffix){const el=[...doc.querySelectorAll('[name]')].find(x=>x.name===suffix||x.name.endsWith('$'+suffix)||x.id===suffix||x.id.endsWith('_'+suffix));return el?.name||suffix}
+// Account data must never survive across sign-ins; settings and remembered username may.
+function resetAccountData(){
+  clearInterval(APP.monitorTimer);APP.monitorTimer=null;
+  APP.logged=false;APP.role='';APP.companies=[];APP.filtered=[];APP.current=null;APP.report=null;
+  APP.alerts=[];APP.monthly=[];APP.forecast=[];APP.pendingPdf=null;
+  for(const key of Object.keys(localStorage)){
+    if(/^(etm_companies|etm_logged|etm_alerts|etm_last_scan|etm_pending_company|etm_report_|etm_monthly_|etm_forecast_|etm_phone_notice_)/.test(key))localStorage.removeItem(key);
+  }
+}
+let clearSessionWaiter=null;
+window.onNativeSessionCleared=function(){if(clearSessionWaiter){clearSessionWaiter();clearSessionWaiter=null}};
+function clearSessionNative(){
+  if(!window.AndroidHttp?.clearSessionAsync)return Promise.resolve();
+  return new Promise(resolve=>{const timer=setTimeout(()=>{clearSessionWaiter=null;resolve()},4000);clearSessionWaiter=()=>{clearTimeout(timer);resolve()};window.AndroidHttp.clearSessionAsync()});
+}
+let websiteLoginWaiter=null;
+window.onNativeWebsiteLogin=function(raw){
+  if(!websiteLoginWaiter)return;
+  const waiter=websiteLoginWaiter;websiteLoginWaiter=null;clearTimeout(waiter.timer);
+  try{const out=typeof raw==='string'?JSON.parse(raw):raw;if(!out?.ok)return waiter.reject(new Error(out?.error||'Giriş başarısız'));waiter.resolve({text:'',url:out.url||'',status:200,role:out.role||''});}catch(e){waiter.reject(new Error('Giriş sonucu okunamadı: '+e.message));}
+};
+function loginThroughWebsite(user,pass,remember){
+  if(!(window.AndroidHttp&&typeof window.AndroidHttp.loginWithWebView==='function'))return null;
+  if(websiteLoginWaiter){clearTimeout(websiteLoginWaiter.timer);websiteLoginWaiter.reject(new Error('Yeni giriş isteği önceki isteğin yerini aldı.'));websiteLoginWaiter=null;}
+  return new Promise((resolve,reject)=>{const timer=setTimeout(()=>{websiteLoginWaiter=null;reject(new Error('Giriş zaman aşımına uğradı.'))},45000);websiteLoginWaiter={resolve,reject,timer};window.AndroidHttp.loginWithWebView(APP.base,user,pass,remember);});
+}
+async function login(user,pass,remember){
+  let out;
+  const nativeLogin=loginThroughWebsite(user,pass,remember);
+  if(nativeLogin)out=await nativeLogin;
+  else{
+    const first=await fetchText('/User/GirisYap.aspx');const doc=new DOMParser().parseFromString(first.text,'text/html');const body=formFields(doc);
+    body.set(findName(doc,'TbKullaniciAdi'),user);body.set(findName(doc,'TbParola'),pass);if(remember)body.set(findName(doc,'Cb1'),'on');
+    const button=[...doc.querySelectorAll('input[type=submit][name],button[name]')].find(x=>/Giris/i.test(x.name)||/Giriş|Giris/i.test(x.value||x.textContent));if(button)body.set(button.name,button.value||'Giriş');
+    out=await fetchText('/User/GirisYap.aspx',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:body.toString()});
+  }
+  if(/Yanlış kullanc|Yanlis kullanc|Kullanıcı Adı ve parola/i.test(out.text))throw new Error('Kullanıcı adı veya parola yanlış.');
+  const finalPath=new URL(out.url||'/User/GirisYap.aspx',APP.base+'/').pathname.toLowerCase();
+  if(finalPath.includes('girisyap.aspx'))throw new Error('Giriş doğrulanamadı. Kullanıcı adı ve parolayı kontrol edin.');
+  if(finalPath.startsWith('/default.aspx')||finalPath.startsWith('/gruplar.aspx')){APP.role='user';APP.logged=true;APP.companies=[];APP.filtered=[];localStorage.setItem('etm_user',remember?user:'');localStorage.removeItem('etm_logged');window.AndroidHttp?.openUserPortal?.();return true;}
+  if(!finalPath.startsWith('/admin'))throw new Error('Beklenmeyen giriş yönlendirmesi: '+finalPath);
+  // The server normally redirects the authenticated session to /admin/.
+  // The Android bridge now opens /admin/ first, then loads the exact rendered
+  // /admin/ozet.aspx page and waits for its JavaScript/DataTables rows to appear.
+  const diagnostics=[];let found=[];
+  try{
+    const rendered=await loadRenderedCompanyPage(absolute(APP.companySource));
+    const direct=Array.isArray(rendered.records)?rendered.records.map(r=>({id:String(r.id||''),name:txt(r.name||''),href:r.href||('/Aylik_Liste.aspx?FirmaId='+encodeURIComponent(r.id)+'&ftext='+encodeURIComponent(r.name||'')),devices:1,active:true})).filter(r=>r.id&&r.name):[];
+    const parsedPage=parseCompanies(rendered.text||'');
+    const page=parsedPage.length?parsedPage:direct;
+    diagnostics.push(`${APP.companySource}: rendered DOM, ${page.length} records, ${Number(rendered.totalRows||0)} table rows${rendered.login?', login page returned':''}`);
+    if(page.length){found=page;APP.role='admin'}
+  }catch(e){diagnostics.push(`${APP.companySource}: rendered DOM error: ${e.message}`)}
+
+  const probes=[
+    {path:APP.companySource,role:'admin'},
+    {path:out.url||'/admin/',html:out.text,role:'admin'},
+    {path:'/Admin/Ozet.aspx',role:'admin'}
+  ];
+  for(const probe of probes){
+    if(found.length)break;
+    try{
+      const result=probe.html?{text:probe.html,url:probe.path,status:200}:await fetchText(probe.path);
+      const page=parseCompanies(result.text);
+      const pd=new DOMParser().parseFromString(result.text,'text/html');
+      const isLogin=!!pd.querySelector('input[name*=TbKullaniciAdi],input[id*=TbKullaniciAdi]')||/Kullanıcı Adı ve parola|Giriş Yap/i.test(txt(pd.body?.textContent||''));
+      const title=txt(pd.title||'').slice(0,50);
+      diagnostics.push(`${probe.path}: static HTTP ${result.status}, ${page.length} records${isLogin?', login page returned':''}${title?', '+title:''}`);
+      if(page.length){found=page;APP.role=probe.role;break;}
+    }catch(e){diagnostics.push(`${probe.path}: ${e.message}`)}
+  }
+  APP.role='admin';APP.companies=found;APP.logged=true;APP.filtered=[...found];
+  localStorage.setItem('etm_user',remember?user:'');localStorage.setItem('etm_logged','1');
+  cacheCompanies();startMonitor();
+  if(!found.length)console.warn('Giriş başarılı; şirket listesi boş veya alınamadı:',diagnostics.join(' | '));
+  return true;
+}
+function parseCompanies(html){
+  const doc=new DOMParser().parseFromString(html,'text/html'),map=new Map();
+  const cleanName=s=>txt(s).replace(/\[?PDF\]?/ig,'').replace(/\[?Ayarlar\]?/ig,'').replace(/^\s*[|•-]+|[|•-]+\s*$/g,'').trim();
+  const idFromRaw=raw=>{
+    if(!raw)return '';
+    const value=String(raw).replace(/&amp;/g,'&').replace(/\\u0026/g,'&');
+    try{const u=new URL(value,APP.base+'/');for(const [k,v] of u.searchParams){if(/^(FirmaId|FirmaID|firmaid|Kimin|kimin|Firma|firma|fid|id|SayacId|sayacid|SirketId|sirketid|MusteriId|musteriid|AboneId|aboneid|no)$/i.test(k)&&/^\d{1,12}$/.test(v))return v}}catch{}
+    const m=value.match(/(?:FirmaId|FirmaID|firmaid|Kimin|kimin|fid|SayacId|SirketId|MusteriId|AboneId|firma|id|no)\D{0,20}(\d{1,12})/i)||value.match(/__doPostBack\([^)]*?['"](\d{1,12})['"]/i);
+    return m?m[1]:'';
+  };
+  const absoluteHref=raw=>{
+    if(!raw||/^javascript:|^#$/i.test(String(raw).trim()))return '';
+    try{return new URL(String(raw).replace(/&amp;/g,'&'),absolute(APP.companySource)).href}catch{return ''}
+  };
+  const score=(href,label)=>{
+    const h=String(href||''),t=txt(label);
+    let s=0;
+    if(/Aylik_?Liste|rapor|detay/i.test(h))s+=8;
+    if(t&&!/PDF|Ayarlar/i.test(t))s+=5;
+    if(/PDF|Ayarlar|ayar|setting/i.test(h+' '+t))s-=12;
+    return s;
+  };
+  const add=(raw,name='',idHint='')=>{
+    const id=String(idHint||idFromRaw(raw)||'').trim();if(!id)return;
+    const clean=cleanName(name)||('Şirket '+id);
+    let href=absoluteHref(raw);
+    if(!href)href=new URL('/Aylik_Liste.aspx?FirmaId='+encodeURIComponent(id)+'&ftext='+encodeURIComponent(clean),APP.base+'/').href;
+    const item={id,name:clean,href,settingsHref:new URL('/admin/IsletmeAyarlari.aspx?id='+encodeURIComponent(id),APP.base+'/').href,devices:1,active:true,_score:score(href,name)};
+    const prev=map.get(id);
+    if(!prev||item._score>prev._score)map.set(id,item);
+    else if(prev&&/^Şirket \d+$/.test(prev.name)&&clean)prev.name=clean;
+  };
+
+  // Read each company row. The company name link is preferred for the report URL,
+  // while PDF/Ayarlar links may still provide the hidden company identifier.
+  doc.querySelectorAll('tr').forEach(row=>{
+    const cells=[...row.querySelectorAll(':scope > td')];if(!cells.length)return;
+    const first=cells[0];
+    const links=[...first.querySelectorAll('a,[href],[onclick],[data-href],[data-url]')];
+    const companyLink=links.find(el=>{const t=txt(el.textContent);return t&&!/^(?:\[?PDF\]?|\[?Ayarlar\]?|PDF|Ayarlar)$/i.test(t)})||null;
+    const name=cleanName(companyLink?.textContent||first.textContent);
+    if(!name||/^(FIRMA|ŞİRKET|SIRKET)$/i.test(name))return;
+    const rawParts=[];
+    row.querySelectorAll('[href],[onclick],[data-href],[data-url],[data-id],[data-firmaid],[data-kimin],[value]').forEach(el=>{
+      rawParts.push(el.getAttribute('href'),el.getAttribute('onclick'),el.getAttribute('data-href'),el.getAttribute('data-url'),el.getAttribute('data-id'),el.getAttribute('data-firmaid'),el.getAttribute('data-kimin'),el.getAttribute('value'));
+    });
+    const id=rawParts.filter(Boolean).map(idFromRaw).find(Boolean)||'';
+    const reportRaw=companyLink&&(companyLink.getAttribute('href')||companyLink.getAttribute('data-href')||companyLink.getAttribute('data-url')||companyLink.getAttribute('onclick'));
+    if(id)add(reportRaw||'/Aylik_Liste.aspx?FirmaId='+encodeURIComponent(id),name,id);
+  });
+
+  // Fallback for pages where the report links are outside normal rows.
+  doc.querySelectorAll('a[href],area[href],[data-href],[data-url]').forEach(el=>{
+    const label=txt(el.textContent||el.getAttribute('title')||'');
+    if(/^(?:\[?PDF\]?|\[?Ayarlar\]?|PDF|Ayarlar)$/i.test(label))return;
+    const raw=el.getAttribute('href')||el.getAttribute('data-href')||el.getAttribute('data-url');
+    add(raw,label);
+  });
+  const source=html.replace(/&amp;/g,'&');
+  (source.match(/(?:https?:\/\/[^'"<>\s]+|[\/\w.-]*Aylik_?Liste\.aspx\?[^'"<>\s]+)/ig)||[]).forEach(h=>add(h,''));
+  return [...map.values()].map(({_score,...item})=>item).sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+}
+async function getCompaniesFrom(path){const r=await fetchText(path);return parseCompanies(r.text)}
+function cacheCompanies(){localStorage.setItem('etm_companies',JSON.stringify(APP.companies))}
+function restoreCache(){try{APP.companies=JSON.parse(localStorage.getItem('etm_companies')||'[]');APP.filtered=[...APP.companies]}catch{}}
+
+function showLogin(){APP.report=null;app.innerHTML=`${offlineBar()}<main class="login-wrap"><section class="login-hero"><img src="ets_logo.png" class="ets-logo login-logo" alt="ETS"><h1>ETS Enerji Takip</h1><p>Enerji Takip Sistemi</p></section><section class="card login-panel"><h2>Sisteme Hoş Geldiniz</h2><div class="sub login-help">Giriş yapmak için kullanıcı bilgilerinizi giriniz.</div><div class="login-field">${icon('companies')}<input id="user" class="input" autocomplete="username" value="${esc(localStorage.getItem('etm_user')||'')}" placeholder="Kullanıcı adı"></div><div class="login-field">${icon('settings')}<input id="pass" class="input" type="password" autocomplete="current-password" placeholder="Parola"></div><label class="check"><input id="remember" type="checkbox" ${localStorage.getItem('etm_user')?'checked':''}> Beni Hatırla</label><div class="login-actions"><button id="loginBtn" class="btn btn-primary btn-block" onclick="doLogin()">Giriş Yap</button></div><div id="loginError" class="sub red center" style="margin-top:12px"></div></section><div class="version">Sürüm 2.0.4 • 2026</div></main>`}
+async function doLogin(){const user=$('#user').value.trim(),pass=$('#pass').value,remember=$('#remember').checked;if(!user||!pass){$('#loginError').textContent='Kullanıcı adı ve parola giriniz.';return}const b=$('#loginBtn');b.disabled=true;b.innerHTML='<span class="loader" style="width:18px;height:18px"></span>';$('#loginError').textContent='';resetAccountData();await clearSessionNative();try{await login(user,pass,remember);if(APP.role!=='user')showDashboard();}catch(e){resetAccountData();await clearSessionNative();$('#loginError').textContent=e.message;b.disabled=false;b.textContent='Giriş Yap';}}
+async function logout(){try{await fetchText('/User/CikisYap.aspx')}catch(e){console.warn('Server logout:',e.message)}resetAccountData();await clearSessionNative();showLogin()}
+
+function showDashboard(){if(!APP.logged&&APP.companies.length===0)return showLogin();APP.report=null;const bad=APP.alerts.filter(a=>a.active).length,last=localStorage.getItem('etm_last_scan')||'Henüz kontrol edilmedi';app.innerHTML=`${topBar('Genel Bakış',false)}${offlineBar()}<main class="page"><section class="card dashboard-hero"><div class="sub">ETS Enerji Takip</div><h2 style="margin:5px 0 12px">Enerji verileriniz tek ekranda</h2><div class="sub">Son senkronizasyon: ${esc(last)}</div><button class="btn btn-sm" style="margin-top:15px" onclick="scanAlerts(true)">${icon('refresh')} Şimdi Senkronize Et</button></section><div class="summary-cards"><div class="summary-card"><div class="sub">Toplam Şirket</div><b>${APP.companies.length}</b></div><div class="summary-card"><div class="sub">Aktif Uyarı</div><b class="${bad?'red':''}">${bad}</b></div></div><div class="section-heading"><div><strong>Hızlı İşlemler</strong><span>Bir işlem seçin</span></div></div><div class="quick-grid"><section class="card quick-action" onclick="showCompanies()">${icon('companies')}<b>Şirketleri görüntüle</b></section><section class="card quick-action" onclick="showAlerts()">${icon('alert')}<b>Limit uyarıları</b></section><section class="card quick-action" onclick="showMonthlyExceeded()">${icon('reports')}<b>Ay sonu raporu</b></section><section class="card quick-action" onclick="showSettings()">${icon('settings')}<b>Uygulama ayarları</b></section></div></main>`}
+function showCompanies(){APP.report=null;APP.filtered=[...APP.companies];APP.companyLimit=60;app.innerHTML=`${topBar(APP.role==='admin'?'Tüm Şirketler':'Şirketlerim',false)}${offlineBar()}<main class="page"><div class="search-shell">${icon('search')}<input class="input" id="search" placeholder="Şirket veya sayaç ara..." oninput="filterCompanies(this.value)"><button class="btn btn-soft" aria-label="Yenile" onclick="refreshCompanies()">${icon('refresh')}</button></div><div class="list-meta"><div><b id="companyCount">${APP.filtered.length} şirket</b><div class="sub">/admin/ozet.aspx ile senkronize</div></div><span class="pill redp">Canlı Liste</span></div><div id="companyList">${companyRows(APP.filtered)}</div></main>`}
+function companyRows(list){if(!list.length)return '<div class="empty">Şirket bulunamadı.</div>';const visible=list.slice(0,APP.companyLimit);const rows=visible.map((c,i)=>`<section class="card company company-card" onclick="openCompany('${encodeURIComponent(c.id)}')"><span class="company-avatar">${esc(initials(c.name))}</span><div class="company-copy"><div class="strong">${esc(c.name)}</div><div class="company-meta"><span>Firma kodu: ${esc(c.id)}</span><span class="status">Aktif</span></div></div><span class="chev">${icon('chevron')}</span></section>`).join('');return rows+(visible.length<list.length?`<button class="btn btn-soft btn-block load-more" onclick="loadMoreCompanies()">Daha Fazla Göster (${list.length-visible.length})</button>`:'')}
+function filterCompanies(q){const n=norm(q);APP.companyLimit=60;APP.filtered=APP.companies.filter(c=>norm(c.name).includes(n)||String(c.id).includes(q));$('#companyList').innerHTML=companyRows(APP.filtered);const count=$('#companyCount');if(count)count.textContent=`${APP.filtered.length} şirket`}
+function loadMoreCompanies(){APP.companyLimit+=60;$('#companyList').innerHTML=companyRows(APP.filtered)}
+async function refreshCompanies(){
+  if(!APP.logged)return showLogin();toast('Şirket listesi yenileniyor...');
+  try{
+    const path=APP.role==='admin'?'/admin/ozet.aspx':'/Gruplar.aspx';const response=await fetchText(path);
+    const page=new DOMParser().parseFromString(response.text,'text/html');
+    if(/\/User\/GirisYap\.aspx/i.test(response.url)||page.querySelector('input[name*=TbParola],input[id*=TbParola]'))throw new Error('Oturum sona erdi. Tekrar giriş yapın.');
+    const list=parseCompanies(response.text);APP.companies=list;APP.filtered=[...list];APP.lastSync=new Date().toISOString();
+    cacheCompanies();showCompanies();toast(list.length?`${list.length} şirket güncellendi.`:'Sunucu boş şirket listesi döndürdü.');
+  }catch(e){toast('Yenileme başarısız: '+e.message)}
+}
+async function openCompany(enc){
+  const id=decodeURIComponent(enc),c=APP.companies.find(x=>String(x.id)===id);if(!c)return;
+  APP.dailyLimit=12;APP.current=c;APP.report=null;loading(c.name+' raporu okunuyor...');
+  try{
+    APP.report=await loadReport(c,APP.month,APP.year,true);
+    saveReportCache(APP.report);checkReportAlert(c,APP.report,true);showDevice('daily');
+  }catch(e){
+    const cached=getReportCache(c.id,APP.month,APP.year);
+    if(cached){APP.report=cached;toast('Bağlantı kurulamadı; kayıtlı veri gösteriliyor.');showDevice('daily')}
+    else{app.innerHTML=`${topBar('Enerji Raporu')}<main class="page"><section class="card center"><h2>Rapor okunamadı</h2><p class="sub">${esc(e.message)}</p><button class="btn btn-primary" onclick="openCompany('${encodeURIComponent(id)}')">Tekrar Dene</button></section></main>${bottom('companies')}`}
+  }
+}
+
+function reportCandidates(company,month,year){
+  const out=[],seen=new Set(),push=u=>{try{const href=new URL(u,APP.base+'/').href;if(!seen.has(href)){seen.add(href);out.push(href)}}catch{}};
+  if(company.href){
+    push(company.href);
+    try{
+      const dated=new URL(company.href,APP.base+'/');
+      dated.searchParams.set('ay',month);dated.searchParams.set('yil',year);
+      if(!dated.searchParams.get('ftext'))dated.searchParams.set('ftext',company.name);
+      push(dated.href);
+    }catch{}
+  }
+  const roots=['/Aylik_Liste.aspx','/admin/Aylik_Liste.aspx'];
+  for(const root of roots){
+    for(const key of ['FirmaId','Kimin']){
+      const u=new URL(root,APP.base+'/');u.searchParams.set(key,company.id);u.searchParams.set('ay',month);u.searchParams.set('yil',year);u.searchParams.set('ftext',company.name);push(u.href);
+    }
+  }
+  return out;
+}
+function reportPageState(html){
+  const doc=new DOMParser().parseFromString(html||'','text/html');
+  const hasPassword=!!doc.querySelector('input[type=password]');
+  const hasUser=!!doc.querySelector('input[name*=Kullanici],input[id*=Kullanici],input[name*=TbKullaniciAdi],input[id*=TbKullaniciAdi]');
+  const body=txt(doc.body?.textContent||'');
+  return {login:hasPassword&&hasUser,denied:/Yetkiniz olmayan|yetkiniz yok|erişim yetkiniz/i.test(body),title:txt(doc.title||'')};
+}
+function reportHasData(report){
+  return !!(report&&(report.records.length||Number.isFinite(report.current.kwh)||report.current.v.some(Number.isFinite)||report.current.a.some(Number.isFinite)));
+}
+async function loadReport(company,month,year,allowRendered=false){
+  const candidates=reportCandidates(company,month,year),diagnostics=[];
+  for(const url of candidates){
+    try{
+      const r=await fetchText(url),state=reportPageState(r.text);
+      if(state.login){diagnostics.push(`${new URL(url).pathname}: login page`);continue}
+      if(state.denied){diagnostics.push(`${new URL(url).pathname}: permission denied`);continue}
+      const parsed=parseReport(r.text,company,month,year,r.url||url);
+      if(reportHasData(parsed))return parsed;
+      diagnostics.push(`${new URL(url).pathname}: HTTP ${r.status}, report table not found${state.title?' ('+state.title+')':''}`);
+    }catch(e){diagnostics.push(`${new URL(url).pathname}: ${e.message}`)}
+  }
+
+  if(allowRendered){
+    for(const url of candidates.slice(0,3)){
+      try{
+        const rendered=await loadRenderedReportPage(url),state=reportPageState(rendered.text||'');
+        if(rendered.login||state.login){diagnostics.push(`${new URL(url).pathname}: rendered login page`);continue}
+        if(rendered.denied||state.denied){diagnostics.push(`${new URL(url).pathname}: rendered permission denied`);continue}
+        const parsed=parseReport(rendered.text||'',company,month,year,rendered.url||url);
+        if(reportHasData(parsed))return parsed;
+        diagnostics.push(`${new URL(url).pathname}: rendered page, report table not found`);
+      }catch(e){diagnostics.push(`${new URL(url).pathname}: rendered ${e.message}`)}
+    }
+  }
+  throw new Error('The company link was found, but its energy report could not be read. '+diagnostics.join(' • '));
+}
+function tableRows(table){return [...table.rows].map(r=>[...r.cells].map(c=>txt(c.innerHTML)))}
+function parseReport(html,company,month,year,url){const doc=new DOMParser().parseFromString(html,'text/html');const all=[...doc.querySelectorAll('table')].map(tableRows).filter(r=>r.length);let daily=[];for(const rows of all){const h=norm(rows[0].join(' '));if(h.includes('TARIH')&&h.includes('TOPLAM')&&(h.includes('IND.ORAN')||h.includes('IND ORAN'))){daily=rows;break}}
+  let headers=[],records=[];if(daily.length){headers=daily[0].map(norm);for(const row of daily.slice(1)){if(row.length<5)continue;const get=(...keys)=>{let i=headers.findIndex(h=>keys.some(k=>h.includes(k)));return i>=0?row[i]:''};records.push({date:get('TARIH'),max:get('MAX.DEM','MAX DEM'),total:num(get('TOPLAM')),inductive:num(get('INDUKTIF')),capacitive:num(get('KAPASITIF')),activeDiff:num(get('TOP.FARK','TOP FARK')),indDiff:num(get('IND.FARK','IND FARK')),capDiff:num(get('KAP.FARK','KAP FARK')),indRatio:num(get('IND.ORAN','IND ORAN')),capRatio:num(get('KAP.ORAN','KAP ORAN'))});}}
+  records=records.filter(r=>r.date&&(!norm(r.date).includes('TOPLAM')));
+  let current={kwh:NaN,indKvarh:NaN,capKvarh:NaN,v:[NaN,NaN,NaN],a:[NaN,NaN,NaN],active:[NaN,NaN,NaN],reactive:[NaN,NaN,NaN],cos:[NaN,NaN,NaN],frequency:NaN,powerFactor:NaN};
+  for(const rows of all){if(rows.length<2)continue;const h=rows[0].map(norm),joined=h.join(' ');if(joined.includes('KWH')&&(joined.includes('GERILIM')||joined.includes('AKIM'))){const val=rows[1];const at=(...ks)=>{let i=h.findIndex(x=>ks.some(k=>x.includes(k)));return i>=0?num(val[i]):NaN};current.kwh=at('KWH');current.indKvarh=at('IND. KVARH','IND KVARH');current.capKvarh=at('KAP. KVARH','KAP KVARH');current.v=[at('L1 GERILIM'),at('L2 GERILIM'),at('L3 GERILIM')];current.a=[at('L1 AKIM'),at('L2 AKIM'),at('L3 AKIM')];break}}
+  const bodyText=txt(doc.body?.innerHTML||html);const imei=(bodyText.match(/IMEI\s*:\s*([A-Z0-9]+)/i)||[])[1]||'';const rawLastRead=(bodyText.match(/Son\s+okuma\s*:\s*([^|]+?)(?:\s{2,}|$)/i)||[])[1]||records.at(-1)?.date||'';const lastRead=readingDateTimeOnly(rawLastRead)||readingDateTimeOnly(records.at(-1)?.date)||'';
+  if(records.length){const last=records.at(-1);if(!Number.isFinite(current.kwh))current.kwh=last.total;if(!Number.isFinite(current.indKvarh))current.indKvarh=last.inductive;if(!Number.isFinite(current.capKvarh))current.capKvarh=last.capacitive;}
+  let indRatio=records.at(-1)?.indRatio,capRatio=records.at(-1)?.capRatio;const valid=records.filter(r=>Number.isFinite(r.activeDiff)&&r.activeDiff>0);if(!Number.isFinite(indRatio)&&valid.length){const ad=valid.reduce((s,r)=>s+r.activeDiff,0),id=valid.reduce((s,r)=>s+(Number.isFinite(r.indDiff)?r.indDiff:0),0);indRatio=ad?id/ad*100:0}if(!Number.isFinite(capRatio)&&valid.length){const ad=valid.reduce((s,r)=>s+r.activeDiff,0),cd=valid.reduce((s,r)=>s+(Number.isFinite(r.capDiff)?r.capDiff:0),0);capRatio=ad?cd/ad*100:0}
+  const avgA=average(current.a),avgV=average(current.v),activePower=Number.isFinite(avgA)&&Number.isFinite(avgV)?avgA*avgV*1.732/1000:NaN;
+  return {company,month,year,url,imei,lastRead,current,records,indRatio:Number.isFinite(indRatio)?indRatio:0,capRatio:Number.isFinite(capRatio)?capRatio:0,avgA,avgV,activePower,loadedAt:new Date().toISOString()};
+}
+function average(a){const v=a.filter(Number.isFinite);return v.length?v.reduce((x,y)=>x+y,0)/v.length:NaN}
+function saveReportCache(r){/* Live reports are not persisted across navigation or sign-ins. */}
+function getReportCache(id,m,y){return null;}
+
+function showDevice(tab=APP.tab){if(!APP.report)return showCompanies();APP.tab=tab;const r=APP.report,c=r.company;app.innerHTML=`${topBar(tab==='daily'?'Enerji Raporu':tab==='current'?'Akım–Gerilim Raporu':'Reaktif Rapor')}${offlineBar()}<main class="page"><section class="device-card"><div class="device-company-row"><span class="company-avatar">${esc(initials(c.name))}</span><div><div class="device-title">${esc(c.name)}</div><div class="company-meta"><span class="status">Aktif</span><span>Firma kodu ${esc(c.id)}</span></div></div></div><div class="meta-grid"><div><span class="meta-label">Modem / IMEI</span><strong class="meta-value">${esc(r.imei||'—')}</strong></div><div><span class="meta-label">Rapor Dönemi</span><strong class="meta-value">${MONTHS[r.month-1]} ${r.year}</strong></div><div><span class="meta-label">İlk / Son Veri</span><strong class="meta-value">${esc(r.records[0]?.date||'—')} – ${esc(r.lastRead||r.records.at(-1)?.date||'—')}</strong></div><div><span class="meta-label">Kayıt Sayısı</span><strong class="meta-value">${r.records.length}</strong></div></div></section><section class="thin-info"><span>İndüktif Limit: <b>%${APP.settings.indLimit}</b></span><span>Kapasitif Limit: <b>%${APP.settings.capLimit}</b></span></section><nav class="tabs" aria-label="Rapor tipi"><button class="tab ${tab==='daily'?'active':''}" onclick="showDevice('daily')">Günlük</button><button class="tab ${tab==='current'?'active':''}" onclick="showDevice('current')">Akım / Gerilim</button><button class="tab ${tab==='reactive'?'active':''}" onclick="showDevice('reactive')">Reaktif</button></nav><section class="monthbar"><button class="btn btn-sm" onclick="changeMonth(-1)">‹ Önceki</button><div class="monthpick">${MONTHS[r.month-1]} ${r.year}</div><button class="btn btn-sm" onclick="changeMonth(1)">Sonraki ›</button></section>${deviceTab(r,tab)}</main>`}
+function deviceTab(r,tab){if(tab==='current')return currentTab(r);if(tab==='reactive')return reactiveTab(r);return dailyTab(r)}
+function dailyTab(r){const latest=r.records.at(-1),shown=r.records.slice().reverse().slice(0,APP.dailyLimit);return `<div class="stats"><article class="stat"><span class="stat-label">Ort. Akım</span><strong class="stat-value">${fmt(r.avgA)} A</strong><small class="stat-note">L1–L3 ortalaması</small></article><article class="stat"><span class="stat-label">Ort. Gerilim</span><strong class="stat-value">${fmt(r.avgV)} V</strong><small class="stat-note">Faz ortalaması</small></article><article class="stat"><span class="stat-label">Aktif Enerji</span><strong class="stat-value">${fmt(latest?.activeDiff,2)} kWh</strong><small class="stat-note">Son günlük fark</small></article></div>${gaugeHtml(r.indRatio,r.capRatio)}${warningHtml(r)}<div class="section-heading"><div><strong>Günlük Kayıtlar</strong><span>Detay için güne dokunun</span></div><span class="pill redp">${r.records.length} gün</span></div>${r.records.length?shown.map((x,i)=>dayHtml(x,r.records.length-i,i===0)).join(''):'<div class="empty">Bu ay için günlük kayıt bulunamadı.</div>'}${shown.length<r.records.length?`<button class="btn btn-soft btn-block" onclick="APP.dailyLimit+=12;showDevice('daily')">Daha Fazla Kayıt Göster</button>`:''}<div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="showTableReport()">Tüm Tablo</button><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div>`}
+function gaugeHtml(ind,cap){const ip=Math.min(100,Math.max(0,ind/APP.settings.indLimit*100)),cp=Math.min(100,Math.max(0,cap/APP.settings.capLimit*100));return `<div class="gauges"><article class="gauge"><span class="sub">İndüktif Oran</span><strong class="gauge-value" style="color:${ind>=APP.settings.indLimit?'var(--red)':'var(--green)'}">% ${fmt(ind)}</strong><div class="progress-meter"><i style="width:${ip}%;background:${ind>=APP.settings.indLimit?'var(--red)':'var(--green)'}"></i></div><div class="limit-note">Uyarı limiti: %${APP.settings.indLimit}</div></article><article class="gauge"><span class="sub">Kapasitif Oran</span><strong class="gauge-value" style="color:${cap>=APP.settings.capLimit?'var(--red)':'var(--green)'}">% ${fmt(cap)}</strong><div class="progress-meter"><i style="width:${cp}%;background:${cap>=APP.settings.capLimit?'var(--red)':'var(--green)'}"></i></div><div class="limit-note">Uyarı limiti: %${APP.settings.capLimit}</div></article></div>`}
+function warningHtml(r){const msgs=[];if(r.indRatio>=APP.settings.indLimit)msgs.push(`İndüktif oran %${fmt(r.indRatio)} ile %${APP.settings.indLimit} limitini aştı.`);if(r.capRatio>=APP.settings.capLimit)msgs.push(`Kapasitif oran %${fmt(r.capRatio)} ile %${APP.settings.capLimit} limitini aştı.`);return msgs.length?`<div class="warnbox"><b>⚠</b><div class="grow">${msgs.map(esc).join('<br>')}</div><button class="btn btn-primary btn-sm" onclick="sendWhatsAppCurrent()">WhatsApp</button></div>`:''}
+function dayHtml(x,n,open=false){return `<article class="day-card ${open?'open':''}"><button class="day-toggle" type="button" onclick="toggleDayCard(this)"><span class="daynum">${String(n).padStart(2,'0')}</span><span class="day-copy"><span class="day-title"><strong>${esc(x.date)}</strong><span>Günlük sayaç kaydı</span></span><span class="mini-values"><span class="mini">Aktif fark<b>${fmt(x.activeDiff,3)} kWh</b></span><span class="mini">İndüktif<b>% ${fmt(x.indRatio)}</b></span><span class="mini">Kapasitif<b>% ${fmt(x.capRatio)}</b></span></span></span><span class="day-chevron">⌄</span></button><div class="day-details"><div class="detail-kpis"><div><span>Toplam Aktif</span><b>${fmt(x.total,3)} kWh</b></div><div><span>Max. Demand</span><b>${esc(x.max||'—')}</b></div><div><span>İndüktif Enerji</span><b>${fmt(x.inductive,3)} kvarh</b></div><div><span>Kapasitif Enerji</span><b>${fmt(x.capacitive,3)} kvarh</b></div></div><div class="details-footer"><span>İndüktif fark ${fmt(x.indDiff,3)} • Kapasitif fark ${fmt(x.capDiff,3)}</span><button class="btn btn-primary" onclick="event.stopPropagation();showTableReport()">Tüm ölçümler</button></div></div></article>`}
+function toggleDayCard(button){const card=button.closest('.day-card');document.querySelectorAll('.day-card.open').forEach(x=>{if(x!==card)x.classList.remove('open')});card.classList.toggle('open')}
+function currentTab(r){const c=r.current;return `<div class="section-heading"><div><strong>Anlık Akım ve Gerilim</strong><span>Son güncelleme: ${esc(r.lastRead||'—')}</span></div><span class="status">Canlı veri</span></div><article class="current-card"><div class="instant-time">${esc(r.lastRead||'Son ölçüm')}</div><table class="phase-table"><thead><tr><th></th><th>L1</th><th>L2</th><th>L3</th></tr></thead><tbody><tr class="phase-accent"><td>Akım (A)</td>${c.a.map(x=>`<td>${fmt(x,2)}</td>`).join('')}</tr><tr class="phase-accent"><td>Gerilim (V)</td>${c.v.map(x=>`<td>${fmt(x,2)}</td>`).join('')}</tr><tr><td>Aktif Güç (kW)</td>${(c.active||[]).map(x=>`<td>${fmt(x,3)}</td>`).join('')||'<td>—</td><td>—</td><td>—</td>'}</tr><tr><td>Reaktif Güç</td>${(c.reactive||[]).map(x=>`<td>${fmt(x,3)}</td>`).join('')||'<td>—</td><td>—</td><td>—</td>'}</tr><tr><td>Cos φ</td>${(c.cos||[]).map(x=>`<td>${fmt(x,3)}</td>`).join('')||'<td>—</td><td>—</td><td>—</td>'}</tr></tbody></table></article><div class="reactive-box" style="margin-top:12px"><article class="bigmetric"><span class="sub">Aktif Enerji (1.8.0)</span><b>${fmt(c.kwh,3)} kWh</b></article><article class="bigmetric"><span class="sub">Tahmini Aktif Güç</span><b>${fmt(r.activePower,2)} kW</b></article></div>${gaugeHtml(r.indRatio,r.capRatio)}${warningHtml(r)}<button class="btn btn-soft btn-block" onclick="reloadCurrent()">${icon('refresh')} Değerleri Yenile</button>`}
+function phaseRow(v,unit){return `<table class="phase-table"><tr><th></th><th>L1</th><th>L2</th><th>L3</th></tr><tr><td>${unit}</td>${v.map(x=>`<td>${fmt(x,2)}</td>`).join('')}</tr></table>`}
+function reactiveTab(r){const rows=r.records.slice().reverse().slice(0,14);return `<div class="reactive-box"><article class="bigmetric"><span class="sub">İndüktif Oran</span><b>% ${fmt(r.indRatio)}</b><div class="progress-meter"><i style="width:${Math.min(100,r.indRatio/APP.settings.indLimit*100)}%"></i></div></article><article class="bigmetric"><span class="sub">Kapasitif Oran</span><b>% ${fmt(r.capRatio)}</b><div class="progress-meter"><i style="width:${Math.min(100,r.capRatio/APP.settings.capLimit*100)}%"></i></div></article></div><div class="reactive-box" style="margin-top:9px"><article class="bigmetric"><span class="sub">İndüktif Enerji</span><b>${fmt(r.current.indKvarh,3)} kvarh</b></article><article class="bigmetric"><span class="sub">Kapasitif Enerji</span><b>${fmt(r.current.capKvarh,3)} kvarh</b></article></div><section class="reactive-list"><table><thead><tr><th>Tarih</th><th>İndüktif</th><th>Kapasitif</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.date)}</td><td>% ${fmt(x.indRatio)}</td><td>% ${fmt(x.capRatio)}</td></tr>`).join('')||'<tr><td colspan="3">Kayıt bulunamadı</td></tr>'}</tbody></table></section>${warningHtml(r)}`}
+async function changeMonth(delta){APP.dailyLimit=12;let d=new Date(APP.report.year,APP.report.month-1+delta,1);APP.month=d.getMonth()+1;APP.year=d.getFullYear();loading('Aylık rapor okunuyor...');try{APP.report=await loadReport(APP.current,APP.month,APP.year,true);saveReportCache(APP.report);checkReportAlert(APP.current,APP.report,true);showDevice(APP.tab)}catch(e){toast(e.message);const c=getReportCache(APP.current.id,APP.month,APP.year);if(c){APP.report=c;showDevice(APP.tab)}else showCompanies()}}
+async function reloadCurrent(){await openCompany(encodeURIComponent(APP.current.id))}
+function showTableReport(){const r=APP.report;app.innerHTML=`${topBar('Aylık Rapor')}${offlineBar()}<main class="page"><div class="row between"><select class="input" style="width:auto" onchange="jumpMonth(this.value)">${monthOptions(r.month,r.year)}</select><div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div></div><h2 class="section-title">${esc(r.company.name)}</h2><div class="table-wrap"><table class="data"><thead><tr><th>Tarih</th><th>Max.Dem.</th><th>Aktif (kWh)</th><th>İnd. (kvarh)</th><th>Kap. (kvarh)</th><th>Aktif Fark</th><th>İnd. Oran %</th><th>Kap. Oran %</th></tr></thead><tbody>${r.records.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.max||'')}</td><td>${fmt(x.total,3)}</td><td>${fmt(x.inductive,3)}</td><td>${fmt(x.capacitive,3)}</td><td>${fmt(x.activeDiff,3)}</td><td>${fmt(x.indRatio,1)}</td><td>${fmt(x.capRatio,1)}</td></tr>`).join('')}<tr><td>Sonuç</td><td>—</td><td colspan="4">${r.records.length} kayıt</td><td>${fmt(r.indRatio)}</td><td>${fmt(r.capRatio)}</td></tr></tbody></table></div></main>${bottom('reports')}`}
+function monthOptions(m,y){let s='';for(let i=0;i<12;i++)s+=`<option ${i+1===m?'selected':''} value="${i+1}-${y}">${MONTHS[i]} ${y}</option>`;return s}
+async function jumpMonth(v){const [m,y]=v.split('-').map(Number);APP.month=m;APP.year=y;await changeMonth(0)}
+
+function checkReportAlert(company,r,popup=false){const exceeded=[];if(r.indRatio>=APP.settings.indLimit)exceeded.push({type:'İndüktif',value:r.indRatio,limit:APP.settings.indLimit});if(r.capRatio>=APP.settings.capLimit)exceeded.push({type:'Kapasitif',value:r.capRatio,limit:APP.settings.capLimit});for(const x of exceeded){const key=`${company.id}_${x.type}_${r.month}_${r.year}`;let a=APP.alerts.find(z=>z.key===key);if(!a){a={key,companyId:company.id,company:company.name,type:x.type,value:x.value,limit:x.limit,time:new Date().toISOString(),active:true};APP.alerts.unshift(a)}else{a.value=x.value;a.active=true;a.time=new Date().toISOString()}}saveAlerts();if(popup&&exceeded.length&&APP.settings.notifications){const x=exceeded[0];modal('Limit Aşımı Uyarısı',`<b>${esc(company.name)}</b><br>${x.type} oranı limit değerini aştı.<br><br>Anlık Değer: <b class="red">%${fmt(x.value)}</b><br>Limit Değeri: <b>%${x.limit}</b>`,`<button class="btn btn-primary btn-block" onclick="closeModal();sendWhatsAppCurrent()">WhatsApp ile Bildir</button><button class="btn btn-soft btn-block" style="margin-top:8px" onclick="closeModal()">Tamam</button>`)}}
+function loadAlerts(){try{APP.alerts=JSON.parse(localStorage.getItem('etm_alerts')||'[]')}catch{APP.alerts=[]}}
+function saveAlerts(){localStorage.setItem('etm_alerts',JSON.stringify(APP.alerts.slice(0,300)))}
+function showAlerts(){const active=APP.alerts.filter(a=>a.active),past=APP.alerts.filter(a=>!a.active);app.innerHTML=`${topBar('Uyarılar',false)}<main class="page"><div class="row between"><h1 class="section-title">Aktif Uyarılar</h1><button class="btn btn-soft btn-sm" onclick="scanAlerts(true)">↻ Kontrol Et</button></div>${active.length?active.map(alertHtml).join(''):'<div class="empty">Aktif uyarı yok.</div>'}${past.length?`<h2 class="section-title">Geçmiş Uyarılar</h2>${past.slice(0,20).map(alertHtml).join('')}`:''}</main>${bottom('home')}`}
+function alertHtml(a){const danger=a.value>=a.limit;return `<section class="card alert-item"><span class="alert-icon ${danger?'danger':''}">⚠</span><div><div class="strong">${esc(a.company)}</div><div class="sub">${esc(a.type)} oran limitini aştı</div><div class="sub">${new Date(a.time).toLocaleString('tr-TR')}</div></div><div class="center"><div class="alert-value ${danger?'red':'orange'}">%${fmt(a.value)}</div><button class="btn btn-soft btn-sm" onclick="sendWhatsAppAlert('${encodeURIComponent(a.key)}')">WhatsApp</button></div></section>`}
+async function runPool(items,limit,worker,onProgress){let next=0,done=0,failed=0;async function run(){while(true){const idx=next++;if(idx>=items.length)return;try{await worker(items[idx],idx)}catch(e){failed++;console.warn('Veri okunamadı:',e)}done++;if(onProgress)onProgress(done,items.length)}}await Promise.all(Array.from({length:Math.min(limit,items.length)},run));return {done,failed}}
+async function scanAlerts(show=true){if(!APP.logged||!APP.companies.length)return;show&&toast('Şirketler kontrol ediliyor...');const result=await runPool(APP.companies,4,async c=>{const r=await loadReport(c,new Date().getMonth()+1,new Date().getFullYear());checkReportAlert(c,r,false)},(done,total)=>{if(show&&(done===total||done%5===0))toast(`${done}/${total} kontrol edildi`)});if(!result.failed)localStorage.setItem('etm_last_scan',new Date().toLocaleString('tr-TR'));show&&toast(result.failed?`${result.failed} şirket okunamadı; senkronizasyon tamamlanmadı.`:'Senkronizasyon tamamlandı.');if(show)showAlerts()}
+function startMonitor(){clearInterval(APP.monitorTimer);if(!APP.settings.notifications)return;APP.monitorTimer=setInterval(()=>scanAlerts(false),Math.max(5,APP.settings.interval)*60000)}
+
+function showReports(){showTableOrMonthly()}
+function showTableOrMonthly(){if(APP.report)showTableReport();else showMonthlyExceeded()}
+function previousMonth(){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-1);return {month:d.getMonth()+1,year:d.getFullYear()}}
+async function showMonthlyExceeded(){const p=previousMonth();const m=APP.month||p.month,y=APP.year||p.year;app.innerHTML=`${topBar('Aylık Limit Aşan Şirketler',false)}<main class="page"><section class="card"><div class="row">${icon('reports')}<select id="monthlyMonth" class="input" style="margin:0" onchange="monthlyMonthChange(this.value)">${monthYearOptions(m,y)}</select></div></section><div class="small-actions export-actions"><button class="btn btn-primary btn-sm" onclick="scanMonthly()">Raporu Hesapla</button><button class="btn btn-soft btn-sm" onclick="exportMonthlyExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportMonthlyPdf()">${icon('pdf')} PDF</button></div><div id="monthlyContent">${monthlyContent(APP.monthly,m,y)}</div></main>${bottom('reports')}`}
+function monthYearOptions(m,y){let s='';for(let k=0;k<24;k++){const d=new Date();d.setDate(1);d.setMonth(d.getMonth()-k);const mm=d.getMonth()+1,yy=d.getFullYear();s+=`<option value="${mm}-${yy}" ${mm===m&&yy===y?'selected':''}>${MONTHS[mm-1]} ${yy}</option>`}return s}
+function monthlyMonthChange(v){const [m,y]=v.split('-').map(Number);APP.month=m;APP.year=y;APP.monthly=[];$('#monthlyContent').innerHTML=monthlyContent([],m,y)}
+async function scanMonthly(){const [m,y]=($('#monthlyMonth')?.value||`${APP.month}-${APP.year}`).split('-').map(Number);APP.month=m;APP.year=y;const host=$('#monthlyContent');host.innerHTML=`<section class="card"><b>Şirketler senkronize ediliyor...</b><div class="progress"><span id="scanProgress"></span></div><div class="sub" id="scanLabel">0 / ${APP.companies.length}</div></section>`;const out=[];await runPool(APP.companies,4,async c=>{const r=await loadReport(c,m,y);if(r.indRatio>=APP.settings.monthlyInd||r.capRatio>=APP.settings.monthlyCap)out.push({company:c,id:c.id,ind:r.indRatio,cap:r.capRatio,report:r})},(done,total)=>{const p=$('#scanProgress'),l=$('#scanLabel');if(p)p.style.width=(done/total*100)+'%';if(l)l.textContent=`${done} / ${total}`});APP.monthly=out.sort((a,b)=>Math.max(b.ind,b.cap)-Math.max(a.ind,a.cap));localStorage.setItem(`etm_monthly_${m}_${y}`,JSON.stringify(APP.monthly));host.innerHTML=monthlyContent(APP.monthly,m,y);toast('Ay sonu raporu hazırlandı.')}
+function monthlyContent(list,m,y){const ind=list.filter(x=>x.ind>=APP.settings.monthlyInd).length,cap=list.filter(x=>x.cap>=APP.settings.monthlyCap).length;return `<div class="summary-cards"><div class="summary-card"><div class="sub">İndüktif ≥ %${APP.settings.monthlyInd}</div><b>${ind}</b><span class="sub"> şirket</span></div><div class="summary-card"><div class="sub">Kapasitif ≥ %${APP.settings.monthlyCap}</div><b>${cap}</b><span class="sub"> şirket</span></div></div><div class="tabs" style="margin-top:12px"><button class="tab active">Tümü</button><button class="tab">İndüktif</button><button class="tab">Kapasitif</button></div><h2 class="section-title">Limit Aşan Şirketler</h2>${list.length?list.map(x=>monthlyItem(x)).join(''):`<div class="empty">${MONTHS[(m||1)-1]} ${y||''} için henüz hesaplama yapılmadı veya limit aşımı bulunmadı.</div>`}<div class="card" style="border:1px solid #cfe0fa;background:#f7fbff"><div class="sub">Bu sayfa, ay sonunda indüktif oranı %${APP.settings.monthlyInd} ve üzeri veya kapasitif oranı %${APP.settings.monthlyCap} ve üzeri olan şirketleri gösterir.</div></div>`}
+function monthlyItem(x){const it=x.ind>=APP.settings.monthlyInd,ct=x.cap>=APP.settings.monthlyCap;return `<section class="card alert-item" onclick="openMonthlyCompany('${encodeURIComponent(x.id)}')"><span class="alert-icon danger">!</span><div><div class="strong">${esc(x.company.name)}</div><div class="sub">Sayaç ${esc(x.id)}</div><div>${it?`<span class="pill redp">İndüktif %${fmt(x.ind)}</span>`:''} ${ct?`<span class="pill orangep">Kapasitif %${fmt(x.cap)}</span>`:''}</div></div><span class="chev">›</span></section>`}
+function openMonthlyCompany(enc){const id=decodeURIComponent(enc),x=APP.monthly.find(z=>String(z.id)===id);if(!x)return;APP.current=x.company;APP.report=x.report;showDevice('daily')}
+
+function showSettings(){app.innerHTML=`${topBar('Uyarı Ayarları',false)}<main class="page"><h1 class="section-title">Limit Değerleri</h1><section class="card"><div class="setting-row"><label>İndüktif Uyarı Limiti (%)</label><input id="indLimit" class="input" type="number" step="0.1" value="${APP.settings.indLimit}"></div><div class="setting-row"><label>Kapasitif Uyarı Limiti (%)</label><input id="capLimit" class="input" type="number" step="0.1" value="${APP.settings.capLimit}"></div><div class="setting-row"><label>Ay Sonu İndüktif Limiti (%)</label><input id="monthlyInd" class="input" type="number" step="0.1" value="${APP.settings.monthlyInd}"></div><div class="setting-row"><label>Ay Sonu Kapasitif Limiti (%)</label><input id="monthlyCap" class="input" type="number" step="0.1" value="${APP.settings.monthlyCap}"></div></section><h2 class="section-title">Bildirim Ayarları</h2><section class="card"><div class="row between setting-row"><div><b>Uygulama Uyarıları</b><div class="sub">Uygulama açıkken periyodik kontrol</div></div><label class="switch"><input id="notifications" type="checkbox" ${APP.settings.notifications?'checked':''}><span></span></label></div><div class="setting-row"><label>Kontrol Aralığı (dakika)</label><input id="interval" class="input" type="number" min="5" value="${APP.settings.interval}"></div></section><h2 class="section-title">WhatsApp Ayarları</h2><section class="card"><div class="setting-row"><label>Telefon Numarası</label><input id="phone" class="input" inputmode="tel" value="${esc(APP.settings.phone)}" placeholder="+90 555 123 45 67"><div class="sub">Numarayı ülke koduyla yazın.</div></div><div class="row between"><b>WhatsApp Bildirimi</b><label class="switch"><input id="whatsapp" type="checkbox" ${APP.settings.whatsapp?'checked':''}><span></span></label></div></section><h2 class="section-title">Sunucu</h2><section class="card"><label>Site Adresi</label><input id="baseUrl" class="input" value="${esc(APP.base)}"></section><button class="btn btn-primary btn-block" onclick="saveSettingsForm()">Kaydet</button></main>${bottom('settings')}`}
+function saveSettingsForm(){const n=id=>Number($('#'+id).value);APP.settings.indLimit=n('indLimit')||15;APP.settings.capLimit=n('capLimit')||10;APP.settings.monthlyInd=n('monthlyInd')||20;APP.settings.monthlyCap=n('monthlyCap')||15;APP.settings.interval=Math.max(5,n('interval')||15);APP.settings.phone=$('#phone').value.trim();APP.settings.notifications=$('#notifications').checked;APP.settings.whatsapp=$('#whatsapp').checked;APP.base=$('#baseUrl').value.trim().replace(/\/$/,'')||APP.base;saveSettings();startMonitor();toast('Ayarlar kaydedildi.')}
+function showAbout(){app.innerHTML=`${topBar('Hakkında',false)}<main class="page"><img src="ets_logo.png" class="ets-logo about-logo-img" alt="ETS"><div class="center strong" style="font-size:20px">Enerji Takip Sistemi</div><section class="card" style="margin-top:23px"><h3>Uygulama Hakkında</h3><p class="sub" style="font-size:14px">Bu uygulama ETM Elektrik & Mühendislik tarafından enerji sayaçlarını mobil ortamda izlemek, aylık tüketimleri analiz etmek ve reaktif oran limitlerini takip etmek amacıyla hazırlanmıştır.</p><hr style="border:0;border-top:1px solid #eee"><div class="row between"><span>Sürüm</span><b>1.0.16</b></div><div class="row between" style="margin-top:12px"><span>Web Sitesi</span><b>www.etm.com.tr</b></div><div class="row between" style="margin-top:12px"><span>Yıl</span><b>2026</b></div></section><div class="center sub">Uygulama ETM Mühendislik tarafından hazırlanmıştır.</div><div class="credit">IZADEEN N A SAWAFIRI<br>2026</div></main>${bottom('settings')}`}
+
+function whatsappMessage(company,type,value,limit){return `ETS Enerji Takip Uyarısı\nŞirket: ${company}\n${type} oranı limit değerini aştı.\nAnlık Değer: %${fmt(value)}\nLimit Değeri: %${limit}\nTarih: ${new Date().toLocaleString('tr-TR')}`}
+function openWhatsApp(message){if(!APP.settings.whatsapp){toast('WhatsApp bildirimleri ayarlardan kapalı.');return}const phone=(APP.settings.phone||'').replace(/\D/g,'');if(!phone){toast('Ayarlar bölümünden WhatsApp numarası giriniz.');showSettings();return}location.href=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`}
+function sendWhatsAppCurrent(){const r=APP.report;if(!r)return;const type=r.indRatio>=APP.settings.indLimit?'İndüktif':'Kapasitif',value=type==='İndüktif'?r.indRatio:r.capRatio,limit=type==='İndüktif'?APP.settings.indLimit:APP.settings.capLimit;openWhatsApp(whatsappMessage(r.company.name,type,value,limit))}
+function sendWhatsAppAlert(enc){const key=decodeURIComponent(enc),a=APP.alerts.find(x=>x.key===key);if(a)openWhatsApp(whatsappMessage(a.company,a.type,a.value,a.limit))}
+async function shareText(title,text){try{if(navigator.share){await navigator.share({title,text});return}if(navigator.clipboard){await navigator.clipboard.writeText(text);toast('Rapor panoya kopyalandı.');return}}catch{}modal(title,`<textarea class="input" style="height:220px">${esc(text)}</textarea>`)}
+function shareSummary(){const r=APP.report;if(!r)return;shareText('ETS Enerji Raporu',`ETS Enerji Raporu\nŞirket: ${r.company.name}\nDönem: ${MONTHS[r.month-1]} ${r.year}\nAktif enerji: ${fmt(r.current.kwh,3)} kWh\nİndüktif: ${fmt(r.current.indKvarh,3)} kvarh\nKapasitif: ${fmt(r.current.capKvarh,3)} kvarh\nİndüktif oran: %${fmt(r.indRatio)}\nKapasitif oran: %${fmt(r.capRatio)}`)}
+function csvForReport(r){const rows=[['Tarih','Max Demand','Toplam kWh','İndüktif kvarh','Kapasitif kvarh','Toplam Fark','İndüktif Fark','Kapasitif Fark','İndüktif Oran %','Kapasitif Oran %'],...r.records.map(x=>[x.date,x.max,x.total,x.inductive,x.capacitive,x.activeDiff,x.indDiff,x.capDiff,x.indRatio,x.capRatio])];return rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\n')}
+
+
+function safeFileName(s){return norm(s).replace(/\s+/g,'_').replace(/[^A-Z0-9_-]/g,'').slice(0,60)||'ETS_RAPOR'}
+async function deliverFile(name,mime,blob){try{const file=new File([blob],name,{type:mime});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:name});return}}catch(e){}try{const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(url);a.remove()},2500);toast(name+' oluşturuldu.')}catch(e){toast('Dosya oluşturulamadı: '+e.message)}}
+function xmlEsc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c]))}
+function excelCell(v,style=''){const n=typeof v==='number'&&Number.isFinite(v);return `<Cell${style?` ss:StyleID="${style}"`:''}><Data ss:Type="${n?'Number':'String'}">${xmlEsc(n?v:String(v??''))}</Data></Cell>`}
+function reportRows(r){return r.records.map(x=>[x.date,x.max||'',x.total,x.inductive,x.capacitive,x.activeDiff,x.indDiff,x.capDiff,x.indRatio,x.capRatio])}
+function spreadsheetXml(title,meta,headers,rows){const metaRows=meta.map(x=>`<Row>${excelCell(x[0],'label')}${excelCell(x[1])}</Row>`).join('');const dataRows=rows.map(row=>`<Row>${row.map(v=>excelCell(v)).join('')}</Row>`).join('');return `<?xml version="1.0" encoding="UTF-8"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Styles><Style ss:ID="Default"><Alignment ss:Vertical="Center"/><Font ss:FontName="Arial" ss:Size="10"/></Style><Style ss:ID="title"><Font ss:Bold="1" ss:Size="16" ss:Color="#172033"/></Style><Style ss:ID="label"><Font ss:Bold="1"/></Style><Style ss:ID="head"><Font ss:Bold="1" ss:Color="#FFFFFF"/><Interior ss:Color="#172033" ss:Pattern="Solid"/></Style></Styles><Worksheet ss:Name="${xmlEsc(title.slice(0,31))}"><Table><Column ss:AutoFitWidth="1" ss:Width="115"/><Column ss:AutoFitWidth="1" ss:Width="100"/><Row><Cell ss:StyleID="title" ss:MergeAcross="${Math.max(1,headers.length-1)}"><Data ss:Type="String">${xmlEsc(title)}</Data></Cell></Row>${metaRows}<Row>${headers.map(h=>excelCell(h,'head')).join('')}</Row>${dataRows}</Table></Worksheet></Workbook>`}
+async function exportExcel(){const r=APP.report;if(!r)return toast('Önce bir şirket raporu açın.');const meta=[['Şirket',r.company.name],['Firma ID',r.company.id],['Dönem',`${MONTHS[r.month-1]} ${r.year}`],['Aktif Enerji (kWh)',r.current.kwh],['İndüktif (kvarh)',r.current.indKvarh],['Kapasitif (kvarh)',r.current.capKvarh],['İndüktif Oran (%)',r.indRatio],['Kapasitif Oran (%)',r.capRatio],['L1/L2/L3 Gerilim (V)',r.current.v.map(x=>fmt(x,2)).join(' / ')],['L1/L2/L3 Akım (A)',r.current.a.map(x=>fmt(x,2)).join(' / ')]];const headers=['Tarih','Max Demand','Toplam kWh','İndüktif kvarh','Kapasitif kvarh','Aktif Fark','İndüktif Fark','Kapasitif Fark','İndüktif Oran %','Kapasitif Oran %'];const xml=spreadsheetXml('ETS Enerji Raporu',meta,headers,reportRows(r));await deliverFile(`ETS_${safeFileName(r.company.name)}_${r.month}_${r.year}.xls`,'application/vnd.ms-excel',new Blob(['\ufeff',xml],{type:'application/vnd.ms-excel;charset=utf-8'}))}
+async function exportMonthlyExcel(){const meta=[['Dönem',`${MONTHS[APP.month-1]} ${APP.year}`],['İndüktif Limit (%)',APP.settings.monthlyInd],['Kapasitif Limit (%)',APP.settings.monthlyCap],['Şirket Sayısı',APP.monthly.length]];const rows=APP.monthly.map(x=>[x.company.name,x.id,x.report?.imei||'',x.ind,x.cap]);const xml=spreadsheetXml('Aylık Limit Aşanlar',meta,['Şirket','Sayaç','IMEI','İndüktif Oran %','Kapasitif Oran %'],rows);await deliverFile(`ETS_Aylik_Limit_${APP.month}_${APP.year}.xls`,'application/vnd.ms-excel',new Blob(['\ufeff',xml],{type:'application/vnd.ms-excel;charset=utf-8'}))}
+function dataUrlBytes(url){const b=atob(url.split(',')[1]),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a}
+function makePdfFromJpegs(images){const te=new TextEncoder(),chunks=[],offsets=[0];let total=0;const push=x=>{const b=typeof x==='string'?te.encode(x):x;chunks.push(b);total+=b.length};push('%PDF-1.4\n%\xFF\xFF\xFF\xFF\n');const count=images.length;const objCount=2+count*3;function obj(n,parts){offsets[n]=total;push(`${n} 0 obj\n`);for(const p of parts)push(p);push('\nendobj\n')}obj(1,[`<< /Type /Catalog /Pages 2 0 R >>`]);const kids=images.map((_,i)=>`${3+i*3} 0 R`).join(' ');obj(2,[`<< /Type /Pages /Kids [${kids}] /Count ${count} >>`]);images.forEach((im,i)=>{const page=3+i*3,img=page+1,content=page+2;obj(page,[`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /XObject << /Im0 ${img} 0 R >> >> /Contents ${content} 0 R >>`]);obj(img,[`<< /Type /XObject /Subtype /Image /Width ${im.width} /Height ${im.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${im.bytes.length} >>\nstream\n`,im.bytes,'\nendstream']);const stream='q\n595 0 0 842 0 0 cm\n/Im0 Do\nQ\n';obj(content,[`<< /Length ${te.encode(stream).length} >>\nstream\n${stream}endstream`])});const xref=total;push(`xref\n0 ${objCount+1}\n0000000000 65535 f \n`);for(let n=1;n<=objCount;n++)push(String(offsets[n]).padStart(10,'0')+' 00000 n \n');push(`trailer\n<< /Size ${objCount+1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`);const out=new Uint8Array(total);let pos=0;for(const c of chunks){out.set(c,pos);pos+=c.length}return new Blob([out],{type:'application/pdf'})}
+function drawPdfHeader(ctx,title,subtitle,pageNo,total){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,1240,1754);ctx.fillStyle='#172033';ctx.fillRect(0,0,1240,155);ctx.fillStyle='#ffffff';ctx.font='bold 54px Arial';ctx.fillText('ETS',70,95);ctx.font='bold 30px Arial';ctx.fillText(title,210,72);ctx.font='20px Arial';ctx.fillStyle='#c9d2df';ctx.fillText(subtitle,210,108);ctx.textAlign='right';ctx.fillText(`${pageNo}/${total}`,1170,95);ctx.textAlign='left'}
+function reportPdfImages(r){const rows=reportRows(r),per=22,total=Math.max(1,Math.ceil(rows.length/per));const images=[];for(let p=0;p<total;p++){const c=document.createElement('canvas');c.width=1240;c.height=1754;const x=c.getContext('2d');drawPdfHeader(x,'Enerji Raporu',`${r.company.name} • ${MONTHS[r.month-1]} ${r.year}`,p+1,total);let y=205;if(p===0){x.fillStyle='#202734';x.font='bold 25px Arial';x.fillText('Rapor Bilgileri',70,y);y+=42;x.font='21px Arial';const info=[`Şirket: ${r.company.name}`,`Firma ID: ${r.company.id}`,`Dönem: ${MONTHS[r.month-1]} ${r.year}`, `Aktif enerji: ${fmt(r.current.kwh,3)} kWh`, `İndüktif / Kapasitif: ${fmt(r.current.indKvarh,3)} / ${fmt(r.current.capKvarh,3)} kvarh`,`Oranlar: İndüktif %${fmt(r.indRatio)} • Kapasitif %${fmt(r.capRatio)}`,`Gerilim L1/L2/L3: ${r.current.v.map(v=>fmt(v,1)).join(' / ')} V`,`Akım L1/L2/L3: ${r.current.a.map(v=>fmt(v,1)).join(' / ')} A`];for(const s of info){x.fillText(s,70,y);y+=34}y+=24}x.fillStyle='#172033';x.fillRect(55,y,1130,48);x.fillStyle='#fff';x.font='bold 17px Arial';const heads=['Tarih','Aktif kWh','İnd. kvarh','Kap. kvarh','Aktif Fark','İnd. %','Kap. %'];const cols=[70,280,465,650,835,1010,1100];heads.forEach((h,j)=>x.fillText(h,cols[j],y+31));y+=48;x.font='17px Arial';const pageRows=rows.slice(p*per,(p+1)*per);for(let i=0;i<pageRows.length;i++){const rr=pageRows[i];x.fillStyle=i%2?'#f3f5f8':'#ffffff';x.fillRect(55,y,1130,49);x.fillStyle='#202734';const vals=[rr[0],fmt(rr[2],2),fmt(rr[3],2),fmt(rr[4],2),fmt(rr[5],2),fmt(rr[8],1),fmt(rr[9],1)];vals.forEach((v,j)=>x.fillText(String(v??''),cols[j],y+31));y+=49}x.fillStyle='#747b89';x.font='16px Arial';x.fillText(`Oluşturma: ${new Date().toLocaleString('tr-TR')} • ETS Enerji Takip v2.0.0`,70,1695);images.push({bytes:dataUrlBytes(c.toDataURL('image/jpeg',.9)),width:c.width,height:c.height})}return images}
+async function exportPdf(){const r=APP.report;if(!r)return toast('Önce bir şirket raporu açın.');toast('PDF hazırlanıyor...');await new Promise(resolve=>setTimeout(resolve,50));const blob=makePdfFromJpegs(reportPdfImages(r));await deliverFile(`ETS_${safeFileName(r.company.name)}_${r.month}_${r.year}.pdf`,'application/pdf',blob)}
+function monthlyPdfImages(){const rows=APP.monthly,per=25,total=Math.max(1,Math.ceil(rows.length/per));const images=[];for(let p=0;p<total;p++){const c=document.createElement('canvas');c.width=1240;c.height=1754;const x=c.getContext('2d');drawPdfHeader(x,'Aylık Limit Aşanlar',`${MONTHS[APP.month-1]} ${APP.year}`,p+1,total);let y=220;x.fillStyle='#202734';x.font='22px Arial';x.fillText(`İndüktif limit: %${APP.settings.monthlyInd}   •   Kapasitif limit: %${APP.settings.monthlyCap}   •   Toplam: ${rows.length} şirket`,70,y);y+=50;x.fillStyle='#172033';x.fillRect(55,y,1130,52);x.fillStyle='#fff';x.font='bold 18px Arial';['Şirket','Sayaç','IMEI','İndüktif %','Kapasitif %'].forEach((h,j)=>x.fillText(h,[70,650,800,1010,1110][j],y+34));y+=52;x.font='18px Arial';rows.slice(p*per,(p+1)*per).forEach((r,i)=>{x.fillStyle=i%2?'#f3f5f8':'#fff';x.fillRect(55,y,1130,52);x.fillStyle='#202734';const name=r.company.name.length>43?r.company.name.slice(0,40)+'...':r.company.name;[name,r.id,r.report?.imei||'—',fmt(r.ind),fmt(r.cap)].forEach((v,j)=>x.fillText(String(v),[70,650,800,1010,1110][j],y+34));y+=52});x.fillStyle='#747b89';x.font='16px Arial';x.fillText(`Oluşturma: ${new Date().toLocaleString('tr-TR')} • ETS Enerji Takip v2.0.0`,70,1695);images.push({bytes:dataUrlBytes(c.toDataURL('image/jpeg',.9)),width:c.width,height:c.height})}return images}
+async function exportMonthlyPdf(){toast('PDF hazırlanıyor...');await new Promise(resolve=>setTimeout(resolve,50));await deliverFile(`ETS_Aylik_Limit_${APP.month}_${APP.year}.pdf`,'application/pdf',makePdfFromJpegs(monthlyPdfImages()))}
+function shareCsv(){return exportExcel()}
+function shareMonthlyCsv(){return exportMonthlyExcel()}
+
+window.addEventListener('online',()=>toast('İnternet bağlantısı yeniden kuruldu.'));window.addEventListener('offline',()=>toast('İnternet bağlantısı kesildi.'));
+if(localStorage.getItem('etm_company_link_schema')!=='19'){
+  localStorage.removeItem('etm_companies');
+  localStorage.removeItem('etm_logged');
+  [...Array(localStorage.length)].map((_,i)=>localStorage.key(i)).filter(k=>k&&(/^etm_report_|^etm_monthly_|^etm_forecast_/).test(k)).forEach(k=>localStorage.removeItem(k));
+  localStorage.setItem('etm_company_link_schema','19');
+}
+loadSettings();resetAccountData();
+localStorage.removeItem('etm_logged');APP.logged=false;showLogin();
+</script>
+
+
+<script>
+/* v1.0.23 feature overrides */
+(function(){
+  const DEFAULT_IND_LIMIT=20;
+  const DEFAULT_CAP_LIMIT=15;
+  APP.forecast=[];
+  APP.forecastScanRunning=false;
+  // Upgrade old installations: use the previous monthly values when available,
+  // otherwise apply the requested 20% inductive and 15% capacitive defaults.
+  if(!APP.settings.schemaVersion||APP.settings.schemaVersion<17){
+    APP.settings.indLimit=Number(APP.settings.monthlyInd)||DEFAULT_IND_LIMIT;
+    APP.settings.capLimit=Number(APP.settings.monthlyCap)||DEFAULT_CAP_LIMIT;
+    APP.settings.monthlyInd=APP.settings.indLimit;
+    APP.settings.monthlyCap=APP.settings.capLimit;
+    APP.settings.forecastWarningRatio=80;
+    APP.settings.whatsappPrompt=true;
+    APP.settings.schemaVersion=17;
+    saveSettings();
+  }
+  APP.settings.indLimit=Number(APP.settings.indLimit)||DEFAULT_IND_LIMIT;
+  APP.settings.capLimit=Number(APP.settings.capLimit)||DEFAULT_CAP_LIMIT;
+  APP.settings.monthlyInd=APP.settings.indLimit;
+  APP.settings.monthlyCap=APP.settings.capLimit;
+  APP.settings.forecastWarningRatio=Math.max(50,Math.min(99,Number(APP.settings.forecastWarningRatio)||80));
+  if(APP.settings.whatsappPrompt===undefined)APP.settings.whatsappPrompt=true;
+
+  function limitColor(value,limit){if(value>=limit)return 'var(--red)';if(value>=limit*APP.settings.forecastWarningRatio/100)return 'var(--orange)';return 'var(--green)'}
+  function ratioRing(label,value,limit,energy,unit){
+    const progress=Math.min(100,Math.max(0,(Number(value)||0)/(Number(limit)||1)*100));
+    const state=value>=limit?'danger':value>=limit*APP.settings.forecastWarningRatio/100?'near':'';
+    return `<article class="ratio-card ${state}"><div class="ratio-title">${esc(label)}</div><div class="ratio-ring" style="--ring-p:${progress};--ring-color:${limitColor(value,limit)}"><div class="ratio-ring-copy"><b>%${fmt(value)}</b><span>limit kullanımı %${fmt(progress,0)}</span></div></div><div class="ratio-energy">${fmt(energy,3)} ${unit}</div><div class="ratio-limit">Aylık limit: %${limit}</div></article>`;
+  }
+  function monthlyRings(r){return `<div class="ratio-rings">${ratioRing('Aylık İndüktif',r.indRatio,APP.settings.indLimit,r.current.indKvarh,'kvarh')}${ratioRing('Aylık Kapasitif',r.capRatio,APP.settings.capLimit,r.current.capKvarh,'kvarh')}</div>`}
+
+  openDrawer=function(){const d=$('#drawer');d.className='drawer';d.innerHTML=`<aside class="drawer-panel"><div class="drawer-head"><div class="row"><img src="ets_logo.png" class="ets-logo drawer-logo" alt="ETS"><div><b>ETS Enerji Takip</b><div class="sub">Enerji Yönetim Sistemi</div></div><button class="iconbtn drawer-close" style="margin-left:auto" onclick="closeDrawer()">×</button></div></div><div class="drawer-kicker">Menü</div><button class="drawer-item" onclick="closeDrawer();showDashboard()">${icon('home')} Ana Sayfa</button><button class="drawer-item" onclick="closeDrawer();showCompanies()">${icon('companies')} Şirketler</button><button class="drawer-item" onclick="closeDrawer();showAlerts()">${icon('alert')} Limit Uyarıları</button><button class="drawer-item" onclick="closeDrawer();showMonthlyForecast()">${icon('reports')} Aylık Limit Tahmini</button><button class="drawer-item" onclick="closeDrawer();showReports()">${icon('reports')} Raporlar</button><button class="drawer-item" onclick="closeDrawer();showSettings()">${icon('settings')} Ayarlar</button><button class="drawer-item" onclick="closeDrawer();showAbout()">${icon('info')} Hakkında</button><div class="drawer-kicker">Oturum</div><button class="drawer-item red" onclick="closeDrawer();logout()">${icon('logout')} Çıkış Yap</button></aside>`}
+
+  showDashboard=function(){if(!APP.logged&&APP.companies.length===0)return showLogin();APP.report=null;const bad=APP.alerts.filter(a=>a.active).length,last=localStorage.getItem('etm_last_scan')||'Henüz kontrol edilmedi';let forecast=[];try{forecast=JSON.parse(localStorage.getItem(forecastCacheKey())||'[]')}catch{}const risk=forecast.filter(x=>x.status==='forecast'||x.status==='near').length;app.innerHTML=`${topBar('Genel Bakış',false)}${offlineBar()}<main class="page"><section class="card dashboard-hero"><div class="sub">ETS Enerji Takip</div><h2 style="margin:5px 0 12px">Aylık enerji ve reaktif limit takibi</h2><div class="sub">Son senkronizasyon: ${esc(last)}</div><button class="btn btn-sm" style="margin-top:15px" onclick="scanAlerts(true)">${icon('refresh')} Şimdi Senkronize Et</button></section><div class="forecast-summary"><article><span class="sub">Toplam Şirket</span><b>${APP.companies.length}</b></article><article><span class="sub">Limit Aşımı</span><b class="${bad?'red':''}">${bad}</b></article><article><span class="sub">Aylık Risk</span><b class="${risk?'orange':''}">${risk}</b></article></div><div class="section-heading"><div><strong>Hızlı İşlemler</strong><span>Bir işlem seçin</span></div></div><div class="quick-grid"><section class="card quick-action" onclick="showCompanies()">${icon('companies')}<b>Şirketleri görüntüle</b></section><section class="card quick-action" onclick="showAlerts()">${icon('alert')}<b>Limit uyarıları</b></section><section class="card quick-action" onclick="showMonthlyForecast()">${icon('reports')}<b>Aylık limit tahmini</b></section><section class="card quick-action" onclick="showSettings()">${icon('settings')}<b>Uyarı ve WhatsApp</b></section></div></main>`}
+
+  showDevice=function(tab=APP.tab){if(!APP.report)return showCompanies();APP.tab=tab;const r=APP.report,c=r.company;const title=tab==='daily'?'Aylık Enerji Özeti':tab==='current'?'Akım–Gerilim Raporu':'Aylık Reaktif Rapor';app.innerHTML=`${topBar(title)}${offlineBar()}<main class="page"><section class="device-card"><div class="device-company-row"><span class="company-avatar">${esc(initials(c.name))}</span><div><div class="device-title">${esc(c.name)}</div><div class="company-meta"><span class="status">Aktif</span><span>Firma kodu ${esc(c.id)}</span></div></div></div><div class="meta-grid"><div><span class="meta-label">Modem / IMEI</span><strong class="meta-value">${esc(r.imei||'—')}</strong></div><div><span class="meta-label">Rapor Dönemi</span><strong class="meta-value">${MONTHS[r.month-1]} ${r.year}</strong></div><div><span class="meta-label">İlk / Son Veri</span><strong class="meta-value">${esc(r.records[0]?.date||'—')} – ${esc(r.lastRead||r.records.at(-1)?.date||'—')}</strong></div><div><span class="meta-label">Kayıt Sayısı</span><strong class="meta-value">${r.records.length}</strong></div></div></section><section class="thin-info"><span>İndüktif Limit: <b>%${APP.settings.indLimit}</b></span><span>Kapasitif Limit: <b>%${APP.settings.capLimit}</b></span></section><nav class="tabs" aria-label="Rapor tipi"><button class="tab ${tab==='daily'?'active':''}" onclick="showDevice('daily')">Aylık Özet</button><button class="tab ${tab==='current'?'active':''}" onclick="showDevice('current')">Akım / Gerilim</button><button class="tab ${tab==='reactive'?'active':''}" onclick="showDevice('reactive')">Reaktif</button></nav><section class="monthbar"><button class="btn btn-sm" onclick="changeMonth(-1)">‹ Önceki</button><div class="monthpick">${MONTHS[r.month-1]} ${r.year}</div><button class="btn btn-sm" onclick="changeMonth(1)">Sonraki ›</button></section>${deviceTab(r,tab)}</main>`}
+
+  dailyTab=function(r){return `<div class="monthly-note"><b>${MONTHS[r.month-1]} ${r.year} aylık özeti</b><br>İndüktif ve kapasitif oranlar aylık enerji değerlerinden hesaplanır.</div><div class="monthly-metrics"><article class="monthly-metric"><span>Ortalama Akım</span><b>${fmt(r.avgA)} A</b><small>L1–L3 ortalaması</small></article><article class="monthly-metric"><span>Ortalama Gerilim</span><b>${fmt(r.avgV)} V</b><small>L1–L3 ortalaması</small></article><article class="monthly-metric"><span>Aktif Güç</span><b>${fmt(r.activePower,2)} kW</b><small>Tahmini üç faz</small></article></div>${monthlyRings(r)}${warningHtml(r)}<div class="reactive-box"><article class="bigmetric"><span class="sub">Aylık Aktif Enerji</span><b>${fmt(r.current.kwh,3)} kWh</b></article><article class="bigmetric"><span class="sub">Son Veri</span><b style="font-size:15px">${esc(r.lastRead||'—')}</b></article></div><div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="showTableReport()">Aylık Tablo</button><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div>`}
+
+  gaugeHtml=function(ind,cap){const r=APP.report;return r?monthlyRings(r):`<div class="ratio-rings">${ratioRing('Aylık İndüktif',ind,APP.settings.indLimit,NaN,'kvarh')}${ratioRing('Aylık Kapasitif',cap,APP.settings.capLimit,NaN,'kvarh')}</div>`}
+
+  warningHtml=function(r){const msgs=[];if(r.indRatio>=APP.settings.indLimit)msgs.push(`Aylık indüktif oran %${fmt(r.indRatio)} ile %${APP.settings.indLimit} limitini aştı.`);if(r.capRatio>=APP.settings.capLimit)msgs.push(`Aylık kapasitif oran %${fmt(r.capRatio)} ile %${APP.settings.capLimit} limitini aştı.`);return msgs.length?`<div class="warnbox"><b>⚠</b><div class="grow">${msgs.map(esc).join('<br>')}</div><button class="btn btn-primary btn-sm" onclick="sendWhatsAppCurrent()">WhatsApp</button></div>`:''}
+
+  reactiveTab=function(r){return `<div class="monthly-note"><b>Aylık reaktif görünüm</b><br>Bu sayfa yalnızca seçili ayın indüktif ve kapasitif toplamlarını ve oranlarını gösterir.</div>${monthlyRings(r)}<div class="reactive-box"><article class="bigmetric"><span class="sub">Aylık İndüktif Enerji</span><b>${fmt(r.current.indKvarh,3)} kvarh</b></article><article class="bigmetric"><span class="sub">Aylık Kapasitif Enerji</span><b>${fmt(r.current.capKvarh,3)} kvarh</b></article></div>${warningHtml(r)}<div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div>`}
+
+  checkReportAlert=function(company,r,popup=false){const exceeded=[];if(r.indRatio>=APP.settings.indLimit)exceeded.push({type:'İndüktif',value:r.indRatio,limit:APP.settings.indLimit});if(r.capRatio>=APP.settings.capLimit)exceeded.push({type:'Kapasitif',value:r.capRatio,limit:APP.settings.capLimit});const activeKeys=new Set();for(const x of exceeded){const key=`${company.id}_${x.type}_${r.month}_${r.year}`;activeKeys.add(key);let a=APP.alerts.find(z=>z.key===key);if(!a){a={key,companyId:company.id,company:company.name,type:x.type,value:x.value,limit:x.limit,time:new Date().toISOString(),active:true,month:r.month,year:r.year};APP.alerts.unshift(a)}else{a.value=x.value;a.limit=x.limit;a.active=true;a.time=new Date().toISOString()}}APP.alerts.filter(a=>String(a.companyId)===String(company.id)&&a.month===r.month&&a.year===r.year).forEach(a=>{if(!activeKeys.has(a.key))a.active=false});saveAlerts();if(popup&&exceeded.length&&APP.settings.notifications){modal('Aylık Limit Uyarısı',`<b>${esc(company.name)}</b><br>${exceeded.map(x=>`${x.type}: <b class="red">%${fmt(x.value)}</b> / limit %${x.limit}`).join('<br>')}`,`<button class="btn btn-primary btn-block" onclick="closeModal();sendWhatsAppCurrent()">WhatsApp Mesajı Hazırla</button><button class="btn btn-soft btn-block" style="margin-top:8px" onclick="closeModal()">Tamam</button>`)}}
+
+  showAlerts=function(){const active=APP.alerts.filter(a=>a.active),past=APP.alerts.filter(a=>!a.active);app.innerHTML=`${topBar('Aylık Limit Uyarıları',false)}<main class="page"><div class="row between"><div><h1 class="section-title" style="margin-bottom:2px">Aktif Uyarılar</h1><div class="sub">İndüktif %${APP.settings.indLimit} • Kapasitif %${APP.settings.capLimit}</div></div><button class="btn btn-soft btn-sm" onclick="scanAlerts(true)">↻ Kontrol Et</button></div>${active.length?`<div class="small-actions"><button class="btn btn-primary btn-block" onclick="sendWhatsAppAllAlerts()">Tüm Uyarıları WhatsApp'a Hazırla</button></div>${active.map(alertHtml).join('')}`:'<div class="empty">Aktif aylık limit uyarısı yok.</div>'}${past.length?`<h2 class="section-title">Geçmiş Uyarılar</h2>${past.slice(0,20).map(alertHtml).join('')}`:''}<div class="whatsapp-note">WhatsApp güvenlik kuralları nedeniyle uygulama mesajı otomatik olarak göndermez. Mesajı belirtilen numara için hazırlar; WhatsApp açıldığında Gönder düğmesine dokunursunuz.</div></main>`}
+
+  alertHtml=function(a){const danger=a.value>=a.limit;return `<section class="card alert-item"><span class="alert-icon ${danger?'danger':''}">⚠</span><div><div class="strong">${esc(a.company)}</div><div class="sub">Aylık ${esc(a.type)} oranı limitini aştı</div><div class="sub">${new Date(a.time).toLocaleString('tr-TR')}</div></div><div class="center"><div class="alert-value ${danger?'red':'orange'}">%${fmt(a.value)}</div><button class="btn btn-soft btn-sm" onclick="sendWhatsAppAlert('${encodeURIComponent(a.key)}')">WhatsApp</button></div></section>`}
+
+  scanAlerts=async function(show=true){if(!APP.companies.length)return;show&&toast('Şirketler aylık limitler için kontrol ediliyor...');await runPool(APP.companies,4,async c=>{const r=await loadReport(c,new Date().getMonth()+1,new Date().getFullYear());checkReportAlert(c,r,false)},(done,total)=>{if(show&&(done===total||done%5===0))toast(`${done}/${total} kontrol edildi`)});localStorage.setItem('etm_last_scan',new Date().toLocaleString('tr-TR'));const count=APP.alerts.filter(a=>a.active).length;show&&toast(`Senkronizasyon tamamlandı: ${count} aktif uyarı`);if(show){showAlerts();if(count&&APP.settings.whatsapp&&APP.settings.whatsappPrompt&&APP.settings.phone)setTimeout(()=>modal('WhatsApp Uyarı Özeti',`${count} aktif limit uyarısı bulundu.<br>Belirlediğiniz numara için toplu mesaj hazırlansın mı?`,`<button class="btn btn-primary btn-block" onclick="closeModal();sendWhatsAppAllAlerts()">WhatsApp Mesajını Hazırla</button><button class="btn btn-soft btn-block" style="margin-top:8px" onclick="closeModal()">Daha Sonra</button>`),250)}}
+
+  function reportForecast(r){
+    const now=new Date(),daysInMonth=new Date(r.year,r.month,0).getDate();
+    const isCurrent=r.year===now.getFullYear()&&r.month===now.getMonth()+1;
+    const remaining=isCurrent?Math.max(0,daysInMonth-now.getDate()):0;
+    const valid=r.records.filter(x=>Number.isFinite(x.activeDiff)&&x.activeDiff>0);
+    const totalA=valid.reduce((s,x)=>s+x.activeDiff,0),totalI=valid.reduce((s,x)=>s+(Number.isFinite(x.indDiff)?x.indDiff:0),0),totalC=valid.reduce((s,x)=>s+(Number.isFinite(x.capDiff)?x.capDiff:0),0);
+    const recent=valid.slice(-Math.min(7,valid.length));
+    const avgA=recent.length?recent.reduce((s,x)=>s+x.activeDiff,0)/recent.length:0;
+    const avgI=recent.length?recent.reduce((s,x)=>s+(Number.isFinite(x.indDiff)?x.indDiff:0),0)/recent.length:0;
+    const avgC=recent.length?recent.reduce((s,x)=>s+(Number.isFinite(x.capDiff)?x.capDiff:0),0)/recent.length:0;
+    const projectedA=totalA+avgA*remaining,projectedI=totalI+avgI*remaining,projectedC=totalC+avgC*remaining;
+    const projectedInd=projectedA>0?projectedI/projectedA*100:r.indRatio;
+    const projectedCap=projectedA>0?projectedC/projectedA*100:r.capRatio;
+    const reached=r.indRatio>=APP.settings.indLimit||r.capRatio>=APP.settings.capLimit;
+    const forecast=!reached&&(projectedInd>=APP.settings.indLimit||projectedCap>=APP.settings.capLimit);
+    const near=!reached&&!forecast&&(projectedInd>=APP.settings.indLimit*APP.settings.forecastWarningRatio/100||projectedCap>=APP.settings.capLimit*APP.settings.forecastWarningRatio/100);
+    return {currentInd:r.indRatio,currentCap:r.capRatio,projectedInd:Number.isFinite(projectedInd)?projectedInd:r.indRatio,projectedCap:Number.isFinite(projectedCap)?projectedCap:r.capRatio,remaining,status:reached?'reached':forecast?'forecast':near?'near':'safe'};
+  }
+  function forecastCacheKey(){const d=new Date();return `etm_forecast_${d.getMonth()+1}_${d.getFullYear()}`}
+  function loadForecastCache(){try{APP.forecast=JSON.parse(localStorage.getItem(forecastCacheKey())||'[]')}catch{APP.forecast=[]}}
+  function forecastStatusLabel(x){return x.status==='reached'?'Limit aşıldı':x.status==='forecast'?'Ay sonunda limite ulaşabilir':'Limite yaklaşıyor'}
+  function forecastStatusClass(x){return x.status==='reached'?'reached':x.status==='near'?'near':''}
+  function forecastRing(value,limit){const p=Math.min(100,Math.max(0,value/limit*100));return `<span class="ring-mini" style="--ring-p:${p};--ring-color:${limitColor(value,limit)}"><b>%${fmt(value,0)}</b></span>`}
+  function forecastItem(x){return `<section class="forecast-card ${forecastStatusClass(x)}"><div class="forecast-head" onclick="openForecastCompany('${encodeURIComponent(x.id)}')">${forecastRing(Math.max(x.projectedInd,x.projectedCap),Math.max(APP.settings.indLimit,APP.settings.capLimit))}<div class="company-copy"><div class="strong">${esc(x.company.name)}</div><div class="sub">Sayaç ${esc(x.id)} • ${forecastStatusLabel(x)}</div><div class="forecast-badges"><span class="pill ${x.status==='reached'?'redp':'orangep'}">${x.remaining} gün kaldı</span></div></div><span class="chev">${icon('chevron')}</span></div><div class="forecast-values"><div class="forecast-value"><span>İndüktif: mevcut → tahmin</span><b>%${fmt(x.currentInd)} → %${fmt(x.projectedInd)}</b></div><div class="forecast-value"><span>Kapasitif: mevcut → tahmin</span><b>%${fmt(x.currentCap)} → %${fmt(x.projectedCap)}</b></div></div><div class="forecast-actions"><button class="btn btn-soft btn-sm" onclick="openForecastCompany('${encodeURIComponent(x.id)}')">Raporu Aç</button><button class="btn btn-primary btn-sm" onclick="sendWhatsAppForecast('${encodeURIComponent(x.id)}')">WhatsApp</button></div></section>`}
+  function forecastContent(){const reached=APP.forecast.filter(x=>x.status==='reached').length,forecast=APP.forecast.filter(x=>x.status==='forecast').length,near=APP.forecast.filter(x=>x.status==='near').length;return `<div class="forecast-summary"><article><span class="sub">Limit Aşıldı</span><b class="red">${reached}</b></article><article><span class="sub">Ulaşma Tahmini</span><b class="orange">${forecast}</b></article><article><span class="sub">Yaklaşan</span><b>${near}</b></article></div>${APP.forecast.length?APP.forecast.map(forecastItem).join(''):'<div class="empty">Tahmin bulunmuyor. Şirketleri taramak için Raporu Hesapla düğmesine basın.</div>'}`}
+
+  window.showMonthlyForecast=function(){loadForecastCache();const now=new Date();app.innerHTML=`${topBar('Aylık Limit Tahmini',false)}<main class="page"><section class="card"><div class="row between"><div><b>${MONTHS[now.getMonth()]} ${now.getFullYear()}</b><div class="sub">Son 7 günlük enerji eğilimine göre tahmin</div></div><button class="btn btn-primary btn-sm" onclick="scanMonthlyForecast()">Raporu Hesapla</button></div></section><div id="forecastContent">${forecastContent()}</div><div class="whatsapp-note">Tahmin, günlük aktif/reaktif enerji farklarının son 7 günlük ortalamasıyla hesaplanır. Gerçek ay sonu oranı tüketim davranışına göre değişebilir.</div></main>`}
+
+  window.scanMonthlyForecast=async function(){if(APP.forecastScanRunning||!APP.companies.length)return;APP.forecastScanRunning=true;const host=$('#forecastContent');host.innerHTML=`<section class="card"><b>Aylık tahmin hesaplanıyor...</b><div class="progress"><span id="forecastProgress"></span></div><div class="sub" id="forecastLabel">0 / ${APP.companies.length}</div></section>`;const now=new Date(),out=[];await runPool(APP.companies,4,async c=>{const r=await loadReport(c,now.getMonth()+1,now.getFullYear());const f=reportForecast(r);if(f.status!=='safe')out.push({company:c,id:c.id,report:r,...f})},(done,total)=>{const p=$('#forecastProgress'),l=$('#forecastLabel');if(p)p.style.width=(done/total*100)+'%';if(l)l.textContent=`${done} / ${total}`});APP.forecast=out.sort((a,b)=>{const rank={reached:3,forecast:2,near:1};return rank[b.status]-rank[a.status]||Math.max(b.projectedInd/APP.settings.indLimit,b.projectedCap/APP.settings.capLimit)-Math.max(a.projectedInd/APP.settings.indLimit,a.projectedCap/APP.settings.capLimit)});localStorage.setItem(forecastCacheKey(),JSON.stringify(APP.forecast));APP.forecastScanRunning=false;host.innerHTML=forecastContent();toast('Aylık limit tahmini hazırlandı.')}
+  window.openForecastCompany=function(enc){const id=decodeURIComponent(enc),x=APP.forecast.find(z=>String(z.id)===id);if(!x)return;APP.current=x.company;APP.report=x.report;showDevice('daily')}
+  window.sendWhatsAppForecast=function(enc){const id=decodeURIComponent(enc),x=APP.forecast.find(z=>String(z.id)===id);if(!x)return;openWhatsApp(`ETS Aylık Limit Tahmini\nŞirket: ${x.company.name}\nDönem: ${MONTHS[x.report.month-1]} ${x.report.year}\nİndüktif: mevcut %${fmt(x.currentInd)}, ay sonu tahmini %${fmt(x.projectedInd)}, limit %${APP.settings.indLimit}\nKapasitif: mevcut %${fmt(x.currentCap)}, ay sonu tahmini %${fmt(x.projectedCap)}, limit %${APP.settings.capLimit}\nDurum: ${forecastStatusLabel(x)}\nTarih: ${new Date().toLocaleString('tr-TR')}`)}
+
+  showSettings=function(){app.innerHTML=`${topBar('Uyarı ve WhatsApp Ayarları',false)}<main class="page"><h1 class="section-title">Aylık Limit Değerleri</h1><section class="card"><div class="setting-row"><label>İndüktif Uyarı Limiti (%)</label><input id="indLimit" class="input" type="number" min="0.1" step="0.1" value="${APP.settings.indLimit}"><div class="settings-hint">Varsayılan: %20</div></div><div class="setting-row"><label>Kapasitif Uyarı Limiti (%)</label><input id="capLimit" class="input" type="number" min="0.1" step="0.1" value="${APP.settings.capLimit}"><div class="settings-hint">Varsayılan: %15</div></div><div class="setting-row"><label>Yaklaşan Limit Uyarısı (%)</label><input id="forecastWarningRatio" class="input" type="number" min="50" max="99" step="1" value="${APP.settings.forecastWarningRatio}"><div class="settings-hint">Örneğin 80, limitin %80'ine ulaşan şirketleri tahmin sayfasında gösterir.</div></div></section><h2 class="section-title">Bildirim Ayarları</h2><section class="card"><div class="row between setting-row"><div><b>Uygulama Uyarıları</b><div class="sub">Uygulama açıkken periyodik aylık kontrol</div></div><label class="switch"><input id="notifications" type="checkbox" ${APP.settings.notifications?'checked':''}><span></span></label></div><div class="setting-row"><label>Kontrol Aralığı (dakika)</label><input id="interval" class="input" type="number" min="5" value="${APP.settings.interval}"></div></section><h2 class="section-title">WhatsApp Ayarları</h2><section class="card"><div class="setting-row"><label>Bildirim Numarası</label><input id="phone" class="input" inputmode="tel" value="${esc(APP.settings.phone)}" placeholder="+90 555 123 45 67"><div class="sub">Numarayı ülke koduyla yazın.</div></div><div class="row between setting-row"><b>WhatsApp Mesajları</b><label class="switch"><input id="whatsapp" type="checkbox" ${APP.settings.whatsapp?'checked':''}><span></span></label></div><div class="row between"><div><b>Tarama Sonrası Hatırlat</b><div class="sub">Aktif uyarı varsa toplu mesaj düğmesini gösterir.</div></div><label class="switch"><input id="whatsappPrompt" type="checkbox" ${APP.settings.whatsappPrompt?'checked':''}><span></span></label></div></section><div class="whatsapp-note">Uygulama WhatsApp mesajını seçtiğiniz numara için hazırlar. WhatsApp'ın güvenlik politikası nedeniyle son Gönder işlemi kullanıcı tarafından yapılır.</div><h2 class="section-title">Sunucu</h2><section class="card"><label>Site Adresi</label><input id="baseUrl" class="input" value="${esc(APP.base)}"></section><button class="btn btn-primary btn-block" onclick="saveSettingsForm()">Kaydet</button></main>`}
+
+  saveSettingsForm=function(){const n=id=>Number($('#'+id).value);APP.settings.indLimit=n('indLimit')||DEFAULT_IND_LIMIT;APP.settings.capLimit=n('capLimit')||DEFAULT_CAP_LIMIT;APP.settings.monthlyInd=APP.settings.indLimit;APP.settings.monthlyCap=APP.settings.capLimit;APP.settings.forecastWarningRatio=Math.max(50,Math.min(99,n('forecastWarningRatio')||80));APP.settings.interval=Math.max(5,n('interval')||15);APP.settings.phone=$('#phone').value.trim();APP.settings.notifications=$('#notifications').checked;APP.settings.whatsapp=$('#whatsapp').checked;APP.settings.whatsappPrompt=$('#whatsappPrompt').checked;APP.settings.schemaVersion=17;APP.base=$('#baseUrl').value.trim().replace(/\/$/,'')||APP.base;saveSettings();startMonitor();toast('Ayarlar kaydedildi.')}
+
+  openWhatsApp=function(message){if(!APP.settings.whatsapp){toast('WhatsApp bildirimleri ayarlardan kapalı.');return}const phone=(APP.settings.phone||'').replace(/\D/g,'');if(!phone){toast('Ayarlar bölümünden WhatsApp numarası giriniz.');showSettings();return}const url=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;if(window.AndroidHttp&&typeof window.AndroidHttp.openExternal==='function')window.AndroidHttp.openExternal(url);else location.href=url}
+  whatsappMessage=function(company,type,value,limit){return `ETS Enerji Takip Aylık Limit Uyarısı\nŞirket: ${company}\n${type} aylık oranı limit değerini aştı.\nMevcut Değer: %${fmt(value)}\nLimit Değeri: %${limit}\nTarih: ${new Date().toLocaleString('tr-TR')}`}
+  sendWhatsAppCurrent=function(){const r=APP.report;if(!r)return;const parts=[];if(r.indRatio>=APP.settings.indLimit)parts.push(`İndüktif %${fmt(r.indRatio)} / limit %${APP.settings.indLimit}`);if(r.capRatio>=APP.settings.capLimit)parts.push(`Kapasitif %${fmt(r.capRatio)} / limit %${APP.settings.capLimit}`);openWhatsApp(`ETS Enerji Takip Aylık Limit Uyarısı\nŞirket: ${r.company.name}\nDönem: ${MONTHS[r.month-1]} ${r.year}\n${parts.join('\n')}\nTarih: ${new Date().toLocaleString('tr-TR')}`)}
+  sendWhatsAppAlert=function(enc){const key=decodeURIComponent(enc),a=APP.alerts.find(x=>x.key===key);if(a)openWhatsApp(whatsappMessage(a.company,a.type,a.value,a.limit))}
+  window.sendWhatsAppAllAlerts=function(){const active=APP.alerts.filter(a=>a.active);if(!active.length)return toast('Gönderilecek aktif uyarı yok.');const grouped=new Map();active.forEach(a=>{if(!grouped.has(a.company))grouped.set(a.company,[]);grouped.get(a.company).push(`${a.type} %${fmt(a.value)} (limit %${a.limit})`)});const lines=[`ETS Enerji Takip — Aylık Limit Uyarıları`,`Tarih: ${new Date().toLocaleString('tr-TR')}`,`Toplam şirket: ${grouped.size}`,''];for(const [company,items] of grouped)lines.push(`• ${company}: ${items.join(' • ')}`);openWhatsApp(lines.join('\n'))}
+
+  showLogin=function(){APP.report=null;app.innerHTML=`${offlineBar()}<main class="login-wrap"><section class="login-hero"><img src="ets_logo.png" class="ets-logo login-logo" alt="ETS"><h1>ETS Enerji Takip</h1><p>Enerji Takip Sistemi</p></section><section class="card login-panel"><h2>Sisteme Hoş Geldiniz</h2><div class="sub login-help">Giriş yapmak için kullanıcı bilgilerinizi giriniz.</div><div class="login-field">${icon('companies')}<input id="user" class="input" autocomplete="username" value="${esc(localStorage.getItem('etm_user')||'')}" placeholder="Kullanıcı adı"></div><div class="login-field">${icon('settings')}<input id="pass" class="input" type="password" autocomplete="current-password" placeholder="Parola"></div><label class="check"><input id="remember" type="checkbox" ${localStorage.getItem('etm_user')?'checked':''}> Beni Hatırla</label><div class="login-actions"><button id="loginBtn" class="btn btn-primary btn-block" onclick="doLogin()">Giriş Yap</button></div><div id="loginError" class="sub red center" style="margin-top:12px"></div></section><div class="version">Sürüm 2.0.4 • 2026</div></main>`}
+  showAbout=function(){app.innerHTML=`${topBar('Hakkında',false)}<main class="page"><img src="ets_logo.png" class="ets-logo about-logo-img" alt="ETS"><div class="center strong" style="font-size:20px">Enerji Takip Sistemi</div><section class="card" style="margin-top:23px"><h3>Uygulama Hakkında</h3><p class="sub" style="font-size:14px">Bu uygulama aylık aktif enerji, indüktif ve kapasitif oranları izler; ay sonu limit risklerini tahmin eder ve WhatsApp mesajlarını hazırlar.</p><hr style="border:0;border-top:1px solid #eee"><div class="row between"><span>Sürüm</span><b>1.0.23</b></div><div class="row between" style="margin-top:12px"><span>Web Sitesi</span><b>www.etm.com.tr</b></div><div class="row between" style="margin-top:12px"><span>Yıl</span><b>2026</b></div></section><div class="center sub">Uygulama ETM Mühendislik tarafından hazırlanmıştır.</div><div class="credit">IZADEEN N A SAWAFIRI<br>2026</div></main>`}
+
+  // Re-render with the upgraded functions and migrated settings.
+  localStorage.removeItem('etm_logged');APP.logged=false;showLogin();
+})();
+</script>
+
+
+<script>
+/* v1.0.23 exact Aylik_Liste + IsletmeAyarlari integration */
+(function(){
+  function companySettingsUrl(company){
+    if(company&&company.settingsHref){
+      try{return new URL(company.settingsHref,absolute(APP.companySource)).href}catch{}
+    }
+    return new URL('/admin/IsletmeAyarlari.aspx?id='+encodeURIComponent(company.id),APP.base+'/').href;
+  }
+
+  reportCandidates=function(company,month,year){
+    const out=[],seen=new Set();
+    const push=u=>{
+      try{
+        const href=new URL(String(u||''),absolute(APP.companySource)).href;
+        if(!seen.has(href)){seen.add(href);out.push(href)}
+      }catch{}
+    };
+    if(company.href){
+      try{
+        const exact=new URL(company.href,absolute(APP.companySource));
+        const dated=new URL(exact.href);
+        dated.searchParams.set('FirmaId',company.id);
+        dated.searchParams.set('ay',month);
+        dated.searchParams.set('yil',year);
+        dated.searchParams.set('ftext',company.name);
+        push(dated.href);
+        push(exact.href);
+      }catch{push(company.href)}
+    }
+    const fallback=new URL('/Aylik_Liste.aspx',APP.base+'/');
+    fallback.searchParams.set('FirmaId',company.id);
+    fallback.searchParams.set('ay',month);
+    fallback.searchParams.set('yil',year);
+    fallback.searchParams.set('ftext',company.name);
+    push(fallback.href);
+    return out;
+  };
+
+  function detailsPageState(html){
+    const state=reportPageState(html);
+    const body=txt(new DOMParser().parseFromString(html||'','text/html').body?.textContent||'');
+    return {...state,notFound:/Sayfa bulunamadı|Page not found|404/i.test(body)};
+  }
+
+  function parseCompanyDetails(html,company,url){
+    const doc=new DOMParser().parseFromString(html||'','text/html');
+    const pairs=new Map();
+    const add=(rawLabel,rawValue)=>{
+      let label=txt(rawLabel).replace(/[\s:*]+$/,'').trim();
+      let value=txt(rawValue).trim();
+      if(!label||!value||label.length>100||value.length>500)return;
+      if(/^(__VIEWSTATE|__EVENTVALIDATION|BUTTON|KAYDET|SIL|VAZGEÇ|IPTAL)$/i.test(label))return;
+      const key=norm(label);
+      if(!key||key.startsWith('__')||/VIEWSTATE|EVENTVALIDATION/.test(key))return;
+      if(!pairs.has(key))pairs.set(key,{label,value});
+    };
+    const controlValue=el=>{
+      if(!el)return '';
+      if(el.tagName==='SELECT')return txt(el.selectedOptions?.[0]?.textContent||el.value);
+      if(el.type==='checkbox'||el.type==='radio')return el.checked?'Evet':'Hayır';
+      return txt(el.value||el.textContent||'');
+    };
+
+    doc.querySelectorAll('tr').forEach(row=>{
+      const cells=[...row.querySelectorAll(':scope > th,:scope > td')];
+      if(cells.length>=2)add(cells[0].textContent,cells.slice(1).map(x=>x.textContent).join(' '));
+    });
+    doc.querySelectorAll('dt').forEach(dt=>{const dd=dt.nextElementSibling;if(dd&&dd.tagName==='DD')add(dt.textContent,dd.textContent)});
+    doc.querySelectorAll('label').forEach(label=>{
+      let control=null;
+      const id=label.getAttribute('for');
+      if(id)control=doc.getElementById(id);
+      if(!control)control=label.parentElement?.querySelector('input:not([type=hidden]),select,textarea');
+      if(!control)control=label.closest('.form-group,.control-group,.row,td,div')?.querySelector('input:not([type=hidden]),select,textarea');
+      add(label.textContent,controlValue(control));
+    });
+    doc.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=button]),select,textarea').forEach(el=>{
+      const label=[...doc.querySelectorAll('label[for]')].find(x=>x.getAttribute('for')===(el.id||''))?.textContent
+        ||el.getAttribute('aria-label')||el.getAttribute('placeholder')||el.name||el.id;
+      add(label,controlValue(el));
+    });
+    const bodyLines=(doc.body?.innerText||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);
+    bodyLines.forEach(line=>{
+      const m=line.match(/^([^:]{2,70})\s*:\s*(.{1,300})$/);
+      if(m)add(m[1],m[2]);
+    });
+
+    const entries=[...pairs.entries()];
+    const get=(patterns)=>{
+      for(const [key,obj] of entries){
+        if(patterns.some(pattern=>pattern.test(key)))return obj.value;
+      }
+      return '';
+    };
+    const details={
+      url,
+      firmaId:String(company.id),
+      businessName:get([/^ISLETME ADI$/, /^FIRMA ADI$/, /^SIRKET ADI$/, /^UNVAN$/])||company.name,
+      meterNo:get([/SAYAC.*(NO|NUMARA)/,/CIHAZ.*(NO|NUMARA)/,/ABONE.*(NO|NUMARA)/]),
+      modemNo:get([/MODEM.*(NO|NUMARA)/,/GPRS.*(NO|NUMARA)/]),
+      imei:get([/^IMEI$/,/MODEM.*IMEI/]),
+      currentTransformerRatio:get([/AKIM.*TRAFO.*ORAN/]),
+      voltageTransformerRatio:get([/GERILIM.*TRAFO.*ORAN/]),
+      firstData:get([/ILK.*VERI/,/ILK.*OKUMA/]),
+      lastData:get([/SON.*VERI/,/SON.*OKUMA/]),
+      status:get([/^DURUM$/,/AKTIF.*PASIF/]),
+      phone:get([/TELEFON/,/^TEL$/,/GSM/]),
+      email:get([/E.?POSTA/,/EMAIL/]),
+      address:get([/ADRES/]),
+      pairs:Object.fromEntries(entries.map(([key,obj])=>[key,obj]))
+    };
+    return details;
+  }
+
+  function companyDetailsHasData(d){
+    if(!d)return false;
+    return ['meterNo','modemNo','imei','currentTransformerRatio','voltageTransformerRatio','firstData','lastData','phone','email','address']
+      .some(k=>!!d[k])||Object.keys(d.pairs||{}).length>0;
+  }
+
+  async function loadCompanyDetails(company,allowRendered=false){
+    const url=companySettingsUrl(company),diagnostics=[];
+    try{
+      const r=await fetchText(url),state=detailsPageState(r.text);
+      if(state.login)throw new Error('İşletme ayarları için giriş sayfası döndü.');
+      if(state.denied)throw new Error('İşletme ayarlarını görüntüleme yetkisi yok.');
+      if(state.notFound)throw new Error('İşletme ayarları sayfası bulunamadı.');
+      const details=parseCompanyDetails(r.text,company,r.url||url);
+      if(companyDetailsHasData(details))return details;
+      diagnostics.push('static page had no readable fields');
+    }catch(e){diagnostics.push(e.message)}
+
+    if(allowRendered){
+      try{
+        const rendered=await loadRenderedReportPage(url),state=detailsPageState(rendered.text||'');
+        if(rendered.login||state.login)throw new Error('rendered login page returned');
+        if(rendered.denied||state.denied)throw new Error('rendered permission denied');
+        const details=parseCompanyDetails(rendered.text||'',company,rendered.url||url);
+        if(companyDetailsHasData(details))return details;
+        diagnostics.push('rendered page had no readable fields');
+      }catch(e){diagnostics.push(e.message)}
+    }
+    throw new Error('İşletme ayarları okunamadı: '+diagnostics.join(' • '));
+  }
+  window.loadCompanyDetails=loadCompanyDetails;
+  window.parseCompanyDetailsV1020=parseCompanyDetails;
+
+  function companyDetailsHtml(r){
+    const c=r.company,d=c.details||r.companyDetails||null;
+    const rows=[
+      ['Sayaç No',d?.meterNo],
+      ['Modem No',d?.modemNo],
+      ['IMEI',d?.imei||r.imei],
+      ['Akım Trafo Oranı',d?.currentTransformerRatio],
+      ['Gerilim Trafo Oranı',d?.voltageTransformerRatio],
+      ['İlk Veri Zamanı',d?.firstData],
+      ['Son Veri Zamanı',d?.lastData],
+      ['Telefon',d?.phone],
+      ['E-posta',d?.email],
+      ['Adres',d?.address]
+    ].filter(x=>x[1]);
+    if(!rows.length){
+      return `<section class="card"><div class="section-heading"><div><strong>İşletme Ayarları</strong><span>/admin/IsletmeAyarlari.aspx?id=${esc(c.id)}</span></div></div><div class="sub">${esc(c.detailsError||'Ayarlar sayfasında gösterilecek alan bulunamadı.')}</div></section>`;
+    }
+    return `<section class="card"><div class="section-heading"><div><strong>İşletme Ayarları</strong><span>Firma ID ${esc(c.id)} üzerinden okundu</span></div><span class="pill redp">Canlı</span></div><div class="meta-grid">${rows.map(([label,value])=>`<div><span class="meta-label">${esc(label)}</span><strong class="meta-value">${esc(value)}</strong></div>`).join('')}</div></section>`;
+  }
+
+  openCompany=async function(enc){
+    const id=decodeURIComponent(enc),c=APP.companies.find(x=>String(x.id)===id);
+    if(!c)return;
+    c.settingsHref=companySettingsUrl(c);
+    APP.dailyLimit=12;APP.current=c;APP.report=null;loading(c.name+' bilgileri ve aylık raporu okunuyor...');
+    let details=null,detailsError='';
+    try{details=await loadCompanyDetails(c,false)}catch(e){detailsError=e.message}
+    try{
+      APP.report=await loadReport(c,APP.month,APP.year,true);
+      if(!details){
+        try{details=await loadCompanyDetails(c,true)}catch(e){detailsError=e.message}
+      }
+      c.details=details;
+      c.detailsError=detailsError;
+      APP.report.companyDetails=details;
+      if(details?.imei&&!APP.report.imei)APP.report.imei=details.imei;
+      if(details?.lastData&&!APP.report.lastRead)APP.report.lastRead=details.lastData;
+      saveReportCache(APP.report);cacheCompanies();checkReportAlert(c,APP.report,true);showDevice('daily');
+    }catch(e){
+      const cached=getReportCache(c.id,APP.month,APP.year);
+      if(cached){
+        c.details=details||c.details;c.detailsError=detailsError;
+        APP.report=cached;APP.report.companyDetails=c.details||cached.companyDetails;
+        toast('Bağlantı kurulamadı; kayıtlı rapor gösteriliyor.');showDevice('daily');
+      }else{
+        app.innerHTML=`${topBar('Enerji Raporu')}<main class="page"><section class="card center"><h2>Rapor okunamadı</h2><p class="sub">${esc(e.message)}</p><div class="sub" style="margin-top:10px">Beklenen rapor: /Aylik_Liste.aspx?FirmaId=${esc(c.id)}&amp;ay=${APP.month}&amp;yil=${APP.year}</div><div class="sub">İşletme ayarları: /admin/IsletmeAyarlari.aspx?id=${esc(c.id)}</div><button class="btn btn-primary" style="margin-top:16px" onclick="openCompany('${encodeURIComponent(id)}')">Tekrar Dene</button></section></main>`;
+      }
+    }
+  };
+
+  changeMonth=async function(delta){
+    APP.dailyLimit=12;
+    const d=new Date(APP.report.year,APP.report.month-1+delta,1);
+    APP.month=d.getMonth()+1;APP.year=d.getFullYear();
+    loading('Aylık rapor okunuyor...');
+    try{
+      APP.report=await loadReport(APP.current,APP.month,APP.year,true);
+      APP.report.companyDetails=APP.current.details||null;
+      if(APP.current.details?.imei&&!APP.report.imei)APP.report.imei=APP.current.details.imei;
+      saveReportCache(APP.report);checkReportAlert(APP.current,APP.report,true);showDevice(APP.tab);
+    }catch(e){
+      toast(e.message);
+      const cached=getReportCache(APP.current.id,APP.month,APP.year);
+      if(cached){APP.report=cached;APP.report.companyDetails=APP.current.details||cached.companyDetails;showDevice(APP.tab)}
+      else showCompanies();
+    }
+  };
+
+  showDevice=function(tab=APP.tab){
+    if(!APP.report)return showCompanies();
+    APP.tab=tab;
+    const r=APP.report,c=r.company;
+    const title=tab==='daily'?'Aylık Enerji Özeti':tab==='current'?'Akım–Gerilim Raporu':'Aylık Reaktif Rapor';
+    app.innerHTML=`${topBar(title)}${offlineBar()}<main class="page"><section class="device-card"><div class="device-company-row"><span class="company-avatar">${esc(initials(c.name))}</span><div><div class="device-title">${esc(c.name)}</div><div class="company-meta"><span class="status">Aktif</span><span>Firma kodu ${esc(c.id)}</span></div></div></div><div class="meta-grid"><div><span class="meta-label">Sayaç No</span><strong class="meta-value">${esc(c.details?.meterNo||'—')}</strong></div><div><span class="meta-label">Modem / IMEI</span><strong class="meta-value">${esc(c.details?.modemNo||r.imei||c.details?.imei||'—')}</strong></div><div><span class="meta-label">Rapor Dönemi</span><strong class="meta-value">${MONTHS[r.month-1]} ${r.year}</strong></div><div><span class="meta-label">Kayıt Sayısı</span><strong class="meta-value">${r.records.length}</strong></div></div></section>${companyDetailsHtml(r)}<section class="thin-info"><span>İndüktif Limit: <b>%${APP.settings.indLimit}</b></span><span>Kapasitif Limit: <b>%${APP.settings.capLimit}</b></span></section><nav class="tabs" aria-label="Rapor tipi"><button class="tab ${tab==='daily'?'active':''}" onclick="showDevice('daily')">Aylık Özet</button><button class="tab ${tab==='current'?'active':''}" onclick="showDevice('current')">Akım / Gerilim</button><button class="tab ${tab==='reactive'?'active':''}" onclick="showDevice('reactive')">Reaktif</button></nav><section class="monthbar"><button class="btn btn-sm" onclick="changeMonth(-1)">‹ Önceki</button><div class="monthpick">${MONTHS[r.month-1]} ${r.year}</div><button class="btn btn-sm" onclick="changeMonth(1)">Sonraki ›</button></section>${deviceTab(r,tab)}</main>`;
+  };
+
+  // Force one fresh login/company scrape so old cached links do not survive.
+  if(localStorage.getItem('etm_exact_link_schema')!=='20'){
+    localStorage.removeItem('etm_companies');
+    localStorage.removeItem('etm_logged');
+    localStorage.setItem('etm_exact_link_schema','20');
+  }
+})();
+</script>
+
+
+<script>
+/* v1.0.23: /admin/ozet.aspx monthly ratios, no IsletmeAyarlari card */
+(function(){
+  const VERSION='2.0.4';
+  const CURRENT_SCHEMA='22';
+  const originalParseReport=parseReport;
+  const originalLoadReport=loadReport;
+
+  function finite(v){return Number.isFinite(Number(v))}
+  function nval(v){const n=num(v);return Number.isFinite(n)?n:NaN}
+  function cleanCompanyName(value){return txt(value).replace(/\[?PDF\]?/ig,'').replace(/\[?Ayarlar\]?/ig,'').replace(/^\s*[|•-]+|[|•-]+\s*$/g,'').trim()}
+  function hrefId(raw){
+    if(!raw)return '';
+    try{const u=new URL(String(raw).replace(/&amp;/g,'&'),absolute(APP.companySource));return u.searchParams.get('FirmaId')||u.searchParams.get('firmaid')||u.searchParams.get('Kimin')||''}catch{}
+    const m=String(raw).match(/(?:FirmaId|firmaid|Kimin)\D{0,12}(\d{1,12})/i);return m?m[1]:'';
+  }
+  function hrefMonthYear(raw){
+    try{const u=new URL(String(raw).replace(/&amp;/g,'&'),absolute(APP.companySource));return {month:Number(u.searchParams.get('ay')),year:Number(u.searchParams.get('yil'))}}catch{return {month:NaN,year:NaN}}
+  }
+  function absoluteOverviewHref(raw){try{return new URL(String(raw).replace(/&amp;/g,'&'),absolute(APP.companySource)).href}catch{return ''}}
+  function findOverviewHeader(doc){
+    const rows=[...doc.querySelectorAll('tr')];
+    for(const row of rows){
+      const cells=[...row.cells],heads=cells.map(c=>norm(c.innerText||c.textContent));
+      if(!heads.some(h=>h.includes('FIRMA'))||!heads.some(h=>h.includes('AYLIK')))continue;
+      const monthly=heads.findIndex(h=>h.includes('AYLIK'));
+      let ind=-1,cap=-1;
+      for(let i=monthly+1;i<heads.length;i++){
+        if(heads[i].includes('SON 2'))break;
+        if(ind<0&&/^IND\b|INDUKTIF/.test(heads[i]))ind=i;
+        else if(cap<0&&/^KAP\b|KAPASITIF/.test(heads[i]))cap=i;
+      }
+      if(monthly>=0&&ind>=0&&cap>=0)return {monthly,ind,cap};
+    }
+    return {monthly:4,ind:5,cap:6};
+  }
+
+  parseCompanies=function(html){
+    const doc=new DOMParser().parseFromString(html||'','text/html');
+    const pos=findOverviewHeader(doc),map=new Map();
+    const add=(row,link)=>{
+      const cells=[...row.cells];if(!cells.length)return;
+      const raw=link?.getAttribute('href')||link?.getAttribute('data-href')||link?.getAttribute('data-url')||'';
+      const id=hrefId(raw);if(!id)return;
+      const name=cleanCompanyName(link?.getAttribute('title')||link?.textContent||cells[0].textContent);if(!name||/^(FIRMA|SIRKET)$/.test(norm(name)))return;
+      const href=absoluteOverviewHref(raw)||new URL('/Aylik_Liste.aspx?FirmaId='+encodeURIComponent(id)+'&ftext='+encodeURIComponent(name),APP.base+'/').href;
+      const my=hrefMonthYear(href);
+      const monthlyInd=cells[pos.ind]?nval(cells[pos.ind].innerText||cells[pos.ind].textContent):NaN;
+      const monthlyCap=cells[pos.cap]?nval(cells[pos.cap].innerText||cells[pos.cap].textContent):NaN;
+      const monthlyPeriod=cells[pos.monthly]?txt(String(cells[pos.monthly].innerHTML||'').replace(/<br\s*\/?\s*>/gi,' – ')):'';
+      map.set(String(id),{id:String(id),name,href,devices:1,active:true,monthlyInd,monthlyCap,monthlyPeriod,summaryMonth:my.month,summaryYear:my.year});
+    };
+    doc.querySelectorAll('tr').forEach(row=>{
+      const first=row.cells&&row.cells[0];if(!first)return;
+      const link=[...first.querySelectorAll('a[href],a[data-href],a[data-url]')].find(a=>/Aylik_?Liste\.aspx/i.test(a.getAttribute('href')||a.getAttribute('data-href')||a.getAttribute('data-url')||''))||[...first.querySelectorAll('a[href],a[data-href],a[data-url]')].find(a=>{const t=cleanCompanyName(a.textContent);return t&&!/^(PDF|AYARLAR)$/i.test(t)});
+      if(link)add(row,link);
+    });
+    if(!map.size){
+      doc.querySelectorAll('a[href*="Aylik_Liste.aspx"],a[href*="Aylik_Liste"]' ).forEach(link=>{const row=link.closest('tr');if(row)add(row,link)});
+    }
+    return [...map.values()].sort((a,b)=>a.name.localeCompare(b.name,'tr'));
+  };
+
+  function overviewMatches(company,month,year){
+    if(!company)return false;
+    if(finite(company.summaryMonth)&&finite(company.summaryYear))return Number(company.summaryMonth)===Number(month)&&Number(company.summaryYear)===Number(year);
+    const now=new Date();return now.getMonth()+1===Number(month)&&now.getFullYear()===Number(year);
+  }
+  function applyOverview(report,company,month,year){
+    if(!report)return report;
+    if(overviewMatches(company,month,year)){
+      if(finite(company.monthlyInd))report.indRatio=Number(company.monthlyInd);
+      if(finite(company.monthlyCap))report.capRatio=Number(company.monthlyCap);
+      report.ratioSource='admin/ozet.aspx';
+      report.monthlyPeriod=company.monthlyPeriod||'';
+    }
+    return report;
+  }
+
+  function numericCells(row){return [...row.cells].map(c=>nval(c.innerText||c.textContent))}
+  function validPhase(values){return Array.isArray(values)&&values.some(Number.isFinite)}
+  function mergePhase(target,values){for(let i=0;i<3;i++)if(Number.isFinite(values[i]))target[i]=values[i]}
+  function extractElectrical(html,report){
+    const doc=new DOMParser().parseFromString(html||'','text/html');
+    const out={v:[NaN,NaN,NaN],a:[NaN,NaN,NaN],active:[NaN,NaN,NaN],reactive:[NaN,NaN,NaN],cos:[NaN,NaN,NaN],frequency:NaN,totalActive:NaN};
+    const tables=[...doc.querySelectorAll('table')];
+    for(const table of tables){
+      const rows=[...table.rows];if(!rows.length)continue;
+      for(let hi=0;hi<Math.min(3,rows.length);hi++){
+        const headers=[...rows[hi].cells].map(c=>norm(c.innerText||c.textContent));
+        const l1=headers.findIndex(h=>/^L?1$|FAZ 1|R FAZI/.test(h));
+        const l2=headers.findIndex(h=>/^L?2$|FAZ 2|S FAZI/.test(h));
+        const l3=headers.findIndex(h=>/^L?3$|FAZ 3|T FAZI/.test(h));
+        if(l1>=0&&l2>=0&&l3>=0){
+          for(const row of rows.slice(hi+1)){
+            const cells=[...row.cells],label=norm(cells[0]?.innerText||cells[0]?.textContent||'');
+            const vals=[l1,l2,l3].map(i=>cells[i]?nval(cells[i].innerText||cells[i].textContent):NaN);
+            if(/AKIM|CURRENT/.test(label))mergePhase(out.a,vals);
+            else if(/GERILIM|VOLT/.test(label))mergePhase(out.v,vals);
+            else if(/AKTIF.*GUC|ACTIVE.*POWER|KW/.test(label))mergePhase(out.active,vals);
+            else if(/REAKTIF.*GUC|REACTIVE.*POWER|KVAR/.test(label))mergePhase(out.reactive,vals);
+            else if(/COS|GUC.*FAKTOR|POWER.*FACTOR/.test(label))mergePhase(out.cos,vals);
+          }
+        }
+        const locate=(phase,kind)=>headers.findIndex(h=>{const pr=new RegExp(`(?:^|\\b)(?:${phase})(?:\\b|$)`),kr=new RegExp(kind);return pr.test(h)&&kr.test(h)});
+        const firstData=rows[hi+1];
+        if(firstData){
+          const vals=numericCells(firstData);
+          const groups=[['v','L1|R','GERILIM|VOLT'],['a','L1|R','AKIM|CURRENT'],['active','L1|R','AKTIF.*GUC|ACTIVE.*POWER'],['reactive','L1|R','REAKTIF.*GUC|REACTIVE.*POWER']];
+          for(const [key,p1,kind] of groups){
+            const i1=locate(p1,kind),i2=locate('L2|S',kind),i3=locate('L3|T',kind);
+            if(i1>=0||i2>=0||i3>=0)mergePhase(out[key],[vals[i1],vals[i2],vals[i3]]);
+          }
+          const total=headers.findIndex(h=>/TOPLAM.*AKTIF.*GUC|TOTAL.*ACTIVE.*POWER/.test(h));if(total>=0&&Number.isFinite(vals[total]))out.totalActive=vals[total];
+          const freq=headers.findIndex(h=>/FREKANS|FREQUENCY|HZ/.test(h));if(freq>=0&&Number.isFinite(vals[freq]))out.frequency=vals[freq];
+        }
+      }
+      // Rows with phase in the first column and measurement types across columns.
+      const header=[...rows[0].cells].map(c=>norm(c.innerText||c.textContent));
+      const vi=header.findIndex(h=>/GERILIM|VOLT/.test(h)),ai=header.findIndex(h=>/AKIM|CURRENT/.test(h)),pi=header.findIndex(h=>/AKTIF.*GUC|ACTIVE.*POWER|^KW$/.test(h));
+      if(vi>=0||ai>=0||pi>=0){
+        rows.slice(1).forEach(row=>{const label=norm(row.cells[0]?.innerText||row.cells[0]?.textContent||'');const phase=/L?1|R FAZI/.test(label)?0:/L?2|S FAZI/.test(label)?1:/L?3|T FAZI/.test(label)?2:-1;if(phase<0)return;if(vi>=0)out.v[phase]=nval(row.cells[vi]?.innerText||row.cells[vi]?.textContent);if(ai>=0)out.a[phase]=nval(row.cells[ai]?.innerText||row.cells[ai]?.textContent);if(pi>=0)out.active[phase]=nval(row.cells[pi]?.innerText||row.cells[pi]?.textContent)});
+      }
+    }
+    const nodes=[...doc.querySelectorAll('input[value],td,th,span,div,label')];
+    const pairs=new Map();
+    nodes.forEach(el=>{const key=norm((el.getAttribute&&((el.getAttribute('name')||'')+' '+(el.getAttribute('id')||'')))+' '+(el.innerText||el.textContent||''));const value=el.value||el.getAttribute?.('data-value')||el.innerText||el.textContent||'';if(key&&key.length<90&&Number.isFinite(nval(value)))pairs.set(key,nval(value))});
+    function pair(re){for(const [k,v] of pairs)if(re.test(k))return v;return NaN}
+    for(let p=1;p<=3;p++){
+      const ix=p-1;
+      if(!Number.isFinite(out.v[ix]))out.v[ix]=pair(new RegExp(`(?:\\bL?${p}\\b|FAZ\\s*${p}\\b).*(?:GERILIM|VOLT)|(?:GERILIM|VOLT).*(?:\\bL?${p}\\b|FAZ\\s*${p}\\b)`));
+      if(!Number.isFinite(out.a[ix]))out.a[ix]=pair(new RegExp(`(?:\\bL?${p}\\b|FAZ\\s*${p}\\b).*(?:AKIM|CURRENT)|(?:AKIM|CURRENT).*(?:\\bL?${p}\\b|FAZ\\s*${p}\\b)`));
+      if(!Number.isFinite(out.active[ix]))out.active[ix]=pair(new RegExp(`(?:\\bL?${p}\\b|FAZ\\s*${p}\\b).*(?:AKTIF.*GUC|ACTIVE.*POWER)|(?:AKTIF.*GUC|ACTIVE.*POWER).*(?:\\bL?${p}\\b|FAZ\\s*${p}\\b)`));
+    }
+    if(!Number.isFinite(out.totalActive))out.totalActive=pair(/TOPLAM.*AKTIF.*GUC|TOTAL.*ACTIVE.*POWER/);
+    if(!Number.isFinite(out.frequency))out.frequency=pair(/FREKANS|FREQUENCY/);
+    if(!validPhase(out.active)&&validPhase(out.v)&&validPhase(out.a)){
+      out.active=out.v.map((v,i)=>Number.isFinite(v)&&Number.isFinite(out.a[i])?v*out.a[i]/1000:NaN);
+      out.estimatedActive=true;
+    }
+    if(validPhase(out.v))report.current.v=out.v;
+    if(validPhase(out.a))report.current.a=out.a;
+    if(validPhase(out.active))report.current.active=out.active;
+    if(validPhase(out.reactive))report.current.reactive=out.reactive;
+    if(validPhase(out.cos))report.current.cos=out.cos;
+    if(Number.isFinite(out.frequency))report.current.frequency=out.frequency;
+    report.current.totalActive=Number.isFinite(out.totalActive)?out.totalActive:((report.current.active||[]).filter(Number.isFinite).length?(report.current.active||[]).filter(Number.isFinite).reduce((a,b)=>a+b,0):NaN);
+    report.current.activeEstimated=!!out.estimatedActive;
+    report.avgV=average(report.current.v||[]);report.avgA=average(report.current.a||[]);
+    report.activePower=Number.isFinite(report.current.totalActive)?report.current.totalActive:(validPhase(report.current.active)?(report.current.active.filter(Number.isFinite).reduce((a,b)=>a+b,0)):report.activePower);
+    return report;
+  }
+
+  parseReport=function(html,company,month,year,url){
+    const report=originalParseReport(html,company,month,year,url);
+    extractElectrical(html,report);
+    return applyOverview(report,company,month,year);
+  };
+  loadReport=async function(company,month,year,allowRendered=false){
+    const report=await originalLoadReport(company,month,year,allowRendered);
+    return applyOverview(report,company,month,year);
+  };
+
+  function ratioColor(value,limit){return value>=limit?'var(--red)':value>=limit*.8?'var(--orange)':'var(--green)'}
+  function overviewValue(value){return finite(value)?'%'+fmt(Number(value),3):'—'}
+  function overviewChip(kind,value,limit){const cls=finite(value)&&Number(value)<limit?'safe':'',type=/KAP/i.test(kind)?'cap':'ind';return `<span class="overview-ratio ${type} ${cls}"><span>${kind}</span><b>${overviewValue(value)}</b></span>`}
+  companyRows=function(list){
+    if(!list.length)return '<div class="empty">Şirket bulunamadı.</div>';
+    const visible=list.slice(0,APP.companyLimit);
+    const rows=visible.map(c=>`<section class="card company company-card" onclick="openCompany('${encodeURIComponent(c.id)}')"><span class="company-avatar">${esc(initials(c.name))}</span><div class="company-copy"><div class="strong">${esc(c.name)}</div><div class="company-meta"><span>Firma ID: ${esc(c.id)}</span><span class="status">Aktif</span></div>${c.monthlyPeriod?`<div class="company-period">Aylık dönem: ${esc(c.monthlyPeriod)}</div>`:''}</div><div class="company-overview-ratios">${overviewChip('İND',c.monthlyInd,APP.settings.indLimit)}${overviewChip('KAP',c.monthlyCap,APP.settings.capLimit)}</div><span class="chev">${icon('chevron')}</span></section>`).join('');
+    return rows+(visible.length<list.length?`<button class="btn btn-soft btn-block load-more" onclick="loadMoreCompanies()">Daha Fazla Göster (${list.length-visible.length})</button>`:'');
+  };
+  showCompanies=function(){APP.report=null;APP.filtered=[...APP.companies];APP.companyLimit=60;app.innerHTML=`${topBar(APP.role==='admin'?'Tüm Şirketler':'Şirketlerim',false)}${offlineBar()}<main class="page"><div class="search-shell">${icon('search')}<input class="input" id="search" placeholder="Şirket ara..." oninput="filterCompanies(this.value)"><button class="btn btn-soft" aria-label="Yenile" onclick="refreshCompanies()">${icon('refresh')}</button></div><div class="list-meta"><div><b id="companyCount">${APP.filtered.length} şirket</b><div class="sub">Aylık İND/KAP değerleri /admin/ozet.aspx sayfasından</div></div><span class="pill redp">Canlı Liste</span></div><div id="companyList">${companyRows(APP.filtered)}</div></main>`};
+  refreshCompanies=async function(){
+    toast('Şirket listesi ve aylık oranlar yenileniyor...');
+    try{
+      let companies=[];
+      try{const rendered=await loadRenderedCompanyPage(absolute(APP.companySource));companies=parseCompanies(rendered.text||'')}catch{}
+      if(!companies.length)companies=await getCompaniesFrom(APP.companySource);
+      if(companies.length){APP.companies=companies;APP.filtered=[...companies];cacheCompanies();showCompanies();toast('Liste ve aylık oranlar yenilendi.')}else toast('Şirket listesi okunamadı.');
+    }catch(e){toast(e.message)}
+  };
+
+  function ratioRingV21(label,value,limit,energy,unit){
+    const safe=finite(value)?Number(value):0,p=Math.min(100,Math.max(0,safe/limit*100)),color=ratioColor(safe,limit);
+    return `<article class="ratio-ring-card"><span class="sub">${esc(label)}</span><div class="ratio-ring" style="--ring-p:${p};--ring-color:${color}"><div class="ratio-ring-inner"><b>%${fmt(safe,3)}</b></div></div>${finite(energy)?`<small>${fmt(Number(energy),3)} ${esc(unit)}</small>`:''}<div class="limit-note">Limit: %${limit}</div></article>`;
+  }
+  monthlyRings=function(r){return `<div class="ratio-rings">${ratioRingV21('Aylık İndüktif',r.indRatio,APP.settings.indLimit,r.current.indKvarh,'kvarh')}${ratioRingV21('Aylık Kapasitif',r.capRatio,APP.settings.capLimit,r.current.capKvarh,'kvarh')}</div><div class="source-note">Oran kaynağı: ${r.ratioSource==='admin/ozet.aspx'?'/admin/ozet.aspx — Aylık sütunundan sonraki İND ve KAP':'aylık rapor'}</div>`};
+  gaugeHtml=function(){return APP.report?monthlyRings(APP.report):''};
+
+  function metric(label,value,unit,note,digits=2){return `<article class="electrical-card"><span>${esc(label)}</span><b>${finite(value)?fmt(Number(value),digits)+' '+unit:'—'}</b><small>${esc(note)}</small></article>`}
+  function phaseCells(values,digits){return [0,1,2].map(i=>`<td class="${finite(values?.[i])?'':'missing'}">${finite(values?.[i])?fmt(Number(values[i]),digits):'—'}</td>`).join('')}
+  currentTab=function(r){
+    const c=r.current||{},has=validPhase(c.a)||validPhase(c.v)||validPhase(c.active);
+    if(!has)return `<div class="electrical-empty"><b>Akım / gerilim verisi henüz okunamadı.</b><div class="sub" style="margin-top:7px">Sayfa yeniden yüklendiğinde L1–L3 gerilim, akım ve aktif güç değerleri aranacaktır. Nokta dizileri veri olarak gösterilmez.</div></div><button class="btn btn-primary btn-block" onclick="reloadCurrent()">${icon('refresh')} Yeniden Oku</button>`;
+    const totalActive=finite(c.totalActive)?Number(c.totalActive):(validPhase(c.active)?c.active.filter(Number.isFinite).reduce((a,b)=>a+b,0):r.activePower);
+    return `<div class="electrical-grid">${metric('Ort. Gerilim',r.avgV,'V','L1–L3 ortalaması')}${metric('Ort. Akım',r.avgA,'A','L1–L3 ortalaması')}${metric('Aktif Güç',totalActive,'kW',c.activeEstimated?'Gerilim ve akımdan hesaplandı':'Sunucudan okundu')}</div><article class="current-card"><table class="phase-table"><thead><tr><th></th><th>L1</th><th>L2</th><th>L3</th></tr></thead><tbody><tr class="phase-accent"><td>Gerilim (V)</td>${phaseCells(c.v,2)}</tr><tr class="phase-accent"><td>Akım (A)</td>${phaseCells(c.a,2)}</tr><tr><td>Aktif Güç (kW)</td>${phaseCells(c.active,3)}</tr></tbody></table></article>${warningHtml(r)}<button class="btn btn-soft btn-block" onclick="reloadCurrent()">${icon('refresh')} Değerleri Yenile</button>`;
+  };
+  dailyTab=function(r){
+    const active=finite(r.current?.totalActive)?r.current.totalActive:r.activePower;
+    return `<div class="monthly-note"><b>${MONTHS[r.month-1]} ${r.year} aylık özeti</b><br>Aylık İND ve KAP oranları özet sayfasındaki Aylık sütunundan sonraki değerlerdir.</div><div class="electrical-grid">${metric('Ort. Gerilim',r.avgV,'V','L1–L3 ortalaması')}${metric('Ort. Akım',r.avgA,'A','L1–L3 ortalaması')}${metric('Aktif Güç',active,'kW','Anlık / son ölçüm')}</div>${monthlyRings(r)}${warningHtml(r)}${finite(r.current?.kwh)?`<article class="bigmetric"><span class="sub">Aylık Aktif Enerji</span><b>${fmt(r.current.kwh,3)} kWh</b></article>`:''}<div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="showTableReport()">Aylık Tablo</button><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div>`;
+  };
+  reactiveTab=function(r){return `<div class="monthly-note"><b>Aylık reaktif görünüm</b><br>Yalnızca aylık indüktif ve kapasitif oranlar gösterilir.</div>${monthlyRings(r)}${warningHtml(r)}<div class="small-actions export-actions"><button class="btn btn-soft btn-sm" onclick="exportExcel()">${icon('excel')} Excel</button><button class="btn btn-soft btn-sm" onclick="exportPdf()">${icon('pdf')} PDF</button></div>`};
+
+  openCompany=async function(enc){
+    const id=decodeURIComponent(enc),c=APP.companies.find(x=>String(x.id)===id);if(!c)return;
+    APP.dailyLimit=12;APP.current=c;APP.report=null;loading(c.name+' aylık raporu okunuyor...');
+    try{APP.report=await loadReport(c,APP.month,APP.year,true);saveReportCache(APP.report);checkReportAlert(c,APP.report,true);showDevice('daily')}
+    catch(e){const cached=getReportCache(c.id,APP.month,APP.year);if(cached){APP.report=applyOverview(cached,c,APP.month,APP.year);toast('Bağlantı kurulamadı; kayıtlı rapor gösteriliyor.');showDevice('daily')}else app.innerHTML=`${topBar('Enerji Raporu')}<main class="page"><section class="card center"><h2>Rapor okunamadı</h2><p class="sub">${esc(e.message)}</p><div class="sub" style="margin-top:10px">Rapor: /Aylik_Liste.aspx?FirmaId=${esc(c.id)}&amp;ay=${APP.month}&amp;yil=${APP.year}</div><button class="btn btn-primary" style="margin-top:16px" onclick="openCompany('${encodeURIComponent(id)}')">Tekrar Dene</button></section></main>`}
+  };
+  showDevice=function(tab=APP.tab){
+    if(!APP.report)return showCompanies();APP.tab=tab;const r=APP.report,c=r.company;
+    const title=tab==='daily'?'Aylık Enerji Özeti':tab==='current'?'Akım–Gerilim Raporu':'Aylık Reaktif Rapor';
+    app.innerHTML=`${topBar(title)}${offlineBar()}<main class="page"><section class="device-card"><div class="device-company-row"><span class="company-avatar">${esc(initials(c.name))}</span><div><div class="device-title">${esc(c.name)}</div><div class="company-meta"><span class="status">Aktif</span><span>Firma ID ${esc(c.id)}</span></div></div></div><div class="meta-grid"><div><span class="meta-label">Rapor Dönemi</span><strong class="meta-value">${MONTHS[r.month-1]} ${r.year}</strong></div><div><span class="meta-label">Kayıt Sayısı</span><strong class="meta-value">${r.records.length}</strong></div></div></section><section class="thin-info"><span>İndüktif Limit: <b>%${APP.settings.indLimit}</b></span><span>Kapasitif Limit: <b>%${APP.settings.capLimit}</b></span></section><nav class="tabs" aria-label="Rapor tipi"><button class="tab ${tab==='daily'?'active':''}" onclick="showDevice('daily')">Aylık Özet</button><button class="tab ${tab==='current'?'active':''}" onclick="showDevice('current')">Akım / Gerilim</button><button class="tab ${tab==='reactive'?'active':''}" onclick="showDevice('reactive')">Reaktif</button></nav><section class="monthbar"><button class="btn btn-sm" onclick="changeMonth(-1)">‹ Önceki</button><div class="monthpick">${MONTHS[r.month-1]} ${r.year}</div><button class="btn btn-sm" onclick="changeMonth(1)">Sonraki ›</button></section>${deviceTab(r,tab)}</main>`;
+  };
+
+  showLogin=function(){APP.report=null;app.innerHTML=`${offlineBar()}<main class="login-wrap"><section class="login-hero"><img src="ets_logo.png" class="ets-logo login-logo" alt="ETS"><h1>ETS Enerji Takip</h1><p>Enerji Takip Sistemi</p></section><section class="card login-panel"><h2>Sisteme Hoş Geldiniz</h2><div class="sub login-help">Giriş yapmak için kullanıcı bilgilerinizi giriniz.</div><div class="login-field">${icon('companies')}<input id="user" class="input" autocomplete="username" value="${esc(localStorage.getItem('etm_user')||'')}" placeholder="Kullanıcı adı"></div><div class="login-field">${icon('settings')}<input id="pass" class="input" type="password" autocomplete="current-password" placeholder="Parola"></div><label class="check"><input id="remember" type="checkbox" ${localStorage.getItem('etm_user')?'checked':''}> Beni Hatırla</label><div class="login-actions"><button id="loginBtn" class="btn btn-primary btn-block" onclick="doLogin()">Giriş Yap</button></div><div id="loginError" class="sub red center" style="margin-top:12px"></div></section><div class="version">Sürüm ${VERSION} • 2026</div></main>`};
+  showAbout=function(){app.innerHTML=`${topBar('Hakkında',false)}<main class="page"><img src="ets_logo.png" class="ets-logo about-logo-img" alt="ETS"><div class="center strong" style="font-size:20px">Enerji Takip Sistemi</div><section class="card" style="margin-top:23px"><h3>Uygulama Hakkında</h3><p class="sub" style="font-size:14px">Bu uygulama /admin/ozet.aspx sayfasındaki aylık İND/KAP oranlarını, aylık enerji raporlarını ve akım-gerilim değerlerini gösterir.</p><hr style="border:0;border-top:1px solid #eee"><div class="row between"><span>Sürüm</span><b>${VERSION}</b></div><div class="row between" style="margin-top:12px"><span>Web Sitesi</span><b>www.etm.com.tr</b></div></section><div class="center sub">Uygulama ETM Mühendislik için hazırlanmıştır.</div></main>`};
+
+  if(localStorage.getItem('etm_overview_schema')!==CURRENT_SCHEMA){localStorage.removeItem('etm_companies');localStorage.removeItem('etm_logged');localStorage.setItem('etm_overview_schema',CURRENT_SCHEMA);APP.companies=[];APP.filtered=[];APP.logged=false;}
+  APP.logged=false;showLogin();
+})();
+</script>
+
+<script src="v1022.js"></script>
+<script src="professional.js"></script>
+
+<script>
+(function(){
+  var bootStarted=Date.now();
+  function scheduleBootHide(){var remaining=Math.max(0,2000-(Date.now()-bootStarted));setTimeout(function(){var b=document.getElementById('nativeBoot');if(b){b.style.opacity='0';b.style.transition='opacity .28s ease';setTimeout(function(){if(b)b.remove();},300);}},remaining);}
+  document.addEventListener('DOMContentLoaded',scheduleBootHide);
+  window.addEventListener('load',scheduleBootHide);
+  window.addEventListener('error',function(e){
+    var b=document.getElementById('nativeBoot');
+    if(b){b.innerHTML='<div style="font-family:Arial;text-align:center;background:#fff;padding:28px;border-radius:20px;width:88%;max-width:360px"><div style="font-size:54px;font-weight:900;color:#d51f26">ETS</div><h3>Uygulama açıldı</h3><p style="color:#666">Arayüz yüklenirken hata oluştu. Uygulamayı kapatıp tekrar açın.</p></div>'; }
+  });
+})();
+</script>
+</body></html>

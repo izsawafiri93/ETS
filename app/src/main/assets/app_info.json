@@ -1,0 +1,24 @@
+{
+  "name": "ETS Enerji Takip",
+  "version": "2.0.3",
+  "package": "com.etm.etsenerjitakip",
+  "server": "http://ets.etm.com.tr:82/admin/ozet.aspx",
+  "prepared_by": "ETM Mühendislik",
+  "developer": "IZADEEN N A SAWAFIRI",
+  "year": 2026,
+  "abis": [
+    "armeabi-v7a",
+    "arm64-v8a",
+    "x86_64"
+  ],
+  "features": [
+    "Unified professional visual system and navigation",
+    "Executive dashboard with status hierarchy, data freshness and attention list",
+    "Clean company cards with circular IND/KAP indicators and date-time-only last reading",
+    "Professional company detail tabs: Overview, Instant Values, Monthly Report and PDF Reports",
+    "Loading, empty, offline and error states with clear Turkish messages",
+    "Actionable Android alerts with warning reasons and direct company access",
+    "Organized settings for connection, limits, notifications and WhatsApp",
+    "PDF Open and Download choices; downloads saved to Downloads/ETS Enerji Takip"
+  ]
+}
